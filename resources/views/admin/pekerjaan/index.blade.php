@@ -201,7 +201,12 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" class="form-control" required>
+                            <select name="kecamatan" id="kecamatan" class="form-control" required>
+                                <option value="">-- pilih kecamatan --</option>
+                                @foreach ($kecamatan as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -213,7 +218,12 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" class="form-control" required>
+                            <select name="sumber_dana" id="sumber_dana" class="form-control" required>
+                                <option value="">-- pilih sumber dana --</option>
+                                @foreach ($sumberdana as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -225,7 +235,12 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="jenis_pekerjaan" id="jenis_pekerjaan" value="{{ old('jenis_pekerjaan') }}" class="form-control" required>
+                            <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" required>
+                                <option value="">-- pilih jenis pekerjaan --</option>
+                                @foreach ($jenispekerjaan as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </section>

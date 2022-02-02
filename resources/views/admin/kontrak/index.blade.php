@@ -137,13 +137,26 @@
                                                 </div>
                                             </div>
                                     </td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    @php
+                                        $pekerjaan = DbSistem::showtablefirst('pekerjaan',['id',$item->pekerjaan_id])
+                                    @endphp
+                                    @if ($pekerjaan)
+                                      <td>{{ $pekerjaan->kode_kegiatan }}</td>                                        
+                                      <td>{{ $pekerjaan->sub_kegiatan }}</td>                                        
+                                      <td>{{ $pekerjaan->nama_paket }}</td>                                        
+                                      <td>{{ $pekerjaan->kode_tender }}</td>                                        
+                                      <td>Kec. {{ $pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
+                                      <td>{{ $pekerjaan->sumber_dana }}</td>                                        
+                                      <td>{{ $pekerjaan->tahun_anggaran }}</td>                                        
+                                    @else
+                                      <td>-</td>
+                                      <td>-</td>
+                                      <td>-</td>
+                                      <td>-</td>
+                                      <td>-</td>
+                                      <td>-</td>
+                                      <td>-</td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr class="text-center">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Kontrak;
 use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
@@ -21,8 +22,11 @@ class PekerjaanController extends Controller
             'link' => 'pekerjaan'
         ];
         $pekerjaan  = Pekerjaan::all();
+        $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
+        $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
+        $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
 
-        return view('admin.pekerjaan.index', compact('menu','main','pekerjaan'));
+        return view('admin.pekerjaan.index', compact('menu','main','pekerjaan','kecamatan','sumberdana','jenispekerjaan'));
         
     }
 

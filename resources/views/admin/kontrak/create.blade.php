@@ -113,285 +113,288 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahtimlokus">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('timlokus')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Tim Lokus</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tambahkan Untuk {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <select name="posisi" id="" class="form-control">
-                                <option value="id_ketua">Ketua Teknis Kegiatan</option>
-                                <option value="id_sekretaris">Sekretaris Teknis Kegiatan</option>
-                                <option value="id_anggota">Anggota Teknis Kegiatan</option>
-                            </select>
+    @if ($main['kontrak'])
+        <div class="modal fade" id="tambahtimlokus">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ url('timlokus')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data Tim Lokus</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Tambahkan Untuk {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <select name="posisi" id="" class="form-control">
+                                    <option value="id_ketua">Ketua Teknis Kegiatan</option>
+                                    <option value="id_sekretaris">Sekretaris Teknis Kegiatan</option>
+                                    <option value="id_anggota">Anggota Teknis Kegiatan</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Jabatan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" class="form-control" required>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Jabatan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" class="form-control" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">No SK</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="no_sk" id="no_sk" value="{{ old('no_sk') }}" class="form-control">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">No SK</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="no_sk" id="no_sk" value="{{ old('no_sk') }}" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tanggal</label>
-                        <div class="col-md-8 p-0">
-                            <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" class="form-control">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Tanggal</label>
+                            <div class="col-md-8 p-0">
+                                <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Perihal</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Perihal</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambahpekerjaan">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('pekerjaan')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Pekerjaan</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Kode Kegiatan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="kode_kegiatan" id="kode_kegiatan" maxlength="16" value="{{ old('kode_kegiatan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Kode Tender {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="kode_tender" id="kode_tender" value="{{ old('kode_tender') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Kegiatan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Sub Kegiatan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="sub_kegiatan" id="sub_kegiatan" value="{{ old('sub_kegiatan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Paket {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nama_paket" id="nama_paket" value="{{ old('nama_paket') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Kode Belanja {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="kode_belanja" id="kode_belanja" value="{{ old('kode_belanja') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tahun Anggaran {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="tahun_anggaran" id="tahun_anggaran" value="{{ old('tahun_anggaran') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="jenis_pekerjaan" id="jenis_pekerjaan" value="{{ old('jenis_pekerjaan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambahperusahaan">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('perusahaan')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Perusahaan</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Perusahaan {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nama_perusahaan" id="nama_perusahaan" maxlength="16" value="{{ old('nama_perusahaan') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Direktur {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="direktur" id="direktur" value="{{ old('direktur') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Alamat {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Bank {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="bank" id="bank" value="{{ old('bank') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Kantor Cabang {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="kantor_cabang" id="kantor_cabang" value="{{ old('kantor_cabang') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">No Rekening {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="no_rek" id="no_rek" value="{{ old('no_rek') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NPWP {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="npwp" id="npwp" value="{{ old('npwp') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">No Akta {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="no_akta" id="no_akta" value="{{ old('no_akta') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tanggal Akta {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="date" name="tanggal_akta" id="tanggal_akta" value="{{ old('tanggal_akta') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama Notaris {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nama_notaris" id="nama_notaris" value="{{ old('nama_notaris') }}" class="form-control" required>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-    {{-- modal cetak --}}
-    <div class="modal fade" id="cetak">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">CETAK DOKUMEN</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3 row">
-                    <div class="col-md-6">
-                        <div class="list-group">
-                            <a href="{{ asset('file/cover-spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> Cover SPK</a>
-                            <a href="{{ asset('file/spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPK</a>
-                            <a href="{{ asset('file/sp.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SP</a>
-                            <a href="{{ asset('file/spmk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPMK</a>
-                          </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="list-group">
-                            <a href="{{ asset('file/spl.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPL</a>
-                            <a href="{{ asset('file/barpk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> BARPK</a>
-                            <a href="{{ asset('file/sppbj.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPPBJ</a>
-                            <a href="{{ asset('file/sskk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SSKK-BANPROV</a>
-                          </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer text-right">
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
+            </form>
+            </div>
             </div>
         </div>
+
+        <div class="modal fade" id="tambahpekerjaan">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ url('pekerjaan')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data Pekerjaan</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Kode Kegiatan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="kode_kegiatan" id="kode_kegiatan" maxlength="16" value="{{ old('kode_kegiatan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Kode Tender {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="kode_tender" id="kode_tender" value="{{ old('kode_tender') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Kegiatan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Sub Kegiatan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="sub_kegiatan" id="sub_kegiatan" value="{{ old('sub_kegiatan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Paket {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nama_paket" id="nama_paket" value="{{ old('nama_paket') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Kode Belanja {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="kode_belanja" id="kode_belanja" value="{{ old('kode_belanja') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Tahun Anggaran {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="tahun_anggaran" id="tahun_anggaran" value="{{ old('tahun_anggaran') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="jenis_pekerjaan" id="jenis_pekerjaan" value="{{ old('jenis_pekerjaan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
+            </form>
+            </div>
+            </div>
         </div>
-    </div>
-    <!-- /.modal -->
+
+        <div class="modal fade" id="tambahperusahaan">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ url('perusahaan')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Data Perusahaan</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Perusahaan {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" maxlength="16" value="{{ old('nama_perusahaan') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Direktur {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="direktur" id="direktur" value="{{ old('direktur') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Alamat {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Bank {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="bank" id="bank" value="{{ old('bank') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Kantor Cabang {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="kantor_cabang" id="kantor_cabang" value="{{ old('kantor_cabang') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">No Rekening {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="no_rek" id="no_rek" value="{{ old('no_rek') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">NPWP {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="npwp" id="npwp" value="{{ old('npwp') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">No Akta {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="no_akta" id="no_akta" value="{{ old('no_akta') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Tanggal Akta {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="date" name="tanggal_akta" id="tanggal_akta" value="{{ old('tanggal_akta') }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4 p-2">Nama Notaris {!! ireq() !!}</label>
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="nama_notaris" id="nama_notaris" value="{{ old('nama_notaris') }}" class="form-control" required>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
+        {{-- modal cetak --}}
+        <div class="modal fade" id="cetak">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title">CETAK DOKUMEN</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3 row">
+                        <div class="col-md-6">
+                            <div class="list-group">
+                                <a href="{{ asset('file/cover-spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> Cover SPK</a>
+                                <a href="{{ asset('file/spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPK</a>
+                                <a href="{{ asset('file/sp.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SP</a>
+                                <a href="{{ asset('file/spmk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPMK</a>
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="list-group">
+                                <a href="{{ asset('file/spl.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPL</a>
+                                <a href="{{ asset('file/barpk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> BARPK</a>
+                                <a href="{{ asset('file/sppbj.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPPBJ</a>
+                                <a href="{{ asset('file/sskk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SSKK-BANPROV</a>
+                              </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+        
+    @endif
+
     {{-- modal info --}}
     <div class="modal fade" id="info">
         <div class="modal-dialog modal-lg">
