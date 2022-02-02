@@ -75,6 +75,27 @@ class KontrakController extends Controller
                 ]);
                 return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
                 break;
+            case 'dokumen':
+                Kontrak::where('id',$request->id)->update([
+                    'no_pengadaan' => $request->no_pengadaan,
+                    'tgl_pengadaan' => $request->tgl_pengadaan,
+                    'no_bahp' => $request->no_bahp,
+                    'tgl_bahp' => $request->tgl_bahp,
+                    'no_sppbj' => $request->no_sppbj,
+                    'tgl_sppbj' => $request->tgl_sppbj,
+                    'no_barpk' => $request->no_barpk,
+                    'tgl_barpk' => $request->tgl_barpk,
+                    'no_spk' => $request->no_spk,
+                    'tgl_spk' => $request->tgl_spk,
+                    'no_spmk' => $request->no_spmk,
+                    'tgl_spmk' => $request->tgl_spmk,
+                    'no_spl' => $request->no_spl,
+                    'tgl_spl' => $request->tgl_spl,
+                    'no_spp' => $request->no_spp,
+                    'tgl_spp' => $request->tgl_spp,
+                ]);
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi dokumen sudah tersimpan');
+                break;
             
             default:
                 return 'sesi tidak ada';
@@ -94,16 +115,58 @@ class KontrakController extends Controller
         $kontrak    = Kontrak::find(Crypt::decryptString($kontrak));
         $collapse   = 2;
         $collapse = ($kontrak->id_anggota <> NULL) ? 3 : 2 ;
+        $nomor  = self::kodeNomor($kontrak);
         $main       = [
             'link' => 'kontrak/'.$kontrak,
             'kontrak' => $kontrak,
+            'nomor' => $nomor,
             'collapse' => $collapse,
             'timlokus' => Timlokus::all(),
             'pekerjaan' => Pekerjaan::all(),
             'perusahaan' => Perusahaan::all()
         ];
 
+
         return view('admin.kontrak.create', compact('menu','main'));
+    }
+
+    public static function kodeNomor($kontrak)
+    {
+        if (is_null($kontrak->no_pengadaan)) {
+            $kontrakterakhir    = Kontrak::where('id','<>',$kontrak->id)->where('no_pengadaan','<>',NULL)->latest()->first();
+            if ($kontrakterakhir) {
+                $nomor  = [
+                    'sppbj' => '610/0007/SPPBJ-/SDA',
+                    'barpk' => '610/0008/BARPK-/SDA',
+                    'spk' => '610/0009/SPK-/SDA',
+                    'spmk' => '610/0010/SPMK-/SDA',
+                    'spl' => '610/0011/SPL-/SDA',
+                    'spp' => '610/0012/SPP-/SDA',
+                ];
+            } else {
+                $nomor  = [
+                    'sppbj' => '610/0001/SPPBJ-/SDA',
+                    'barpk' => '610/0002/BARPK-/SDA',
+                    'spk' => '610/0003/SPK-/SDA',
+                    'spmk' => '610/0004/SPMK-/SDA',
+                    'spl' => '610/0005/SPL-/SDA',
+                    'spp' => '610/0006/SPP-/SDA',
+                ];
+            }
+        } else {
+            $nomor  = [
+                'sppbj' => $kontrak->no_sppbj,
+                'barpk' => $kontrak->no_barpk,
+                'spk' => $kontrak->no_spk,
+                'spmk' => $kontrak->no_spmk,
+                'spl' => $kontrak->no_spl,
+                'spp' => $kontrak->no_spp,
+            ];
+        }
+        
+
+        return $nomor;
+        
     }
 
     /**

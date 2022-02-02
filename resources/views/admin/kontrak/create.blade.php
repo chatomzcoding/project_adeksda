@@ -39,6 +39,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="{{ url('halaman/kontrakfisik') }}" class="btn btn-outline-primary btn-sm pop-info" title="Kembali" ><i class="fas fa-long-arrow-alt-left"></i></a>
                     <div class="float-right">
+                        <a href="#" data-toggle="modal" data-target="#cetak" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Dokumen"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
                     </div>
               </div>
@@ -354,6 +355,43 @@
         </div>
     </div>
 
+    {{-- modal cetak --}}
+    <div class="modal fade" id="cetak">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">CETAK DOKUMEN</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3 row">
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="{{ asset('file/cover-spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> Cover SPK</a>
+                            <a href="{{ asset('file/spk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPK</a>
+                            <a href="{{ asset('file/sp.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SP</a>
+                            <a href="{{ asset('file/spmk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPMK</a>
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="{{ asset('file/spl.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPL</a>
+                            <a href="{{ asset('file/barpk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> BARPK</a>
+                            <a href="{{ asset('file/sppbj.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SPPBJ</a>
+                            <a href="{{ asset('file/sskk.rtf') }}" class="list-group-item list-group-item-action"><i class="far fa-file-word"></i> SSKK-BANPROV</a>
+                          </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer text-right">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
     {{-- modal info --}}
     <div class="modal fade" id="info">
         <div class="modal-dialog modal-lg">
@@ -366,7 +404,7 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                   ini contoh info
+                   <i class="far fa-file-word"></i>
                 </section>
             </div>
             <div class="modal-footer text-right">
