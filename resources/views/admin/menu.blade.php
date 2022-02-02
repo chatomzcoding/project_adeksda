@@ -21,7 +21,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/halaman/timlokus')}}" class="nav-link">
+        <a href="{{ url('/timlokus')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
           <p>Tim Lokus</p>
         </a>
