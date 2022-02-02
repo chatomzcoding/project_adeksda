@@ -1,46 +1,37 @@
+@extends('layouts.admin')
 @section('title')
-    Market - Data User
+    User - Data User
 @endsection
-<x-app-layout>
-    <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Data User</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Daftar User</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-    </x-slot>
+@section('header')
+<div class="row mb-2">
+    <div class="col-sm-6">
+      <h1 class="m-0">Data User</h1>
+    </div><!-- /.col -->
+    <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
+        <li class="breadcrumb-item active">Daftar User</li>
+      </ol>
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+@endsection
 
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
+@section('content')
     <div class="container-fluid">
         <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
+        <!-- left column -->
+        <div class="col-md-12">
             <!-- general form elements -->
             <div class="card">
-              <div class="card-header">
+            <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah User Baru </a>
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a> --}}
                 {{-- <a href="{{ url('/artikel')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke artikel</a> --}}
-              </div>
-              <div class="card-body">
-                  @include('sistem.notifikasi')
-                  @if ($errors->any())
+            </div>
+            <div class="card-body">
+                @include('sistem.notifikasi')
+                @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -49,7 +40,7 @@
                         </ul>
                     </div>
                 @endif
-                  <div class="table-responsive">
+                <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
@@ -87,16 +78,16 @@
                             @endforelse
                     </table>
                 </div>
-              </div>
             </div>
-          </div>
+            </div>
+        </div>
         </div>
     </div>
     {{-- modal --}}
     {{-- modal tambah --}}
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+        <div class="modal-content">
             <form action="{{ url('/adminuser')}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
@@ -150,8 +141,8 @@
     {{-- modal edit --}}
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('adminuser.update','test')}}" method="post" enctype="multipart/form-data">
+        <div class="modal-content">
+            <form action="{{ route('user.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
@@ -202,6 +193,8 @@
         </div>
     </div>
     <!-- /.modal -->
+@endsection
+
 
     @section('script')
         
@@ -239,5 +232,3 @@
             });
         </script>
     @endsection
-
-</x-app-layout>

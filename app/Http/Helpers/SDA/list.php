@@ -191,3 +191,12 @@ if (! function_exists('list_kontrakfisik')) {
         return $data;
     }
 }
+
+if (! function_exists('list_leveluser')) {
+    function list_leveluser()
+    {
+        $level  = ['admin','konsultan'];
+
+        return $level;
+    }
+}

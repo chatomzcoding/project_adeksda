@@ -1,10 +1,4 @@
 <li class="nav-item">
-  <a href="{{ url('/siswa')}}" class="nav-link">
-    <i class="nav-icon fas fa-user-tie"></i>
-    <p class="text">Data Siswa</p>
-  </a>
-</li>
-<li class="nav-item">
   <a href="{{ url('/halaman/kontrakfisik')}}" class="nav-link">
     <i class="nav-icon fas fa-file"></i>
     <p class="text">Kontrak Fisik</p>
@@ -20,6 +14,12 @@
       </p>
     </a>
     <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/user')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
+          <p>User</p>
+        </a>
+      </li>
       <li class="nav-item">
         <a href="{{ url('/halaman/timlokus')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>

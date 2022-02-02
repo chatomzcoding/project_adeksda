@@ -35,10 +35,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
         // SISTEM
         Route::resource('info-website', InfowebsiteController::class);
-        Route::resource('visitor', VisitorController::class);
-        
-        // PERCOBAAN
-        Route::resource('siswa', SiswaController::class);
     });
 
     Route::resource('user', UserController::class);
