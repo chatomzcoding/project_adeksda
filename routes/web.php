@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\InfowebsiteController;
+use App\Http\Controllers\Admin\PekerjaanController;
 use App\Http\Controllers\Admin\TimlokusController;
 use App\Http\Controllers\Sistem\UserController;
-use App\Http\Controllers\Sistem\VisitorController;
-use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // simpan route admin dibawah ini
 
         Route::resource('timlokus', TimlokusController::class);
+        Route::resource('pekerjaan', PekerjaanController::class);
         // SISTEM
         Route::resource('info-website', InfowebsiteController::class);
     });

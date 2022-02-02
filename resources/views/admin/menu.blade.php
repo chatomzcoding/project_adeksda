@@ -27,13 +27,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/halaman/pekerjaan')}}" class="nav-link">
+        <a href="{{ url('/pekerjaan')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
           <p>Pekerjaan</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/halaman/perusahaan')}}" class="nav-link">
+        <a href="{{ url('/perusahaan')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-chart-bar nav-icon"></i>
           <p>Perusahaan</p>
         </a>
