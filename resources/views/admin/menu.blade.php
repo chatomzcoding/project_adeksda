@@ -1,5 +1,5 @@
 <li class="nav-item">
-  <a href="{{ url('/halaman/kontrakfisik')}}" class="nav-link">
+  <a href="{{ url('/kontrak')}}" class="nav-link">
     <i class="nav-icon fas fa-file"></i>
     <p class="text">Kontrak Fisik</p>
   </a>

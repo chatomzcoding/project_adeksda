@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\InfowebsiteController;
+use App\Http\Controllers\Admin\KontrakController;
 use App\Http\Controllers\Admin\PekerjaanController;
 use App\Http\Controllers\Admin\PerusahaanController;
 use App\Http\Controllers\Admin\TimlokusController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('timlokus', TimlokusController::class);
         Route::resource('pekerjaan', PekerjaanController::class);
         Route::resource('perusahaan', PerusahaanController::class);
+        Route::resource('kontrak', KontrakController::class);
         // SISTEM
         Route::resource('info-website', InfowebsiteController::class);
     });

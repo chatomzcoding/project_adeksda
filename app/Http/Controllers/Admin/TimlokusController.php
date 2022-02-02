@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontrak;
 use App\Models\Timlokus;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,23 @@ class TimlokusController extends Controller
      */
     public function store(Request $request)
     {
-        Timlokus::create($request->all());
+        Timlokus::create([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
+            'no_sk' => $request->no_sk,
+            'tanggal' => $request->tanggal,
+            'perihal' => $request->perihal,
+        ]);
+
+        // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field timlokus_id
+        $timlokus  = Timlokus::where('nip',$request->nip)->first();
+        if (isset($request->id)) {
+            Kontrak::where('id',$request->id)->update([
+                $request->posisi => $timlokus->id
+            ]);
+            return back()->with('success','Tim Lokus dengan NIP '.$request->nip.' atas nama '.$request->nama.' telah ditambahkan pada kontrak');
+        }
 
         return back()->with('ds','Tim Lokus');
     }

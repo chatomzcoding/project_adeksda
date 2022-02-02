@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontrak;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 
@@ -42,8 +43,26 @@ class PerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-        Perusahaan::create($request->all());
-
+        Perusahaan::create([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'direktur' => $request->direktur,
+            'alamat' => $request->alamat,
+            'bank' => $request->bank,
+            'kantor_cabang' => $request->kantor_cabang,
+            'no_rek' => $request->no_rek,
+            'npwp' => $request->npwp,
+            'no_akta' => $request->no_akta,
+            'tanggal_akta' => $request->tanggal_akta,
+            'nama_notaris' => $request->nama_notaris,
+        ]);
+         // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field pekerjaan_id
+         $perusahaan  = Perusahaan::where('nama_perusahaan',$request->nama_perusahaan)->first();
+         if (isset($request->id)) {
+             Kontrak::where('id',$request->id)->update([
+                 'perusahaan_id' => $perusahaan->id
+             ]);
+             return back()->with('success','Nama Perusahaan '.$request->nama_perusahaan.' telah ditambahkan pada kontrak');
+         }
         return back()->with('ds','Perusahaan');
     }
 

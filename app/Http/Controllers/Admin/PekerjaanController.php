@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontrak;
 use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
@@ -43,8 +44,27 @@ class PekerjaanController extends Controller
      */
     public function store(Request $request)
     {
-        Pekerjaan::create($request->all());
+        Pekerjaan::create([
+            'kode_kegiatan' => $request->kode_kegiatan,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'kode_tender' => $request->kode_tender,
+            'nama_paket' => $request->nama_paket,
+            'sub_kegiatan' => $request->sub_kegiatan,
+            'kecamatan' => $request->kecamatan,
+            'kode_belanja' => $request->kode_belanja,
+            'sumber_dana' => $request->sumber_dana,
+            'tahun_anggaran' => $request->tahun_anggaran,
+            'jenis_pekerjaan' => $request->jenis_pekerjaan,
+        ]);
 
+        // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field pekerjaan_id
+        $pekerjaan  = Pekerjaan::where('kode_kegiatan',$request->kode_kegiatan)->first();
+        if (isset($request->id)) {
+            Kontrak::where('id',$request->id)->update([
+                'pekerjaan_id' => $pekerjaan->id
+            ]);
+            return back()->with('success','Pekerjaan dengan Kode Kegiatan '.$request->kode_kegiatan.' dan nama kegiatan '.$request->nama_kegiatan.' telah ditambahkan pada kontrak');
+        }
         return back()->with('ds','Pekerjaan');
     }
 

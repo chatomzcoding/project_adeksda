@@ -1,0 +1,184 @@
+<form action="{{ url('kontrak') }}" method="post">
+    @csrf
+    <input type="hidden" name="sesi" value="dokumen">
+    <div class="row">
+        <div class="col-md-4">
+            <strong>1. PENGADAAN {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor Pengadaan</label>
+                        <input type="text" name="no_pengadaan" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor Pengadaan</label>
+                        <input type="date" name="tgl_pengadaan" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>2. BAHP {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor BAHP</label>
+                        <input type="text" name="no_bahp" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor BAHP</label>
+                        <input type="date" name="tgl_bahp" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>3. SPPBJ {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor SPPBJ</label>
+                        <input type="text" name="no_sppbj" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor SPPBJ</label>
+                        <input type="date" name="tgl_sppbj" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>4. BARPK {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor BARPK</label>
+                        <input type="text" name="no_barpk" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor BARPK</label>
+                        <input type="date" name="tgl_barpk" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>5. SPK {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor SPK</label>
+                        <input type="text" name="no_spk" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor SPK</label>
+                        <input type="date" name="tgl_spk" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>6. SPMK {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor SPMK</label>
+                        <input type="text" name="no_spmk" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor SPMK</label>
+                        <input type="date" name="tgl_spmk" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>7. SPL {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor SPL</label>
+                        <input type="text" name="no_spl" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor SPL</label>
+                        <input type="date" name="tgl_spl" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <strong>8. SPP {!! ireq() !!}</strong>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nomor SPP</label>
+                        <input type="text" name="no_spp" class="form-control" required>
+                    </div>
+                </div>      
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Tanggal Nomor SPP</label>
+                        <input type="date" name="tgl_spp" class="form-control" required>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN DOKUMEN</button>
+        </div>
+    </div>
+</form>
