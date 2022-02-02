@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Masuk Terlebih dahulu</title>
 
+  <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -31,8 +33,9 @@
   <div class="card card-outline card-primary">
     <div class="card-header">
       {{-- <a href="#" class="h1"><b>Chatomz</b>Company</a> --}}
-      <section class="p-3 m-3">
-        <img src="{{ asset('/img/logo-bunefit.png')}}" alt="" class="img-fluid">
+      <section class="p-3 m-3 text-center">
+        <img src="{{ asset('/img/logo.png')}}" alt="" width="200px">
+        <h3>ADEKSDAKOTA</h3>
       </section>
     </div>
     <div class="card-body">
@@ -75,9 +78,9 @@
             <button type="submit" class="btn btn-outline-primary btn-block">MASUK</button>
             <br>
           </div>
-          <div class="col-12">
+          {{-- <div class="col-12">
             <a href="{{ url('/')}}"><i class="fas fa-angle-left"></i> kembali ke Halaman Depan</a>
-          </div>
+          </div> --}}
           <!-- /.col -->
         </div>
       </form>
