@@ -87,21 +87,38 @@
                         </div>
                         </div>
                         <div class="card">
-                        <div class="card-header bg-info p-1" id="headingThree">
-                            <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <strong class="text-white">DOKUMEN #3</strong>
-                            </button>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse @if ($main['collapse'] == 3)
-                        show
-                        @endif" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                             {{-- data dokumen (nomor dan tanggal) --}}
-                             @include('admin.kontrak.section.dokumen')
+                            <div class="card-header bg-info p-1" id="headingThree">
+                                <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <strong class="text-white">DOKUMEN #3</strong>
+                                </button>
+                                </h2>
+                            </div>
+                            <div id="collapseThree" class="collapse @if ($main['collapse'] == 3)
+                            show
+                            @endif" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                {{-- data dokumen (nomor dan tanggal) --}}
+                                @include('admin.kontrak.section.dokumen')
+                                </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header bg-info p-1" id="headingfour">
+                                <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                                    <strong class="text-white">LAMPIRAN DOKUMEN SPK #4</strong>
+                                </button>
+                                </h2>
+                            </div>
+                            <div id="collapsefour" class="collapse @if ($main['collapse'] == 4)
+                            show
+                            @endif" aria-labelledby="headingfour" data-parent="#accordionExample">
+                                <div class="card-body">
+                                {{-- data dokumen (nomor dan tanggal) --}}
+                                @include('admin.kontrak.section.dokumenspk')
+                                </div>
+                            </div>
                         </div>
                     @endif
 

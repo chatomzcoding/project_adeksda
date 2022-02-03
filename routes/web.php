@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DokumenspkController;
 use App\Http\Controllers\Admin\InfowebsiteController;
 use App\Http\Controllers\Admin\KontrakController;
 use App\Http\Controllers\Admin\PekerjaanController;
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('pekerjaan', PekerjaanController::class);
         Route::resource('perusahaan', PerusahaanController::class);
         Route::resource('kontrak', KontrakController::class);
+        Route::resource('dokumenspk', DokumenspkController::class);
         // SISTEM
         Route::resource('info-website', InfowebsiteController::class);
     });
