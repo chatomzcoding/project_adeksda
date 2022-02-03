@@ -1,7 +1,8 @@
-<form action="{{ url($main['link']) }}" method="post">
-    @csrf
-    <input type="hidden" name="sesi" value="informasi">
     @if ($main['kontrak'])
+    <form action="{{ url('kontrak') }}" method="post">
+        @csrf
+        <input type="hidden" name="sesi" value="updateinformasi">
+        <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
         <section>
             <div class="form-group row">
                 <label for="" class="col-md-2 p-1">Masa Kontrak {!! ireq() !!}</label>
@@ -61,11 +62,15 @@
             </div>
             <div class="row">
                 <div class="col text-right">
-                    <button type="submit" class="btn btn-primary">SIMPAN PERUBAHAN <i class="fas fa-angle-right"></i></button>
+                    <button type="submit" class="btn btn-success">SIMPAN PERUBAHAN <i class="fas fa-angle-right"></i></button>
                 </div>
             </div>
         </section>
+    </form>
     @else
+    <form action="{{ url($main['link']) }}" method="post">
+        @csrf
+        <input type="hidden" name="sesi" value="informasi">
         <section>
             <div class="form-group row">
                 <label for="" class="col-md-2 p-1">Masa Kontrak {!! ireq() !!}</label>
@@ -129,6 +134,5 @@
                 </div>
             </div>
         </section>
-        
+    </form>
     @endif
-</form>

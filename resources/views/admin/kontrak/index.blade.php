@@ -25,11 +25,11 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Siswa</span>
+                  <span class="info-box-text">Total Kontrak</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-siswa']}} --}}
+                        {{ count($kontrak)}}
                   </span>
                 </div>
               </div>
@@ -38,9 +38,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Laki laki</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-l']}} --}}
                   </span>
@@ -51,9 +51,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Perempuan</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-p']}} --}}
                   </span>
@@ -64,9 +64,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Siswa Aktif</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-aktif']}} --}}
                   </span>
@@ -93,9 +93,43 @@
                   <section class="mb-3">
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
+                            <div class="form-group col-md-3">
+                                <select name="sumber_dana" id="" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- sumber dana --</option>
+                                    @foreach ($sumberdana as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group col-md-2">
-                                <select name="jk" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- semua jenis kelamin --</option>
+                                <select name="kecamatan" id="" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- kecamatan --</option>
+                                    @foreach ($kecamatan as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- jenis pekerjaan --</option>
+                                    @foreach ($jenispekerjaan as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <select name="perusahaan" id="" class="form-control select2bs4" style="width: 100%" onchange="this.form.submit();">
+                                <option value="semua"  selected="selected">-- perusahaan --</option>
+                                  @foreach ($perusahaan as $item)
+                                  <option value="{{ $item->id }}">{{ strtoupper($item->nama_perusahaan) }}</option>
+                                  @endforeach
+                              </select>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
+                                  @for ($i = ambil_tahun(); $i > 2010; $i--)
+                                      <option value="{{ $i }}">{{ $i }}</option>
+                                  @endfor
                                 </select>
                             </div>
                         </div>

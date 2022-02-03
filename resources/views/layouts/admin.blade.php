@@ -48,6 +48,9 @@
     <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
+      <!-- Select2 -->
+  <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   @yield('head')
   @livewireStyles
 
@@ -321,9 +324,19 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('template/admin/lte/dist/js/demo.js')}}"></script>
+<script src=" {{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
+
 
 {{-- javascript chatomz --}}
 <script src="{{ asset('/js/chatomz.js')}}"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+  })
+</script>
 
 
 @yield('script')

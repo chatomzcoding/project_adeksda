@@ -37,7 +37,10 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="{{ url('halaman/kontrakfisik') }}" class="btn btn-outline-primary btn-sm pop-info" title="Kembali" ><i class="fas fa-long-arrow-alt-left"></i></a>
+                    <a href="{{ url('kontrak') }}" class="btn btn-outline-primary btn-sm pop-info" title="Kembali" ><i class="fas fa-long-arrow-alt-left"></i></a>
+                    @if ($main['kontrak'])
+                    <a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=rincian') }}" class="btn btn-outline-primary btn-sm pop-info" title="rincian kontrak" ><i class="fas fa-file-alt"></i> RINCIAN</a>
+                    @endif
                     <div class="float-right">
                         <a href="#" data-toggle="modal" data-target="#cetak" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Dokumen"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
@@ -233,7 +236,12 @@
                         <div class="form-group row">
                             <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
                             <div class="col-md-8 p-0">
-                                <input type="text" name="kecamatan" id="kecamatan" value="{{ old('kecamatan') }}" class="form-control" required>
+                                <select name="kecamatan" id="kecamatan" class="form-control" required>
+                                    <option value="">-- pilih kecamatan --</option>
+                                    @foreach ($kecamatan as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -245,7 +253,12 @@
                         <div class="form-group row">
                             <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
                             <div class="col-md-8 p-0">
-                                <input type="text" name="sumber_dana" id="sumber_dana" value="{{ old('sumber_dana') }}" class="form-control" required>
+                                <select name="sumber_dana" id="sumber_dana" class="form-control" required>
+                                    <option value="">-- pilih sumber dana --</option>
+                                    @foreach ($sumberdana as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -257,7 +270,12 @@
                         <div class="form-group row">
                             <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
                             <div class="col-md-8 p-0">
-                                <input type="text" name="jenis_pekerjaan" id="jenis_pekerjaan" value="{{ old('jenis_pekerjaan') }}" class="form-control" required>
+                                <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" required>
+                                    <option value="">-- pilih jenis pekerjaan --</option>
+                                    @foreach ($jenispekerjaan as $item)
+                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </section>

@@ -25,9 +25,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Siswa</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-siswa']}} --}}
                   </span>
@@ -38,9 +38,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Laki laki</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-l']}} --}}
                   </span>
@@ -51,9 +51,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Perempuan</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-p']}} --}}
                   </span>
@@ -64,9 +64,9 @@
             {{-- start col --}}
             <div class="col-12 col-sm-6 col-md-3">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-tie"></i></span>
+                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Siswa Aktif</span>
+                  <span class="info-box-text">Info Statistik</span>
                   <span class="info-box-number">
                         {{-- {{ $main['statistik']['total-aktif']}} --}}
                   </span>

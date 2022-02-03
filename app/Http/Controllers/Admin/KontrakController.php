@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Kontrak;
 use App\Models\Pekerjaan;
 use App\Models\Perusahaan;
@@ -24,8 +25,12 @@ class KontrakController extends Controller
             'link' => 'kontrak'
         ];
         $kontrak    = Kontrak::all();
+        $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
+        $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
+        $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
+        $perusahaan     = Perusahaan::all();
 
-        return view('admin.kontrak.index', compact('menu','main','kontrak'));
+        return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
     }
 
     /**
@@ -75,6 +80,16 @@ class KontrakController extends Controller
                 ]);
                 return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
                 break;
+            case 'updateinformasi':
+                Kontrak::where('id',$request->id)->update([
+                    'masa_kontrak' => $request->masa_kontrak,
+                    'nilai_penawaran' => default_nilai($request->nilai_penawaran),
+                    'nilai_terkoreksi' => default_nilai($request->nilai_terkoreksi),
+                    'nilai_negosiasi' => default_nilai($request->nilai_negosiasi),
+                    'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
+                ]);
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi kontrak sudah tersimpan');
+                break;
             case 'dokumen':
                 Kontrak::where('id',$request->id)->update([
                     'no_pengadaan' => $request->no_pengadaan,
@@ -123,11 +138,29 @@ class KontrakController extends Controller
             'collapse' => $collapse,
             'timlokus' => Timlokus::all(),
             'pekerjaan' => Pekerjaan::all(),
-            'perusahaan' => Perusahaan::all()
+            'perusahaan' => Perusahaan::all(),
+            'datapekerjaan' => Pekerjaan::find($kontrak->pekerjaan_id),
+            'dataperusahaan' => Perusahaan::find($kontrak->perusahaan_id),
+            'dataketua' => Timlokus::find($kontrak->id_ketua),
+            'datasekretaris' => Timlokus::find($kontrak->id_sekretaris),
+            'dataanggota' => Timlokus::find($kontrak->id_anggota),
         ];
 
+        $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
+        $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
+        $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+        switch ($s) {
+            case 'rincian':
+                return view('admin.kontrak.show', compact('menu','main','kecamatan','jenispekerjaan','sumberdana'));
+                break;
+            
+            default:
+                return view('admin.kontrak.create', compact('menu','main','kecamatan','jenispekerjaan','sumberdana'));
+                break;
+        }
+        
 
-        return view('admin.kontrak.create', compact('menu','main'));
     }
 
     public static function kodeNomor($kontrak)
