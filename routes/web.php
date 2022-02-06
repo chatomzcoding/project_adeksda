@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DatapokokController;
 use App\Http\Controllers\Admin\DokumenspkController;
 use App\Http\Controllers\Admin\InfowebsiteController;
 use App\Http\Controllers\Admin\KontrakController;
@@ -36,13 +37,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::middleware(['admin'])->group(function () {
         // simpan route admin dibawah ini
 
-        Route::resource('timlokus', TimlokusController::class);
+        Route::resource('timteknis', TimlokusController::class);
         Route::resource('pekerjaan', PekerjaanController::class);
         Route::resource('perusahaan', PerusahaanController::class);
         Route::resource('kontrak', KontrakController::class);
+        Route::get('ajax/{sesi}', [KontrakController::class, 'ajax'])->name('pajax');
         Route::resource('dokumenspk', DokumenspkController::class);
         // SISTEM
-        Route::resource('info-website', InfowebsiteController::class);
+        Route::resource('datapokok', DatapokokController::class);
     });
 
     Route::resource('user', UserController::class);

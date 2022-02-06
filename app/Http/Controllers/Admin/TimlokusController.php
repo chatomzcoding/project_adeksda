@@ -19,7 +19,7 @@ class TimlokusController extends Controller
         $menu       = 'timlokus';
         $timlokus   = Timlokus::all();
         $main       = [
-            'link' => 'timlokus'
+            'link' => 'timteknis'
         ];
         return view('admin.timlokus.index', compact('menu','timlokus','main'));
     }
@@ -57,7 +57,7 @@ class TimlokusController extends Controller
             Kontrak::where('id',$request->id)->update([
                 $request->posisi => $timlokus->id
             ]);
-            return back()->with('success','Tim Lokus dengan NIP '.$request->nip.' atas nama '.$request->nama.' telah ditambahkan pada kontrak');
+            return back()->with('swalsuccess','Tim Lokus dengan NIP '.$request->nip.' atas nama '.$request->nama.' telah ditambahkan pada kontrak');
         }
 
         return back()->with('ds','Tim Lokus');

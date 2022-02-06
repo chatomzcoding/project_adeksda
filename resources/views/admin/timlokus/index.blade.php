@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
 @section('title')
-    Data Tim Lokus
+    Data Tim Teknis
 @endsection
 
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0">Data Tim Lokus</h1>
+        <h1 class="m-0">Data Tim Teknis</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item active">Daftar Tim Lokus</li>
+            <li class="breadcrumb-item active">Daftar Tim Teknis</li>
         </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -163,7 +163,7 @@
             <form action="{{ url($main['link'])}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Tim Lokus</h4>
+                <h4 class="modal-title">Tambah Data Tim Teknis</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -226,7 +226,7 @@
                 @csrf
                 @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit Data Tim Lokus</h4>
+            <h4 class="modal-title">Edit Data Tim Teknis</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

@@ -179,7 +179,7 @@
     </div>
     <div class="row">
         <div class="col text-right">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN DOKUMEN</button>
+            <button type="submit" class="btn btn-primary"> TAHAP SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>
         </div>
     </div>
 </form>

@@ -56,12 +56,12 @@ class PerusahaanController extends Controller
             'nama_notaris' => $request->nama_notaris,
         ]);
          // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field pekerjaan_id
-         $perusahaan  = Perusahaan::where('nama_perusahaan',$request->nama_perusahaan)->first();
+         $perusahaan  = Perusahaan::where('nama_perusahaan',$request->nama_perusahaan)->orderBy('id','DESC')->first();
          if (isset($request->id)) {
              Kontrak::where('id',$request->id)->update([
                  'perusahaan_id' => $perusahaan->id
              ]);
-             return back()->with('success','Nama Perusahaan '.$request->nama_perusahaan.' telah ditambahkan pada kontrak');
+             return back()->with('swalsuccess','Nama Perusahaan '.$request->nama_perusahaan.' telah ditambahkan pada kontrak');
          }
         return back()->with('ds','Perusahaan');
     }

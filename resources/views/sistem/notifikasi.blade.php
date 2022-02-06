@@ -24,7 +24,7 @@
 {{-- alert versi 2 --}}
   @if (session('successv2'))
   <div class="callout callout-success">
-      {{ session('successv2') }}
+      <strong><i class="fas fa-bullhorn text-success"></i> &nbsp;&nbsp;&nbsp;</strong> {{ session('successv2') }}
   </div>
   @endif
   @if (session('dangerv2'))

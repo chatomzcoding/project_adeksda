@@ -54,7 +54,7 @@
                       <div class="card-header bg-info p-1" id="headingOne">
                         <h2 class="mb-0">
                           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <strong class="text-white">INFORMASI KONTRAK #1 </strong>
+                            <strong class="text-white">#1 - INFORMASI KONTRAK</strong>
                           </button>
                         </h2>
                       </div>
@@ -69,57 +69,63 @@
                       </div>
                     </div>
                     @if ($main['kontrak'])
+
                         <div class="card">
-                        <div class="card-header bg-info p-1" id="headingTwo">
-                            <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <strong class="text-white">DATA PENDUKUNG #2</strong>
-                            </button>
-                            </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse @if ($main['collapse'] == 2)
-                        show
-                        @endif" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                                {{-- data pendukung (tim lokus, pekerjaan, perusahaan) --}}
-                                @include('admin.kontrak.section.pendukung')
-                            </div>
-                        </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header bg-info p-1" id="headingThree">
+                            <div class="card-header bg-info p-1" id="headingTwo">
                                 <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <strong class="text-white">DOKUMEN #3</strong>
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <strong class="text-white">#2 - DATA PENDUKUNG</strong>
                                 </button>
                                 </h2>
                             </div>
-                            <div id="collapseThree" class="collapse @if ($main['collapse'] == 3)
+                            <div id="collapseTwo" class="collapse @if ($main['collapse'] == 2)
                             show
-                            @endif" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            @endif" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                {{-- data dokumen (nomor dan tanggal) --}}
-                                @include('admin.kontrak.section.dokumen')
+                                    {{-- data pendukung (tim lokus, pekerjaan, perusahaan) --}}
+                                    @include('admin.kontrak.section.pendukung')
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header bg-info p-1" id="headingfour">
-                                <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
-                                    <strong class="text-white">LAMPIRAN DOKUMEN SPK #4</strong>
-                                </button>
-                                </h2>
-                            </div>
-                            <div id="collapsefour" class="collapse @if ($main['collapse'] == 4)
-                            show
-                            @endif" aria-labelledby="headingfour" data-parent="#accordionExample">
-                                <div class="card-body">
-                                {{-- data dokumen (nomor dan tanggal) --}}
-                                @include('admin.kontrak.section.dokumenspk')
+                        @if ($main['collapse'] > 2)
+                            <div class="card">
+                                <div class="card-header bg-info p-1" id="headingThree">
+                                    <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <strong class="text-white">#3 - DOKUMEN</strong>
+                                    </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseThree" class="collapse @if ($main['collapse'] == 3)
+                                show
+                                @endif" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                    {{-- data dokumen (nomor dan tanggal) --}}
+                                    @include('admin.kontrak.section.dokumen')
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
+                        
+                        @if ($main['collapse'] > 3)
+                            <div class="card">
+                                <div class="card-header bg-info p-1" id="headingfour">
+                                    <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+                                        <strong class="text-white">#4 - LAMPIRAN DOKUMEN SPK</strong>
+                                    </button>
+                                    </h2>
+                                </div>
+                                <div id="collapsefour" class="collapse @if ($main['collapse'] == 4)
+                                show
+                                @endif" aria-labelledby="headingfour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                    {{-- data dokumen (nomor dan tanggal) --}}
+                                    @include('admin.kontrak.section.dokumenspk')
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     @endif
 
                   </div>
@@ -134,262 +140,7 @@
     </div>
 
     @if ($main['kontrak'])
-        <div class="modal fade" id="tambahtimlokus">
-            <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="{{ url('timlokus')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Tim Lokus</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-3">
-                    <section class="p-3">
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Tambahkan Untuk {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <select name="posisi" id="" class="form-control">
-                                    <option value="id_ketua">Ketua Teknis Kegiatan</option>
-                                    <option value="id_sekretaris">Sekretaris Teknis Kegiatan</option>
-                                    <option value="id_anggota">Anggota Teknis Kegiatan</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Jabatan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">No SK</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="no_sk" id="no_sk" value="{{ old('no_sk') }}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Tanggal</label>
-                            <div class="col-md-8 p-0">
-                                <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Perihal</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-                </div>
-            </form>
-            </div>
-            </div>
-        </div>
 
-        <div class="modal fade" id="tambahpekerjaan">
-            <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="{{ url('pekerjaan')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Pekerjaan</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-3">
-                    <section class="p-3">
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Kode Kegiatan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="kode_kegiatan" id="kode_kegiatan" maxlength="16" value="{{ old('kode_kegiatan') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Kode Tender {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="kode_tender" id="kode_tender" value="{{ old('kode_tender') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Kegiatan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Sub Kegiatan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="sub_kegiatan" id="sub_kegiatan" value="{{ old('sub_kegiatan') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Paket {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nama_paket" id="nama_paket" value="{{ old('nama_paket') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <select name="kecamatan" id="kecamatan" class="form-control" required>
-                                    <option value="">-- pilih kecamatan --</option>
-                                    @foreach ($kecamatan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Kode Belanja {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="kode_belanja" id="kode_belanja" value="{{ old('kode_belanja') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <select name="sumber_dana" id="sumber_dana" class="form-control" required>
-                                    <option value="">-- pilih sumber dana --</option>
-                                    @foreach ($sumberdana as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Tahun Anggaran {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="tahun_anggaran" id="tahun_anggaran" value="{{ old('tahun_anggaran') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" required>
-                                    <option value="">-- pilih jenis pekerjaan --</option>
-                                    @foreach ($jenispekerjaan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-                </div>
-            </form>
-            </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="tambahperusahaan">
-            <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form action="{{ url('perusahaan')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
-                <div class="modal-header">
-                    <h4 class="modal-title">Tambah Data Perusahaan</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-3">
-                    <section class="p-3">
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Perusahaan {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" maxlength="16" value="{{ old('nama_perusahaan') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Direktur {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="direktur" id="direktur" value="{{ old('direktur') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Alamat {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Bank {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="bank" id="bank" value="{{ old('bank') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Kantor Cabang {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="kantor_cabang" id="kantor_cabang" value="{{ old('kantor_cabang') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">No Rekening {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="no_rek" id="no_rek" value="{{ old('no_rek') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">NPWP {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="npwp" id="npwp" value="{{ old('npwp') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">No Akta {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="no_akta" id="no_akta" value="{{ old('no_akta') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Tanggal Akta {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="date" name="tanggal_akta" id="tanggal_akta" value="{{ old('tanggal_akta') }}" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="" class="col-md-4 p-2">Nama Notaris {!! ireq() !!}</label>
-                            <div class="col-md-8 p-0">
-                                <input type="text" name="nama_notaris" id="nama_notaris" value="{{ old('nama_notaris') }}" class="form-control" required>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-                </div>
-            </form>
-            </div>
-            </div>
-        </div>
         {{-- modal cetak --}}
         <div class="modal fade" id="cetak">
             <div class="modal-dialog modal-lg">
@@ -487,7 +238,115 @@
             })
           })
         </script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript">
+                function cek_perusahaan(){
+                    var id = $("#dataperusahaan").val();
+                    $.ajax({
+                        url: "{{ url('ajax/perusahaan') }}",
+                        data:"id="+id ,
+                    }).success(function (data) {
+                        var json = data,
+                        obj = JSON.parse(json);
+                        $('#direktur').val(obj.direktur);
+                        $('#alamat').val(obj.alamat);
+                        $('#bank').val(obj.bank);
+                        $('#notaris').val(obj.notaris);
+                        $('#akta').val(obj.akta);
+                        $('#npwp').val(obj.npwp);
+                        $('#no_rek').val(obj.no_rek);
+            
+                    //     var $jenis_kelamin = $('input:radio[name=jenis_kelamin]');
+                    // if(obj.jenis_kelamin == 'laki-laki'){
+                    //     $jenis_kelamin.filter('[value=laki-laki]').prop('checked', true);
+                    // }else{
+                    //     $jenis_kelamin.filter('[value=perempuan]').prop('checked', true);
+                    // }
+                    });
+                }
+                function cek_pekerjaan(){
+                    var id = $("#datapekerjaan").val();
+                    $.ajax({
+                        url: "{{ url('ajax/pekerjaan') }}",
+                        data:"id="+id ,
+                    }).success(function (data) {
+                        var json = data,
+                        obj = JSON.parse(json);
+                        $('#kode_tender').val(obj.kode_tender);
+                        $('#sub_kegiatan').val(obj.sub_kegiatan);
+                        $('#nama_paket').val(obj.nama_paket);
+                        $('#kecamatan').val(obj.kecamatan);
+                        $('#kode_belanja').val(obj.kode_belanja);
+                        $('#sumber_dana').val(obj.sumber_dana);
+                        $('#tahun_anggaran').val(obj.tahun_anggaran);
+                        $('#jenis_pekerjaan').val(obj.jenis_pekerjaan);
+            
+                    });
+                }
+        </script>
+        <script  type="text/javascript">
+          $(document).ready(function(){
+                var maxField = 10; //Input fields increment limitation
+                var addButton = $('.add_button1'); //Add button selector
+                var wrapper = $('.field_wrapper1'); //Input field wrapper
+                // var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
+                var fieldHTML = '<div class="row mt-2"><input type="text" name="uraian1[]" id="nama_kota" class="form-control col-md-5" placeholder="uraian" required><input type="number" min="1" name="kuantitas1[]" placeholder="kuantitas" class="form-control col-md-2"><input type="text"  name="satuan1[]" class="form-control col-md-2" placeholder="satuan"><input type="number"  name="harga1[]" class="form-control col-md-2" placeholder="harga"><a href="javascript:void(0);" class="remove_button1 col-md-1 btn btn-danger" title="Add field"><i class="fas fa-minus"></i></a></div>'; //New input field html
+                var x = 1; //Initial field counter is 1
+                $(addButton).click(function(){ //Once add button is clicked
+                    if(x < maxField){ //Check maximum number of input fields
+                        x++; //Increment field counter
+                        $(wrapper).append(fieldHTML); // Add field html
+                    }
+                });
+                $(wrapper).on('click', '.remove_button1', function(e){ //Once remove button is clicked
+                    e.preventDefault();
+                    $(this).parent('div').remove(); //Remove field html
+                    x--; //Decrement field counter
+                });
+            });
+        </script>
+        <script  type="text/javascript">
+          $(document).ready(function(){
+                var maxField = 10; //Input fields increment limitation
+                var addButton = $('.add_button2'); //Add button selector
+                var wrapper = $('.field_wrapper2'); //Input field wrapper
+                // var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
+                var fieldHTML = '<div class="row mt-2"><input type="text" name="uraian2[]" id="nama_kota" class="form-control col-md-5" placeholder="uraian" required><input type="number" min="1" name="kuantitas2[]" placeholder="kuantitas" class="form-control col-md-2"><input type="text"  name="satuan2[]" class="form-control col-md-2" placeholder="satuan"><input type="number"  name="harga2[]" class="form-control col-md-2" placeholder="harga"><a href="javascript:void(0);" class="remove_button2 col-md-1 btn btn-danger" title="Add field"><i class="fas fa-minus"></i></a></div>'; //New input field html
+                var x = 1; //Initial field counter is 1
+                $(addButton).click(function(){ //Once add button is clicked
+                    if(x < maxField){ //Check maximum number of input fields
+                        x++; //Increment field counter
+                        $(wrapper).append(fieldHTML); // Add field html
+                    }
+                });
+                $(wrapper).on('click', '.remove_button2', function(e){ //Once remove button is clicked
+                    e.preventDefault();
+                    $(this).parent('div').remove(); //Remove field html
+                    x--; //Decrement field counter
+                });
+            });
+        </script>
+        <script  type="text/javascript">
+          $(document).ready(function(){
+                var maxField = 10; //Input fields increment limitation
+                var addButton = $('.add_button3'); //Add button selector
+                var wrapper = $('.field_wrapper3'); //Input field wrapper
+                // var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field"><img src="remove-icon.png"/></a></div>'; //New input field html 
+                var fieldHTML = '<div class="row mt-2"><input type="text" name="uraian3[]" id="nama_kota" class="form-control col-md-5" placeholder="uraian" required><input type="number" min="1" name="kuantitas3[]" placeholder="kuantitas" class="form-control col-md-2"><input type="text"  name="satuan3[]" class="form-control col-md-2" placeholder="satuan"><input type="number"  name="harga3[]" class="form-control col-md-2" placeholder="harga"><a href="javascript:void(0);" class="remove_button3 col-md-1 btn btn-danger" title="Add field"><i class="fas fa-minus"></i></a></div>'; //New input field html
+                var x = 1; //Initial field counter is 1
+                $(addButton).click(function(){ //Once add button is clicked
+                    if(x < maxField){ //Check maximum number of input fields
+                        x++; //Increment field counter
+                        $(wrapper).append(fieldHTML); // Add field html
+                    }
+                });
+                $(wrapper).on('click', '.remove_button3', function(e){ //Once remove button is clicked
+                    e.preventDefault();
+                    $(this).parent('div').remove(); //Remove field html
+                    x--; //Decrement field counter
+                });
+            });
+        </script>
     @endsection
 
     @endsection

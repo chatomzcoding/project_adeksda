@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Sistem;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Visitor;
+use App\Models\Datapokok;
 use Illuminate\Http\Request;
 
-class VisitorController extends Controller
+class DatapokokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $visitor    = Visitor::orderBy('id','DESC')->get();
-
-        return view('chatomz.sistem.visitor.index', compact('visitor'));
+        //
     }
 
     /**
@@ -44,10 +42,10 @@ class VisitorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  \App\Models\Datapokok  $datapokok
      * @return \Illuminate\Http\Response
      */
-    public function show(Visitor $visitor)
+    public function show(Datapokok $datapokok)
     {
         //
     }
@@ -55,10 +53,10 @@ class VisitorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  \App\Models\Datapokok  $datapokok
      * @return \Illuminate\Http\Response
      */
-    public function edit(Visitor $visitor)
+    public function edit(Datapokok $datapokok)
     {
         //
     }
@@ -67,10 +65,10 @@ class VisitorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Visitor  $visitor
+     * @param  \App\Models\Datapokok  $datapokok
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visitor $visitor)
+    public function update(Request $request, Datapokok $datapokok)
     {
         //
     }
@@ -78,10 +76,10 @@ class VisitorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Visitor  $visitor
+     * @param  \App\Models\Datapokok  $datapokok
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Visitor $visitor)
+    public function destroy(Datapokok $datapokok)
     {
         //
     }

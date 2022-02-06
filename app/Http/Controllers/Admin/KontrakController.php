@@ -24,7 +24,7 @@ class KontrakController extends Controller
         $main   = [
             'link' => 'kontrak'
         ];
-        $kontrak    = Kontrak::all();
+        $kontrak    = Kontrak::orderBy('id','DESC')->get();
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
         $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
@@ -68,7 +68,7 @@ class KontrakController extends Controller
                     'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
                 ]);
                 $kontrak    = Kontrak::latest()->first();
-                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('success','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
+                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('swalsuccess','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
                 break;
             case 'pendukung':
                 Kontrak::where('id',$request->id)->update([
@@ -78,7 +78,7 @@ class KontrakController extends Controller
                     'id_sekretaris' => $request->id_sekretaris,
                     'id_anggota' => $request->id_anggota,
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi pendukung sudah tersimpan');
                 break;
             case 'updateinformasi':
                 Kontrak::where('id',$request->id)->update([
@@ -88,7 +88,7 @@ class KontrakController extends Controller
                     'nilai_negosiasi' => default_nilai($request->nilai_negosiasi),
                     'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi kontrak sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi kontrak sudah tersimpan');
                 break;
             case 'dokumen':
                 Kontrak::where('id',$request->id)->update([
@@ -109,13 +109,49 @@ class KontrakController extends Controller
                     'no_spp' => $request->no_spp,
                     'tgl_spp' => $request->tgl_spp,
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi dokumen sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi dokumen sudah tersimpan');
                 break;
             
             default:
                 return 'sesi tidak ada';
                 break;
         }
+    }
+
+    public function ajax($sesi)
+    {
+        switch ($sesi) {
+            case 'perusahaan':
+                $perusahaan     = Perusahaan::find($_GET['id']);
+                $result         = [
+                    'direktur' => $perusahaan->direktur,
+                    'alamat' => $perusahaan->alamat,
+                    'bank' => $perusahaan->bank.' / '.$perusahaan->kantor_cabang,
+                    'akta' => $perusahaan->no_akta.' / '.$perusahaan->tanggal_akta,
+                    'npwp' => $perusahaan->npwp,
+                    'notaris' => $perusahaan->nama_notaris,
+                    'no_rek' => $perusahaan->no_rek,
+                ];
+                break;
+            case 'pekerjaan':
+                $pekerjaan     = Pekerjaan::find($_GET['id']);
+                $result         = [
+                    'kode_tender' => $pekerjaan->kode_tender,
+                    'nama_paket' => $pekerjaan->nama_paket,
+                    'sub_kegiatan' => $pekerjaan->sub_kegiatan,
+                    'kode_belanja' => $pekerjaan->kode_belanja,
+                    'kecamatan' => $pekerjaan->kecamatan,
+                    'sumber_dana' => $pekerjaan->sumber_dana,
+                    'tahun_anggaran' => $pekerjaan->tahun_anggaran,
+                    'jenis_pekerjaan' => $pekerjaan->jenis_pekerjaan,
+                ];
+                break;
+            
+            default:
+                $result = NULL;
+                break;
+        }
+        echo json_encode($result);
     }
 
     /**
@@ -130,6 +166,9 @@ class KontrakController extends Controller
         $kontrak    = Kontrak::find(Crypt::decryptString($kontrak));
         $collapse   = 2;
         $collapse = ($kontrak->id_anggota <> NULL) ? 3 : 2 ;
+        if ($collapse == 3) {
+            $collapse = ($kontrak->tgl_bahp <> NULL) ? 4 : 3 ;
+        }
         $nomor  = self::kodeNomor($kontrak);
         $main       = [
             'link' => 'kontrak/'.$kontrak,

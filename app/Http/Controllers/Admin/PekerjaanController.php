@@ -62,12 +62,12 @@ class PekerjaanController extends Controller
         ]);
 
         // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field pekerjaan_id
-        $pekerjaan  = Pekerjaan::where('kode_kegiatan',$request->kode_kegiatan)->first();
+        $pekerjaan  = Pekerjaan::where('kode_kegiatan',$request->kode_kegiatan)->where('kode_tender',$request->kode_tender)->where('kode_belanja',$request->kode_belanja)->orderBy('id','DESC')->first();
         if (isset($request->id)) {
             Kontrak::where('id',$request->id)->update([
                 'pekerjaan_id' => $pekerjaan->id
             ]);
-            return back()->with('success','Pekerjaan dengan Kode Kegiatan '.$request->kode_kegiatan.' dan nama kegiatan '.$request->nama_kegiatan.' telah ditambahkan pada kontrak');
+            return back()->with('swalsuccess','Pekerjaan dengan Kode Kegiatan '.$request->kode_kegiatan.' dan nama kegiatan '.$request->nama_kegiatan.' telah ditambahkan pada kontrak');
         }
         return back()->with('ds','Pekerjaan');
     }
