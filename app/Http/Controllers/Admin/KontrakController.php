@@ -9,7 +9,9 @@ use App\Models\Kontrak;
 use App\Models\Pekerjaan;
 use App\Models\Perusahaan;
 use App\Models\Timlokus;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class KontrakController extends Controller
@@ -25,13 +27,21 @@ class KontrakController extends Controller
         $main   = [
             'link' => 'kontrak'
         ];
+        $user       = Auth::user();
         $kontrak    = Kontrak::orderBy('id','DESC')->get();
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
         $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
         $perusahaan     = Perusahaan::all();
 
-        return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+        if ($user->level == 'admin') {
+            return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+            # code...
+        } else {
+            return view('konsultan.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+        }
+        
+
     }
 
     /**

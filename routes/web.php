@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\KontrakController;
 use App\Http\Controllers\Admin\PekerjaanController;
 use App\Http\Controllers\Admin\PerusahaanController;
 use App\Http\Controllers\Admin\TimlokusController;
+use App\Http\Controllers\Konsultan\KontrakaksesController;
 use App\Http\Controllers\Sistem\UserController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -40,12 +41,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('timteknis', TimlokusController::class);
         Route::resource('pekerjaan', PekerjaanController::class);
         Route::resource('perusahaan', PerusahaanController::class);
-        Route::resource('kontrak', KontrakController::class);
         Route::get('ajax/{sesi}', [KontrakController::class, 'ajax'])->name('pajax');
         Route::resource('dokumenspk', DokumenspkController::class);
         // SISTEM
         Route::resource('datapokok', DatapokokController::class);
     });
+    Route::resource('kontrak', KontrakController::class);
+    Route::resource('kontrakakses', KontrakaksesController::class);
 
     Route::resource('user', UserController::class);
 });
