@@ -14,6 +14,7 @@ class AdekSDAProvider extends ServiceProvider
     public function register()
     {
         require_once app_path() . '/Http/Helpers/SDA/list.php';
+        require_once app_path() . '/Http/Helpers/SDA/sistem.php';
         
     }
 

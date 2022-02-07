@@ -69,17 +69,26 @@ class KontrakController extends Controller
                     'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
                 ]);
                 $kontrak    = Kontrak::latest()->first();
-                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('swalsuccess','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
+                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('success','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
                 break;
             case 'pendukung':
+                // penambahan nomor 
+
+                $nomor          = self::kodeNomor($request->id,$request->pekerjaan_id);
                 Kontrak::where('id',$request->id)->update([
                     'pekerjaan_id' => $request->pekerjaan_id,
                     'perusahaan_id' => $request->perusahaan_id,
                     'id_ketua' => $request->id_ketua,
                     'id_sekretaris' => $request->id_sekretaris,
                     'id_anggota' => $request->id_anggota,
+                    'no_sppbj' => $nomor[0],
+                    'no_barpk' => $nomor[1],
+                    'no_spk' => $nomor[2],
+                    'no_spmk' => $nomor[3],
+                    'no_spl' => $nomor[4],
+                    'no_spp' => $nomor[5],
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi pendukung sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
                 break;
             case 'updateinformasi':
                 Kontrak::where('id',$request->id)->update([
@@ -89,7 +98,7 @@ class KontrakController extends Controller
                     'nilai_negosiasi' => default_nilai($request->nilai_negosiasi),
                     'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi kontrak sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi kontrak sudah tersimpan');
                 break;
             case 'dokumen':
                 Kontrak::where('id',$request->id)->update([
@@ -110,7 +119,17 @@ class KontrakController extends Controller
                     'no_spp' => $request->no_spp,
                     'tgl_spp' => $request->tgl_spp,
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('swalsuccess','Informasi dokumen sudah tersimpan');
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi dokumen sudah tersimpan');
+                break;
+            case 'adendum':
+                Kontrak::where('id',$request->id)->update([
+                    'no_adendum' => $request->no_adendum,
+                    'tgl_adendum' => $request->tgl_adendum,
+                    'nilai' => $request->nilai,
+                    'masakontrak_adendum' => $request->masakontrak_adendum,
+                    'tgl_akhir_kontrak' => $request->tgl_akhir_kontrak,
+                ]);
+                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Kontrak telah selesai dibuat');
                 break;
             
             default:
@@ -170,7 +189,6 @@ class KontrakController extends Controller
         if ($collapse == 3) {
             $collapse = ($kontrak->tgl_bahp <> NULL) ? 4 : 3 ;
         }
-        $nomor  = self::kodeNomor($kontrak);
         $dokumenspk     = [
             'persiapan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','persiapan')->get(),
             'pelaksana' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksana')->get(),
@@ -184,7 +202,6 @@ class KontrakController extends Controller
         $main       = [
             'link' => 'kontrak/'.$kontrak,
             'kontrak' => $kontrak,
-            'nomor' => $nomor,
             'collapse' => $collapse,
             'timlokus' => Timlokus::all(),
             'pekerjaan' => Pekerjaan::all(),
@@ -214,43 +231,35 @@ class KontrakController extends Controller
 
     }
 
-    public static function kodeNomor($kontrak)
+    public static function kodeNomor($kontrak_id,$pekerjaan_id)
     {
-        if (is_null($kontrak->no_pengadaan)) {
-            $kontrakterakhir    = Kontrak::where('id','<>',$kontrak->id)->where('no_pengadaan','<>',NULL)->latest()->first();
-            if ($kontrakterakhir) {
-                $nomor  = [
-                    'sppbj' => '610/0007/SPPBJ-/SDA',
-                    'barpk' => '610/0008/BARPK-/SDA',
-                    'spk' => '610/0009/SPK-/SDA',
-                    'spmk' => '610/0010/SPMK-/SDA',
-                    'spl' => '610/0011/SPL-/SDA',
-                    'spp' => '610/0012/SPP-/SDA',
-                ];
-            } else {
-                $nomor  = [
-                    'sppbj' => '610/0001/SPPBJ-/SDA',
-                    'barpk' => '610/0002/BARPK-/SDA',
-                    'spk' => '610/0003/SPK-/SDA',
-                    'spmk' => '610/0004/SPMK-/SDA',
-                    'spl' => '610/0005/SPL-/SDA',
-                    'spp' => '610/0006/SPP-/SDA',
-                ];
+        $pekerjaan      = Pekerjaan::find($pekerjaan_id)->first();
+        $kode_kegiatan  = $pekerjaan->kode_kegiatan;
+        $kontrakterakhir    = Kontrak::where('id','<>',$kontrak_id)->where('no_spp','<>',NULL)->orderBy('id','DESC')->first();
+        $list           = ['SPPBJ','BARPK','SPK','SPMK','SPL','SPP'];
+        $nomor          = [];
+        if ($kontrakterakhir) {
+            $nomorspp       = explode('/',$kontrakterakhir->no_spp);
+            $no_akhir       = $nomorspp[1];
+            for ($i=0; $i < count($list); $i++) { 
+                if ($no_akhir > 0 AND $no_akhir < 10) {
+                    $urutan = '000'.$no_akhir;
+                }elseif ($no_akhir > 9 AND $no_akhir < 100) {
+                    $urutan = '00'.$no_akhir;
+                }elseif ($no_akhir > 99 AND $no_akhir < 1000) {
+                    $urutan = '0'.$no_akhir;
+                } else {
+                    $urutan = $no_akhir;
+                }
+                $nomor[] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
             }
         } else {
-            $nomor  = [
-                'sppbj' => $kontrak->no_sppbj,
-                'barpk' => $kontrak->no_barpk,
-                'spk' => $kontrak->no_spk,
-                'spmk' => $kontrak->no_spmk,
-                'spl' => $kontrak->no_spl,
-                'spp' => $kontrak->no_spp,
-            ];
+            for ($i=0; $i < count($list); $i++) {
+                $no         = $i + 1; 
+                $nomor[] = '610/000'.$no.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
+            }
         }
-        
-
         return $nomor;
-        
     }
 
     /**
@@ -284,6 +293,8 @@ class KontrakController extends Controller
      */
     public function destroy(Kontrak $kontrak)
     {
-        //
+        $kontrak->delete();
+
+        return back()->with('dd','Kontrak');
     }
 }

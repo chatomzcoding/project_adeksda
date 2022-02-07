@@ -44,9 +44,9 @@
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 
-    {{-- <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script> --}}
-    {{-- <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script> --}}
-  <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+    <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
+  {{-- <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}"> --}}
 
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
@@ -316,10 +316,7 @@
 <script src="{{ asset('template/admin/lte/dist/js/demo.js')}}"></script>
 <script src=" {{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
 
-<script src=" {{ asset('template/admin/lte/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-<!-- Toastr -->
-<script src=" {{ asset('template/admin/lte/plugins/toastr/toastr.min.js')}}"></script>
-
+{{-- <script src=" {{ asset('template/admin/lte/plugins/sweetalert2/sweetalert2.min.js')}}"></script> --}}
 
 {{-- javascript chatomz --}}
 <script src="{{ asset('/js/chatomz.js')}}"></script>
@@ -331,9 +328,9 @@
     })
   })
 </script>
-@if (session('swalsuccess'))
+{{-- @if (session('swalsuccess')) --}}
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(function() {
       var Toast = Swal.mixin({
         toast: true,
@@ -346,9 +343,9 @@
         title: "{{ session('swalsuccess') }}"
       });
     });
-</script>
-@endif
-<script>
+</script> --}}
+{{-- @endif --}}
+{{-- <script>
   $(function() {
     var Toast = Swal.mixin({
       toast: true,
@@ -501,7 +498,7 @@
       })
     });
   });
-</script>
+</script> --}}
 
 
 @yield('script')

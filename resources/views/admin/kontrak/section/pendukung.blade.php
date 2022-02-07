@@ -46,25 +46,25 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="" class="small">Nama Paket</label>
-                <input type="text" id="nama_paket" class="form-control" value="{{ $main['datapekerjaan']->nama_paket }}" disabled>
+                <input type="text" id="nama_paket" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'nama_paket') }}" disabled>
                 <label for="" class="small">Sub Kegiatan</label>
-                <input type="text" id="sub_kegiatan" class="form-control" value="{{ $main['datapekerjaan']->sub_kegiatan }}" disabled>
+                <input type="text" id="sub_kegiatan" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'sub_kegiatan') }}" disabled>
               </div>
               <div class="col-md-6">
                 <label for="" class="small">Kode Tender</label>
-                <input type="text" id="kode_tender" class="form-control" value="{{ $main['datapekerjaan']->kode_tender }}" disabled>
+                <input type="text" id="kode_tender" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'kode_tender') }}" disabled>
                 <label for="" class="small">Kode Belanja</label>
-                <input type="text" id="kode_belanja" class="form-control" value="{{ $main['datapekerjaan']->kode_belanja }}" disabled>
+                <input type="text" id="kode_belanja" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'kode_belanja') }}" disabled>
                 <label for="" class="small">Kecamatan</label>
-                <input type="text" id="kecamatan" class="form-control" value="{{ $main['datapekerjaan']->kecamatan }}" disabled>
+                <input type="text" id="kecamatan" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'kecamatan') }}" disabled>
               </div>
               <div class="col-md-6">
                 <label for="" class="small">Sumber Dana</label>
-                <input type="text" id="sumber_dana" class="form-control" value="{{ $main['datapekerjaan']->sumber_dana }}" disabled>
+                <input type="text" id="sumber_dana" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'sumber_dana') }}" disabled>
                 <label for="" class="small">Tahun Anggaran</label>
-                <input type="text" id="tahun_anggaran" class="form-control" value="{{ $main['datapekerjaan']->tahun_anggaran }}" disabled>
+                <input type="text" id="tahun_anggaran" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'tahun_anggaran') }}" disabled>
                 <label for="" class="small">Jenis Pekerjaan</label>
-                <input type="text" id="jenis_pekerjaan" class="form-control" value="{{ $main['datapekerjaan']->jenis_pekerjaan }}" disabled>
+                <input type="text" id="jenis_pekerjaan" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'jenis_pekerjaan') }}" disabled>
               </div>
             </div>
           </div>
@@ -95,23 +95,23 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="" class="small">Alamat</label>
-                <input type="text" id="alamat" class="form-control" value="{{ $main['dataperusahaan']->alamat }}" disabled>
+                <input type="text" id="alamat" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'alamat') }}" disabled>
               </div>
               <div class="col-md-6">
                 <label for="" class="small">Nama Direktur</label>
-                <input type="text" id="direktur" class="form-control" value="{{ $main['dataperusahaan']->direktur }}" disabled>
+                <input type="text" id="direktur" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'direktur') }}" disabled>
                 <label for="" class="small">Nama Notaris</label>
-                <input type="text" id="notaris" class="form-control" value="{{ $main['dataperusahaan']->nama_notaris }}" disabled>
+                <input type="text" id="notaris" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'nama_notaris') }}" disabled>
                 <label for="" class="small">NPWP</label>
-                <input type="text" id="npwp" class="form-control" value="{{ $main['dataperusahaan']->npwp }}" disabled>
+                <input type="text" id="npwp" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'npwp') }}" disabled>
               </div>
               <div class="col-md-6">
                 <label for="" class="small">Bank/Cabang</label>
-                <input type="text" id="bank" class="form-control" value="{{ $main['dataperusahaan']->bank.' / '.$main['dataperusahaan']->kantor_cabang }}" disabled>
+                <input type="text" id="bank" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'bank').' / '.cekvalue($main['dataperusahaan'],'kantor_cabang') }}" disabled>
                 <label for="" class="small">No Rekening</label>
-                <input type="text" id="no_rek" class="form-control" value="{{ $main['dataperusahaan']->no_rek }}" disabled>
+                <input type="text" id="no_rek" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'no_rek') }}" disabled>
                 <label for="" class="small">No Akta / Tanggal</label>
-                <input type="text" id="akta" class="form-control" value="{{ $main['dataperusahaan']->no_akta.' / '.$main['dataperusahaan']->tanggal_akta }}" disabled>
+                <input type="text" id="akta" class="form-control" value="{{ cekvalue($main['dataperusahaan'],'no_akta').' / '.cekvalue($main['dataperusahaan'],'tanggal_akta') }}" disabled>
               </div>
             </div>
           </div>
@@ -175,9 +175,6 @@
       </div>
     </div>
     </form>
-    <button type="button" class="btn btn-info swalDefaultInfo">
-      Launch Info Toast
-    </button>
   </div>
 </div>
 

@@ -55,7 +55,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor SPPBJ</label>
-                        <input type="text" name="no_sppbj" value="{{ $main['nomor']['sppbj'] }}" class="form-control" required>
+                        <input type="text" name="no_sppbj" value="{{ $main['kontrak']->no_sppbj }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
@@ -77,7 +77,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor BARPK</label>
-                        <input type="text" name="no_barpk" value="{{ $main['nomor']['barpk'] }}" class="form-control" required>
+                        <input type="text" name="no_barpk" value="{{ $main['kontrak']->no_barpk }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
@@ -99,7 +99,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor SPK</label>
-                        <input type="text" name="no_spk" value="{{ $main['nomor']['spk'] }}" class="form-control" required>
+                        <input type="text" name="no_spk" value="{{ $main['kontrak']->no_spk }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
@@ -121,7 +121,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor SPMK</label>
-                        <input type="text" name="no_spmk" value="{{ $main['nomor']['spmk'] }}" class="form-control" required>
+                        <input type="text" name="no_spmk" value="{{ $main['kontrak']->no_spmk }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
@@ -143,7 +143,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor SPL</label>
-                        <input type="text" name="no_spl" value="{{ $main['nomor']['spl'] }}" class="form-control" required>
+                        <input type="text" name="no_spl" value="{{ $main['kontrak']->no_spl }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
@@ -165,7 +165,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Nomor SPP</label>
-                        <input type="text" name="no_spp"  value="{{ $main['nomor']['spp'] }}" class="form-control" required>
+                        <input type="text" name="no_spp"  value="{{ $main['kontrak']->no_spp }}" class="form-control" required>
                     </div>
                 </div>      
                 <div class="col-md-6">
