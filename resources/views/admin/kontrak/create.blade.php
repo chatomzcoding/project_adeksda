@@ -120,8 +120,25 @@
                                 show
                                 @endif" aria-labelledby="headingfour" data-parent="#accordionExample">
                                     <div class="card-body">
-                                    {{-- data dokumen (nomor dan tanggal) --}}
                                     @include('admin.kontrak.section.dokumenspk')
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($main['collapse'] > 4)
+                            <div class="card">
+                                <div class="card-header bg-info p-1" id="headingfive">
+                                    <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapsfive" aria-expanded="false" aria-controls="collapsfive">
+                                        <strong class="text-white">#5 - DATA ADENDUM</strong>
+                                    </button>
+                                    </h2>
+                                </div>
+                                <div id="collapsfive" class="collapse @if ($main['collapse'] == 5)
+                                show
+                                @endif" aria-labelledby="headingfive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                    @include('admin.kontrak.section.adendum')
                                     </div>
                                 </div>
                             </div>

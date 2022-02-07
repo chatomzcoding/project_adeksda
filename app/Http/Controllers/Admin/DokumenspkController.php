@@ -36,7 +36,45 @@ class DokumenspkController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->uraian);
+        $cekdokumenspk  = Dokumenspk::where('kontrak_id',$request->kontrak_id)->first();
+        if ($cekdokumenspk) {
+            Dokumenspk::where('kontrak_id',$request->kontrak_id)->delete();
+        }
+        // save untuk pekerjaan persiapan
+        for ($i=0; $i < count($request->uraian1); $i++) { 
+            Dokumenspk::create([
+                'kontrak_id' => $request->kontrak_id,
+                'label' => 'persiapan',
+                'uraian' => $request->uraian1[$i],
+                'satuan' => $request->satuan1[$i],
+                'kuantitas' => $request->kuantitas1[$i],
+                'harga' => $request->harga1[$i],
+            ]);
+        }
+        // save untuk pekerjaan pelaksana
+        for ($i=0; $i < count($request->uraian2); $i++) { 
+            Dokumenspk::create([
+                'kontrak_id' => $request->kontrak_id,
+                'label' => 'pelaksana',
+                'uraian' => $request->uraian2[$i],
+                'satuan' => $request->satuan2[$i],
+                'kuantitas' => $request->kuantitas2[$i],
+                'harga' => $request->harga2[$i],
+            ]);
+        }
+        // save untuk pekerjaan pembantu
+        for ($i=0; $i < count($request->uraian3); $i++) { 
+            Dokumenspk::create([
+                'kontrak_id' => $request->kontrak_id,
+                'label' => 'pembantu',
+                'uraian' => $request->uraian3[$i],
+                'satuan' => $request->satuan3[$i],
+                'kuantitas' => $request->kuantitas3[$i],
+                'harga' => $request->harga3[$i],
+            ]);
+        }
+
+        return back()->with('successv2','Dokumen SPK sudah ditambahkan');
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Dokumenspk;
 use App\Models\Kategori;
 use App\Models\Kontrak;
 use App\Models\Pekerjaan;
@@ -170,6 +171,16 @@ class KontrakController extends Controller
             $collapse = ($kontrak->tgl_bahp <> NULL) ? 4 : 3 ;
         }
         $nomor  = self::kodeNomor($kontrak);
+        $dokumenspk     = [
+            'persiapan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','persiapan')->get(),
+            'pelaksana' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksana')->get(),
+            'pembantu' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pembantu')->get(),
+        ];
+
+        if ($collapse == 4) {
+            $collapse = (count($dokumenspk['persiapan']) > 0) ? 5 : 4 ;
+        }
+
         $main       = [
             'link' => 'kontrak/'.$kontrak,
             'kontrak' => $kontrak,
@@ -183,6 +194,7 @@ class KontrakController extends Controller
             'dataketua' => Timlokus::find($kontrak->id_ketua),
             'datasekretaris' => Timlokus::find($kontrak->id_sekretaris),
             'dataanggota' => Timlokus::find($kontrak->id_anggota),
+            'dokumenspk' => $dokumenspk
         ];
 
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
