@@ -111,7 +111,7 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/adminuser',$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url('/user',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
@@ -120,7 +120,7 @@
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td><img src="{{ asset('/img/user/'.$item->profile_photo_path)}}" alt="{{ $item->profile_photo_path}}" width="100px"></td>
+                                    <td><img src="{{ asset('/img/user/'.$item->photo)}}" alt="{{ $item->photo}}" width="100px"></td>
                                     <td>{{ $item->name}}</td>
                                     <td>{{ $item->email}}</td>
                                     <td>{{ $item->level}}</td>
@@ -142,7 +142,7 @@
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="{{ url('/adminuser')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/user')}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
             <h4 class="modal-title">Tambah User</h4>
@@ -178,7 +178,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Photo</label>
-                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control col-md-8" required>
+                        <input type="file" name="photo" id="photo" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>
@@ -234,7 +234,7 @@
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Photo (jika ingin diubah)</label>
-                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control col-md-8">
+                        <input type="file" name="photo" id="photo" class="form-control col-md-8">
                     </div>
                 </section>
             </div>

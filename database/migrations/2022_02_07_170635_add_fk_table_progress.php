@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableProgress extends Migration
+class AddFkTableProgress extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTableProgress extends Migration
      */
     public function up()
     {
-        Schema::create('progress', function (Blueprint $table) {
-            $table->id();
-            $table->integer('nilai');
-            $table->string('nilai_panjang');
-            $table->timestamps();
+        Schema::table('progress', function (Blueprint $table) {
+            $table->unsignedBigInteger('kontrak_id')->after('id');
+            $table->foreign('kontrak_id')->references('id')->on('kontrak')->onDelete('cascade');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateTableProgress extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('progress');
+        Schema::table('progress', function (Blueprint $table) {
+            //
+        });
     }
 }

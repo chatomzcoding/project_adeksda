@@ -56,7 +56,7 @@ class UserController extends Controller
         $file = $request->file('photo');
         
         $nama_file = time()."_".$file->getClientOriginalName();
-        $tujuan_upload = 'img/user';
+        $tujuan_upload = 'public/img/user';
         // isi dengan nama folder tempat kemana file diupload
         $file->move($tujuan_upload,$nama_file);
 
@@ -102,9 +102,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        // $user   = User::find($request->id);
+        $user   = User::find($request->id);
         
         if ($request->email <> $user->email) {
             $request->validate([
@@ -121,7 +121,7 @@ class UserController extends Controller
             $file = $request->file('photo');
             
             $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/user';
+            $tujuan_upload = 'public/img/user';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
             deletefile($tujuan_upload.'/'.$user->photo);
