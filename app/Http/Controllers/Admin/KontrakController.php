@@ -35,6 +35,12 @@ class KontrakController extends Controller
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
         $perusahaan     = Perusahaan::all();
 
+        if (isset($_GET['bast'])) {
+            $kontrak    = DB::table('kontrak')
+            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+            ->get();
+            return view('admin.bast.index', compact('menu','main','kontrak'));
+        }
         if (isset($_GET['sesi'])) {
             $user       = User::where('level','konsultan')->get();
             $kontrak    = DB::table('kontrak_akses')
