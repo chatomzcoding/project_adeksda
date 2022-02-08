@@ -11,6 +11,12 @@
   </a>
 </li>
 <li class="nav-item">
+  <a href="{{ url('/kontrak?sesi=rekapitulasi')}}" class="nav-link">
+    <i class="nav-icon fas fa-file"></i>
+    <p class="text">REKAP PROGRESS</p>
+  </a>
+</li>
+<li class="nav-item">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-layer-group"></i>
       <p>
