@@ -42,7 +42,7 @@
                 <div class="info-box-content">
                   <span class="info-box-text">Kontrak yang dipegang</span>
                   <span class="info-box-number">
-                        1
+                        {{ count($kontrakakses) }}
                   </span>
                 </div>
               </div>
@@ -70,7 +70,6 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a>
                     <div class="float-right">
                         <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
@@ -82,16 +81,53 @@
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <select name="sumber_dana" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- Pilih Kontrak --</option>
+                                <select name="kontrak" id="" class="form-control select2bs4"  style="width: 100%;" onchange="this.form.submit();">
+                                    <option value="semua" selected="selected">-- Pilih Kontrak --</option>
                                     @foreach ($kontrak as $item)
-                                        <option value="{{ $item->id }}">{{ strtoupper($item->masa_kontrak) }}</option>
+                                        <option value="{{ $item->idkontrak }}" @if ($id == $item->idkontrak)
+                                            selected
+                                        @endif>{{ strtoupper($item->kode_kegiatan.' | '.$item->nama_kegiatan) }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </form>
                   </section>
+                  @if ($dkontrak)
+                  <section class="mb-3">
+                    <form action="{{ url('kontrakakses') }}" method="post">
+                      @csrf
+                      <input type="hidden" name="id" value="{{ $dkontrak->idkontrak }}">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="" class="small">Nama Paket</label>
+                          <input type="text" id="nama_paket" class="form-control" value="{{ $dkontrak->nama_paket }}" disabled>
+                          <label for="" class="small">Sub Kegiatan</label>
+                          <input type="text" id="sub_kegiatan" class="form-control" value="{{ $dkontrak->sub_kegiatan }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="" class="small">Kode Tender</label>
+                          <input type="text" id="kode_tender" class="form-control" value="{{ $dkontrak->kode_tender }}" disabled>
+                          <label for="" class="small">Kode Belanja</label>
+                          <input type="text" id="kode_belanja" class="form-control" value="{{ $dkontrak->kode_belanja }}" disabled>
+                          <label for="" class="small">Kecamatan</label>
+                          <input type="text" id="kecamatan" class="form-control" value="{{ $dkontrak->kecamatan }}" disabled>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="" class="small">Sumber Dana</label>
+                          <input type="text" id="sumber_dana" class="form-control" value="{{ $dkontrak->sumber_dana }}" disabled>
+                          <label for="" class="small">Tahun Anggaran</label>
+                          <input type="text" id="tahun_anggaran" class="form-control" value="{{ $dkontrak->tahun_anggaran }}" disabled>
+                          <label for="" class="small">Jenis Pekerjaan</label>
+                          <input type="text" id="jenis_pekerjaan" class="form-control" value="{{ $dkontrak->jenis_pekerjaan }}" disabled>
+                        </div>
+                        <div class="col-md-12 text-right">
+                          <button type="submit" class="btn btn-outline-primary">PILIH KONTRAK</button>
+                        </div>
+                      </div>
+                    </form>
+                  </section>
+                  @endif
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -108,7 +144,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @forelse ($kontrak as $item)
+                            @forelse ($kontrakakses as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">

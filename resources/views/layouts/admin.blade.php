@@ -54,7 +54,7 @@
   <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2/css/select2.min.css') }}">
   <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
   @yield('head')
-  {{-- @livewireStyles --}}
+  @livewireStyles
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -319,7 +319,7 @@
 {{-- <script src=" {{ asset('template/admin/lte/plugins/sweetalert2/sweetalert2.min.js')}}"></script> --}}
 
 {{-- javascript chatomz --}}
-<script src="{{ asset('/js/chatomz.js')}}"></script>
+<script src="{{ asset('js/chatomz.js')}}"></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -332,7 +332,7 @@
 @yield('script')
 @stack('modals')
 
-{{-- @livewireScripts --}}
+@livewireScripts
 
 </body>
 </html>

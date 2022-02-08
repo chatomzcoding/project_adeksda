@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Konsultan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kontrak;
 use App\Models\Kontrakakses;
+use App\Models\Pekerjaan;
+use App\Models\Progress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KontrakaksesController extends Controller
 {
@@ -36,7 +40,15 @@ class KontrakaksesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kontrakakses::create([
+            'user_id' => Auth::user()->id,
+            'kontrak_id' => $request->id,
+            'tgl_ambil' => tgl_sekarang()
+        ]);
+
+        $kontrakakses   = Kontrakakses::where('kontrak_id',$request->id)->first();
+
+        return redirect('/kontrakakses/'.$kontrakakses->id);
     }
 
     /**
@@ -45,9 +57,19 @@ class KontrakaksesController extends Controller
      * @param  \App\Models\Kontrakakses  $kontrakakses
      * @return \Illuminate\Http\Response
      */
-    public function show(Kontrakakses $kontrakakses)
+    public function show($kontrakakses)
     {
-        //
+        $menu   = 'kontrak';
+        $main   = [
+            'main' => 'kontrakakses'
+        ];
+        $kontrakakses   = Kontrakakses::find($kontrakakses);
+        $kontrak    = Kontrak::find($kontrakakses->kontrak_id);
+        $pekerjaan  = Pekerjaan::find($kontrak->pekerjaan_id);
+        $progress   = Progress::where('kontrak_id',$kontrak->id)->get();
+
+        return view('konsultan.kontrak.show', compact('menu','main','kontrakakses','kontrak','progress','pekerjaan'));
+        
     }
 
     /**

@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class KontrakController extends Controller
 {
@@ -38,7 +39,22 @@ class KontrakController extends Controller
             return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
             # code...
         } else {
-            return view('konsultan.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+            $id = (isset($_GET['kontrak'])) ? $_GET['kontrak'] : NULL ;
+            $dkontrak       = DB::table('kontrak')
+                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                ->where('kontrak.id',$id)
+                                ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                ->first();
+            $kontrak        = DB::table('kontrak')
+                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                ->get();
+            $kontrakakses   = DB::table('kontrak_akses')
+                                ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                                ->where('kontrak_akses.user_id',$user->id)
+                                ->get();
+            
+            return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));
         }
         
 
@@ -251,15 +267,17 @@ class KontrakController extends Controller
         if ($kontrakterakhir) {
             $nomorspp       = explode('/',$kontrakterakhir->no_spp);
             $no_akhir       = $nomorspp[1];
+            $no_akhir       = $no_akhir + 1;
             for ($i=0; $i < count($list); $i++) { 
-                if ($no_akhir > 0 AND $no_akhir < 10) {
-                    $urutan = '000'.$no_akhir;
-                }elseif ($no_akhir > 9 AND $no_akhir < 100) {
-                    $urutan = '00'.$no_akhir;
-                }elseif ($no_akhir > 99 AND $no_akhir < 1000) {
-                    $urutan = '0'.$no_akhir;
+                $no = $no_akhir + $i;
+                if ($no > 0 AND $no < 10) {
+                    $urutan = '000'.$no;
+                }elseif ($no > 9 AND $no < 100) {
+                    $urutan = '00'.$no;
+                }elseif ($no > 99 AND $no < 1000) {
+                    $urutan = '0'.$no;
                 } else {
-                    $urutan = $no_akhir;
+                    $urutan = $no;
                 }
                 $nomor[] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
             }
