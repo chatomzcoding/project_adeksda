@@ -20,57 +20,43 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
+                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total User</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-siswa']}} --}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
             </div>
             {{-- end col --}}
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">User Admin</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-l']}} --}}
+                        {{ $main['statistik']['admin']}}
                   </span>
                 </div>
               </div>
             </div>
             {{-- end col --}}
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">User Konsultan</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
+                        {{ $main['statistik']['konsultan']}}
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
         <!-- left column -->
@@ -99,31 +85,40 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
+                                <th width="10%">Aksi</th>
                                 <th>Photo</th>
                                 <th>Nama User</th>
                                 <th>Email</th>
                                 <th>Level</th>
                             </tr>
                         </thead>
-                        <tbody class="text-capitalize">
+                        <tbody>
                             @forelse ($user as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/user',$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <button type="button" data-toggle="modal" data-name="{{ $item->name }}" data-email="{{ $item->email }}" data-level="{{ $item->level }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                  <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu" role="menu">
+                                                    <button type="button" data-toggle="modal" data-name="{{ $item->name }}" data-email="{{ $item->email }}" data-level="{{ $item->level }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT
+                                                    </button>
+                                                  <div class="dropdown-divider"></div>
+                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</button>
+                                                </div>
+                                            </div>
                                     </td>
                                     <td><img src="{{ asset('/img/user/'.$item->photo)}}" alt="{{ $item->photo}}" width="100px"></td>
                                     <td>{{ $item->name}}</td>
                                     <td>{{ $item->email}}</td>
-                                    <td>{{ $item->level}}</td>
+                                    <td class="text-center">{{ $item->level}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -153,15 +148,15 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama </label>
+                        <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
                         <input type="text" name="name" id="name" class="form-control col-md-8" placeholder="Nama User" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">email</label>
+                        <label for="" class="col-md-4 p-2">email{!! ireq() !!}</label>
                         <input type="text" name="email" id="email" class="form-control col-md-8" placeholder="Alamat Email" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Level</label>
+                        <label for="" class="col-md-4 p-2">Level{!! ireq() !!}</label>
                         <select name="level" id="level" class="form-control col-md-8">
                             @foreach (list_leveluser() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
@@ -169,15 +164,15 @@
                         </select>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Password</label>
+                        <label for="" class="col-md-4 p-2">Password{!! ireq() !!}</label>
                         <input type="password" name="password" id="password" class="form-control col-md-8" placeholder="********" required  autocomplete="off">
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Ulangi Password</label>
+                        <label for="" class="col-md-4 p-2">Ulangi Password{!! ireq() !!}</label>
                         <input type="password" name="password_confirmation" id="password" class="form-control col-md-8" placeholder="********" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Photo</label>
+                        <label for="" class="col-md-4 p-2">Photo{!! ireq() !!}</label>
                         <input type="file" name="photo" id="photo" class="form-control col-md-8" required>
                     </div>
                 </section>
@@ -209,20 +204,23 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama </label>
+                        <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
                         <input type="text" name="name" id="name" class="form-control col-md-8" placeholder="Nama User" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">email</label>
+                        <label for="" class="col-md-4 p-2">email{!! ireq() !!}</label>
                         <input type="text" name="email" id="email" class="form-control col-md-8" placeholder="Alamat Email" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Level</label>
+                        <label for="" class="col-md-4 p-2">Level{!! ireq() !!}</label>
                         <select name="level" id="level" class="form-control col-md-8">
                             @foreach (list_leveluser() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="callout callout-warning">
+                        Abaikan form password jika tidak ingin merubah password
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Password</label>

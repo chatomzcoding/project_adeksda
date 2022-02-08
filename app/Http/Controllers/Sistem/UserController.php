@@ -24,7 +24,16 @@ class UserController extends Controller
     {
         $menu   = 'user';
         $user   = User::all();
-        return view('admin.user.index', compact('menu','user'));
+        $main   = [
+            'statistik' => [
+                'total' => count($user),
+                'admin' => User::where('level','admin')->count(),
+                'konsultan' => User::where('level','konsultan')->count(),
+            ],
+            'link' => 'user'
+        ];
+
+        return view('admin.user.index', compact('menu','main','user'));
     }
 
     /**
@@ -47,7 +56,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+            'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             'password' => 'min:6',
             'password_confirmation' => 'required_with:password|same:password|min:6',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
