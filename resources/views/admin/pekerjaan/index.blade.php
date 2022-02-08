@@ -23,57 +23,30 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total Pekerjaan</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-siswa']}} --}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
             </div>
             {{-- end col --}}
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total Kecamatan</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-l']}} --}}
+                        {{ $main['statistik']['kecamatan']}}
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -83,9 +56,10 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="{{ url('pekerjaan') }}" class="btn btn-outline-secondary btn-sm pop-info" title="bersihkan" ><i class="fas fa-sync"></i> Bersihkan Filter</a>
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a> --}}
+                        {{-- <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
@@ -93,9 +67,44 @@
                   <section class="mb-3">
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
-                            <div class="form-group col-md-2">
-                                <select name="jk" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- semua jenis kelamin --</option>
+                            <div class="form-group col-md-3">
+                                <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- Jenis Pekerjaan --</option>
+                                    @foreach ($jenispekerjaan as $item)
+                                        <option value="{{ $item->nama }}" @if ($main['f']['jenis_pekerjaan'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="kecamatan" id="kecamatan" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- Kecamatan --</option>
+                                    @foreach ($kecamatan as $item)
+                                        <option value="{{ $item->nama }}" @if ($main['f']['kecamatan'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="sumber_dana" id="sumber_dana" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- Sumber Dana --</option>
+                                    @foreach ($sumberdana as $item)
+                                        <option value="{{ $item->nama }}" @if ($main['f']['sumber_dana'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select name="tahun_anggaran" id="tahun_anggaran" class="form-control" onchange="this.form.submit();">
+                                    <option value="semua">-- Tahun Anggaran --</option>
+                                    @for ($i = ambil_tahun(); $i > 2010; $i--)
+                                        <option value="{{ $i }}" @if ($main['f']['tahun_anggaran'] == $i)
+                                            selected
+                                        @endif>{{ $i}}</option>
+                                    @endfor
                                 </select>
                             </div>
                         </div>
@@ -111,6 +120,7 @@
                                 <th>Nama Paket Pekerjaan</th>
                                 <th>Alamat</th>
                                 <th>Sumber Dana</th>
+                                <th>Jenis</th>
                                 <th>Tahun Anggaran</th>
                             </tr>
                         </thead>
@@ -140,11 +150,12 @@
                                     <td>{{ $item->nama_paket}}</td>
                                     <td>{{ $item->kecamatan}}</td>
                                     <td>{{ $item->sumber_dana}}</td>
+                                    <td>{{ $item->jenis_pekerjaan}}</td>
                                     <td>{{ $item->tahun_anggaran}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="7" class="font-italic">-- belum ada data --</td>
+                                    <td colspan="8" class="font-italic">-- belum ada data --</td>
                                 </tr>
                             @endforelse
                     </table>
@@ -272,39 +283,78 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Kode Kegiatan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                            <input type="text" name="kode_kegiatan" id="kode_kegiatan" maxlength="16" value="{{ old('kode_kegiatan') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Kode Tender {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                            <input type="text" name="kode_tender" id="kode_tender" value="{{ old('kode_tender') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Jabatan {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Nama Kegiatan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" class="form-control" required>
+                            <input type="text" name="nama_kegiatan" id="nama_kegiatan" value="{{ old('nama_kegiatan') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">No SK</label>
+                        <label for="" class="col-md-4 p-2">Sub Kegiatan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="no_sk" id="no_sk" value="{{ old('no_sk') }}" class="form-control">
+                            <input type="text" name="sub_kegiatan" id="sub_kegiatan" value="{{ old('sub_kegiatan') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tanggal</label>
+                        <label for="" class="col-md-4 p-2">Nama Paket {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" class="form-control">
+                            <input type="text" name="nama_paket" id="nama_paket" value="{{ old('nama_paket') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Perihal</label>
+                        <label for="" class="col-md-4 p-2">Kecamatan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                            <select name="kecamatan" id="kecamatan" class="form-control" required>
+                                <option value="">-- pilih kecamatan --</option>
+                                @foreach ($kecamatan as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Kode Belanja {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="kode_belanja" id="kode_belanja" value="{{ old('kode_belanja') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Sumber Dana {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <select name="sumber_dana" id="sumber_dana" class="form-control" required>
+                                <option value="">-- pilih sumber dana --</option>
+                                @foreach ($sumberdana as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Tahun Anggaran {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="tahun_anggaran" id="tahun_anggaran" value="{{ old('tahun_anggaran') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Jenis Pekerjaan {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <select name="jenis_pekerjaan" id="jenis_pekerjaan" class="form-control" required>
+                                <option value="">-- pilih jenis pekerjaan --</option>
+                                @foreach ($jenispekerjaan as $item)
+                                    <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </section>
@@ -347,22 +397,30 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama = button.data('nama')
-                var nip = button.data('nip')
-                var tanggal = button.data('tanggal')
-                var jabatan = button.data('jabatan')
-                var no_sk = button.data('no_sk')
-                var perihal = button.data('perihal')
+                var kode_kegiatan = button.data('kode_kegiatan')
+                var kode_tender = button.data('kode_tender')
+                var nama_kegiatan = button.data('nama_kegiatan')
+                var sub_kegiatan = button.data('sub_kegiatan')
+                var nama_paket = button.data('nama_paket')
+                var kecamatan = button.data('kecamatan')
+                var kode_belanja = button.data('kode_belanja')
+                var sumber_dana = button.data('sumber_dana')
+                var tahun_anggaran = button.data('tahun_anggaran')
+                var jenis_pekerjaan = button.data('jenis_pekerjaan')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #nip').val(nip);
-                modal.find('.modal-body #tanggal').val(tanggal);
-                modal.find('.modal-body #jabatan').val(jabatan);
-                modal.find('.modal-body #no_sk').val(no_sk);
-                modal.find('.modal-body #perihal').val(perihal);
+                modal.find('.modal-body #kode_kegiatan').val(kode_kegiatan);
+                modal.find('.modal-body #kode_tender').val(kode_tender);
+                modal.find('.modal-body #nama_kegiatan').val(nama_kegiatan);
+                modal.find('.modal-body #sub_kegiatan').val(sub_kegiatan);
+                modal.find('.modal-body #nama_paket').val(nama_paket);
+                modal.find('.modal-body #kecamatan').val(kecamatan);
+                modal.find('.modal-body #kode_belanja').val(kode_belanja);
+                modal.find('.modal-body #sumber_dana').val(sumber_dana);
+                modal.find('.modal-body #tahun_anggaran').val(tahun_anggaran);
+                modal.find('.modal-body #jenis_pekerjaan').val(jenis_pekerjaan);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

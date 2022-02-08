@@ -18,14 +18,25 @@ class PekerjaanController extends Controller
     public function index()
     {
         $menu   = 'pekerjaan';
-        $main   = [
-            'link' => 'pekerjaan'
-        ];
-        $pekerjaan  = Pekerjaan::all();
+        $pekerjaan          = Pekerjaan::orderBy('id','DESC')->get();
+        $totalpekerjaan     = count($pekerjaan);
+      
+        $filter         = ['tahun_anggaran','sumber_dana','jenis_pekerjaan','kecamatan'];
+        $data          = datafilter($pekerjaan,$filter);
+
+        $pekerjaan      = $data['list'];
+        
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
         $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
-
+        $main   = [
+            'link' => 'pekerjaan',
+            'statistik' => [
+                'total' => $totalpekerjaan,
+                'kecamatan' => count($kecamatan),
+            ],
+            'f' => $data['filter']
+        ];
         return view('admin.pekerjaan.index', compact('menu','main','pekerjaan','kecamatan','sumberdana','jenispekerjaan'));
         
     }
@@ -67,7 +78,7 @@ class PekerjaanController extends Controller
             Kontrak::where('id',$request->id)->update([
                 'pekerjaan_id' => $pekerjaan->id
             ]);
-            return back()->with('swalsuccess','Pekerjaan dengan Kode Kegiatan '.$request->kode_kegiatan.' dan nama kegiatan '.$request->nama_kegiatan.' telah ditambahkan pada kontrak');
+            return back()->with('successv2','Pekerjaan dengan Kode Kegiatan '.$request->kode_kegiatan.' dan nama kegiatan '.$request->nama_kegiatan.' telah ditambahkan pada kontrak');
         }
         return back()->with('ds','Pekerjaan');
     }
@@ -101,9 +112,22 @@ class PekerjaanController extends Controller
      * @param  \App\Models\Pekerjaan  $pekerjaan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pekerjaan $pekerjaan)
+    public function update(Request $request)
     {
-        //
+        Pekerjaan::where('id',$request->id)->update([
+            'kode_kegiatan' => $request->kode_kegiatan,
+            'nama_kegiatan' => $request->nama_kegiatan,
+            'kode_tender' => $request->kode_tender,
+            'nama_paket' => $request->nama_paket,
+            'sub_kegiatan' => $request->sub_kegiatan,
+            'kecamatan' => $request->kecamatan,
+            'kode_belanja' => $request->kode_belanja,
+            'sumber_dana' => $request->sumber_dana,
+            'tahun_anggaran' => $request->tahun_anggaran,
+            'jenis_pekerjaan' => $request->jenis_pekerjaan,
+        ]);
+
+        return back()->with('successv2','Pekerjaan berhasil diperbaharui');
     }
 
     /**
@@ -114,6 +138,8 @@ class PekerjaanController extends Controller
      */
     public function destroy(Pekerjaan $pekerjaan)
     {
-        //
+        $pekerjaan->delete();
+
+        return back()->with('successv2','Pekerjaan berhasil dihapus');
     }
 }
