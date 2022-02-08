@@ -23,57 +23,17 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total Tim Teknis</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-siswa']}} --}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-l']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -84,13 +44,13 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a> --}}
+                        {{-- <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <section class="mb-3">
+                  {{-- <section class="mb-3">
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-2">
@@ -100,15 +60,15 @@
                             </div>
                         </div>
                     </form>
-                  </section>
+                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
-                                <th>NIP</th>
                                 <th>Nama</th>
+                                <th>NIP</th>
                                 <th>Jabatan</th>
                                 <th>No SK</th>
                                 <th>Tanggal</th>
@@ -137,8 +97,8 @@
                                                 </div>
                                             </div>
                                     </td>
-                                    <td>{{ $item->nip}}</td>
                                     <td>{{ $item->nama}}</td>
+                                    <td>{{ $item->nip}}</td>
                                     <td>{{ $item->jabatan}}</td>
                                     <td>{{ $item->no_sk}}</td>
                                     <td>{{ $item->tanggal}}</td>
@@ -171,15 +131,15 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
                             <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -203,7 +163,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Perihal</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                            <textarea name="perihal" id="perihal" cols="30" rows="3" class="form-control">{{ old('perihal') }}</textarea>
                         </div>
                     </div>
                 </section>
@@ -235,15 +195,15 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
-                        <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
                             <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -267,7 +227,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Perihal</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                            <textarea name="perihal" id="perihal" cols="30" rows="3" class="form-control">{{ old('perihal') }}</textarea>
                         </div>
                     </div>
                 </section>

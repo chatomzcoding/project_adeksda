@@ -17,9 +17,12 @@ class TimlokusController extends Controller
     public function index()
     {
         $menu       = 'timlokus';
-        $timlokus   = Timlokus::all();
+        $timlokus   = Timlokus::orderBy('id','DESC')->get();
         $main       = [
-            'link' => 'timteknis'
+            'link' => 'timteknis',
+            'statistik' => [
+                'total' => count($timlokus)
+            ]
         ];
         return view('admin.timlokus.index', compact('menu','timlokus','main'));
     }
@@ -52,15 +55,15 @@ class TimlokusController extends Controller
         ]);
 
         // cek jika ditambahkan di create kontrak maka otomatis kontrak diupdate field timlokus_id
-        $timlokus  = Timlokus::where('nip',$request->nip)->first();
         if (isset($request->id)) {
+            $timlokus  = Timlokus::where('nip',$request->nip)->first();
             Kontrak::where('id',$request->id)->update([
                 $request->posisi => $timlokus->id
             ]);
-            return back()->with('swalsuccess','Tim Lokus dengan NIP '.$request->nip.' atas nama '.$request->nama.' telah ditambahkan pada kontrak');
+            return back()->with('successv2','Tim Teknis dengan NIP '.$request->nip.' atas nama '.$request->nama.' telah ditambahkan pada kontrak');
         }
 
-        return back()->with('ds','Tim Lokus');
+        return back()->with('ds','Tim Teknis');
     }
 
     /**
@@ -92,9 +95,18 @@ class TimlokusController extends Controller
      * @param  \App\Models\Timlokus  $timlokus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Timlokus $timlokus)
+    public function update(Request $request)
     {
-        //
+        Timlokus::where('id',$request->id)->update([
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
+            'no_sk' => $request->no_sk,
+            'tanggal' => $request->tanggal,
+            'perihal' => $request->perihal,
+        ]);
+
+        return back()->with('successv2','Tim Teknis berhasil diperbaharui');
     }
 
     /**
@@ -103,8 +115,10 @@ class TimlokusController extends Controller
      * @param  \App\Models\Timlokus  $timlokus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Timlokus $timlokus)
+    public function destroy($timlokus)
     {
-        //
+        Timlokus::find($timlokus)->delete();
+
+        return back()->with('successv2','Tim Teknis berhasil dihapus');
     }
 }
