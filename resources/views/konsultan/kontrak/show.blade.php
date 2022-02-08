@@ -86,8 +86,8 @@
                                             </div>
                                     </td>
                                       <td>{{ $item->created_at }}</td>                                        
-                                      <td>{{ $item->nilai }}</td>                                        
-                                      <td>{{ $item->nilai_panjang }}</td>                                        
+                                      <td class="text-center">{{ $item->nilai }}%</td>                                        
+                                      <td class="text-center">{{ $item->nilai_panjang }} m</td>                                        
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -101,6 +101,45 @@
           </div>
         </div>
     </div>
+
+    
+    <div class="modal fade" id="tambah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('progress')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="kontrak_id" value="{{ $kontrak->id }}">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Data Progress</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nilai Progress (%) {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="number" name="nilai" id="nilai" maxlength="9" value="{{ old('nilai') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nilai Panjang (m){!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="number" name="nilai_panjang" id="nilai_panjang" maxlength="9" value="{{ old('nilai_panjang') }}" class="form-control" required>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 
     {{-- modal info --}}
     <div class="modal fade" id="info">

@@ -36,7 +36,9 @@ class ProgressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Progress::create($request->all());
+
+        return back()->with('ds','Progress');
     }
 
     /**

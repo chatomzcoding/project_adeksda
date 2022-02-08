@@ -166,7 +166,7 @@
           </div>
           <div class="col-md-4">
             <label>Jika belum ada data!</label><br>
-            <a href="#" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#tambahtimlokus">Tambah Tim Lokus Baru</a>
+            <a href="#" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#tambahtimlokus">Tambah Tim Teknis Baru</a>
             <hr>
             <button class="btn btn-outline-secondary" type="button" onclick="stepper.previous()"><i class="fas fa-angle-double-left"></i> Sebelumnya</button>
             <button type="submit" class="btn btn-outline-secondary float-right"> TAHAP SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>

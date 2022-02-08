@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\InfowebsiteController;
 use App\Http\Controllers\Admin\KontrakController;
 use App\Http\Controllers\Admin\PekerjaanController;
 use App\Http\Controllers\Admin\PerusahaanController;
+use App\Http\Controllers\Admin\ProgressController;
 use App\Http\Controllers\Admin\TimlokusController;
 use App\Http\Controllers\Konsultan\KontrakaksesController;
 use App\Http\Controllers\Sistem\UserController;
@@ -47,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('datapokok', DatapokokController::class);
     });
     Route::resource('kontrak', KontrakController::class);
+    Route::resource('progress', ProgressController::class);
     Route::resource('kontrakakses', KontrakaksesController::class);
 
     Route::resource('user', UserController::class);

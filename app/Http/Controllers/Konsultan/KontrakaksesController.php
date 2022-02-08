@@ -61,7 +61,7 @@ class KontrakaksesController extends Controller
     {
         $menu   = 'kontrak';
         $main   = [
-            'main' => 'kontrakakses'
+            'link' => 'progress'
         ];
         $kontrakakses   = Kontrakakses::find($kontrakakses);
         $kontrak    = Kontrak::find($kontrakakses->kontrak_id);

@@ -52,6 +52,7 @@ class KontrakController extends Controller
             $kontrakakses   = DB::table('kontrak_akses')
                                 ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
                                 ->where('kontrak_akses.user_id',$user->id)
+                                ->select('kontrak.*','kontrak_akses.id as idakses')
                                 ->get();
             
             return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));

@@ -158,7 +158,7 @@
                                                   <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                  <a href="{{ url('kontrakakses/'.$item->idakses) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
                                                   <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
                                                 </div>
