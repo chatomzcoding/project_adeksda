@@ -17,10 +17,13 @@ class PerusahaanController extends Controller
     public function index()
     {
         $menu   = 'perusahaan';
+        $perusahaan     = Perusahaan::orderBy('id','DESC')->get();
         $main   = [
-            'link' => 'perusahaan'
+            'link' => 'perusahaan',
+            'statistik' => [
+                'total' => count($perusahaan)
+            ]
         ];
-        $perusahaan     = Perusahaan::all();
 
         return view('admin.perusahaan.index', compact('menu','main','perusahaan'));
     }
@@ -95,9 +98,22 @@ class PerusahaanController extends Controller
      * @param  \App\Models\Perusahaan  $perusahaan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Perusahaan $perusahaan)
+    public function update(Request $request)
     {
-        //
+        Perusahaan::where('id',$request->id)->update([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'direktur' => $request->direktur,
+            'alamat' => $request->alamat,
+            'bank' => $request->bank,
+            'kantor_cabang' => $request->kantor_cabang,
+            'no_rek' => $request->no_rek,
+            'npwp' => $request->npwp,
+            'no_akta' => $request->no_akta,
+            'tanggal_akta' => $request->tanggal_akta,
+            'nama_notaris' => $request->nama_notaris,
+        ]);
+
+        return back()->with('successv2','Perusahaan berhasil diperbaharui');
     }
 
     /**
@@ -108,6 +124,7 @@ class PerusahaanController extends Controller
      */
     public function destroy(Perusahaan $perusahaan)
     {
-        //
+        $perusahaan->delete();
+        return back()->with('successv2','Perusahaan berhasil dihapus');
     }
 }

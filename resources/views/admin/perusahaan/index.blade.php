@@ -23,57 +23,17 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total Perusahaan</span>
                   <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-siswa']}} --}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-l']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -84,13 +44,13 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah</a>
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a> --}}
+                        {{-- <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <section class="mb-3">
+                  {{-- <section class="mb-3">
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-2">
@@ -100,7 +60,7 @@
                             </div>
                         </div>
                     </form>
-                  </section>
+                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -171,7 +131,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Nama Perusahaan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nama_perusahaan" id="nama_perusahaan" maxlength="16" value="{{ old('nama_perusahaan') }}" class="form-control" required>
+                            <input type="text" name="nama_perusahaan" id="nama_perusahaan"  value="{{ old('nama_perusahaan') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -257,39 +217,63 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Nama Perusahaan {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                            <input type="text" name="nama_perusahaan" id="nama_perusahaan" value="{{ old('nama_perusahaan') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Nama Direktur {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                            <input type="text" name="direktur" id="direktur" value="{{ old('direktur') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Jabatan {!! ireq() !!}</label>
+                        <label for="" class="col-md-4 p-2">Alamat {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" class="form-control" required>
+                            <input type="text" name="alamat" id="alamat" value="{{ old('alamat') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">No SK</label>
+                        <label for="" class="col-md-4 p-2">Nama Bank {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="no_sk" id="no_sk" value="{{ old('no_sk') }}" class="form-control">
+                            <input type="text" name="bank" id="bank" value="{{ old('bank') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Tanggal</label>
+                        <label for="" class="col-md-4 p-2">Kantor Cabang {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal') }}" class="form-control">
+                            <input type="text" name="kantor_cabang" id="kantor_cabang" value="{{ old('kantor_cabang') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Perihal</label>
+                        <label for="" class="col-md-4 p-2">No Rekening {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="perihal" id="perihal" value="{{ old('perihal') }}" class="form-control">
+                            <input type="text" name="no_rek" id="no_rek" value="{{ old('no_rek') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">NPWP {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="npwp" id="npwp" value="{{ old('npwp') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">No Akta {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="no_akta" id="no_akta" value="{{ old('no_akta') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Tanggal Akta {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="date" name="tanggal_akta" id="tanggal_akta" value="{{ old('tanggal_akta') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Notaris {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="text" name="nama_notaris" id="nama_notaris" value="{{ old('nama_notaris') }}" class="form-control" required>
                         </div>
                     </div>
                 </section>
@@ -332,22 +316,30 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama = button.data('nama')
-                var nip = button.data('nip')
-                var tanggal = button.data('tanggal')
-                var jabatan = button.data('jabatan')
-                var no_sk = button.data('no_sk')
-                var perihal = button.data('perihal')
+                var nama_perusahaan = button.data('nama_perusahaan')
+                var direktur = button.data('direktur')
+                var alamat = button.data('alamat')
+                var bank = button.data('bank')
+                var kantor_cabang = button.data('kantor_cabang')
+                var no_rek = button.data('no_rek')
+                var npwp = button.data('npwp')
+                var no_akta = button.data('no_akta')
+                var tanggal_akta = button.data('tanggal_akta')
+                var nama_notaris = button.data('nama_notaris')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #nip').val(nip);
-                modal.find('.modal-body #tanggal').val(tanggal);
-                modal.find('.modal-body #jabatan').val(jabatan);
-                modal.find('.modal-body #no_sk').val(no_sk);
-                modal.find('.modal-body #perihal').val(perihal);
+                modal.find('.modal-body #nama_perusahaan').val(nama_perusahaan);
+                modal.find('.modal-body #direktur').val(direktur);
+                modal.find('.modal-body #alamat').val(alamat);
+                modal.find('.modal-body #bank').val(bank);
+                modal.find('.modal-body #kantor_cabang').val(kantor_cabang);
+                modal.find('.modal-body #no_rek').val(no_rek);
+                modal.find('.modal-body #npwp').val(npwp);
+                modal.find('.modal-body #no_akta').val(no_akta);
+                modal.find('.modal-body #tanggal_akta').val(tanggal_akta);
+                modal.find('.modal-body #nama_notaris').val(nama_notaris);
                 modal.find('.modal-body #id').val(id);
             })
         </script>
