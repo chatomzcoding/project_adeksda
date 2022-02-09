@@ -206,15 +206,15 @@
                   </div>
               </div>
               <div class="form-group row">
-                  <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
-                  <div class="col-md-8 p-0">
-                      <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
-                  </div>
-              </div>
-              <div class="form-group row">
                   <label for="" class="col-md-4 p-2">Nama {!! ireq() !!}</label>
                   <div class="col-md-8 p-0">
                       <input type="text" name="nama" id="nama" value="{{ old('nama') }}" class="form-control" required>
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
+                  <div class="col-md-8 p-0">
+                      <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
                   </div>
               </div>
               <div class="form-group row">

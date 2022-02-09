@@ -250,6 +250,15 @@ class KontrakController extends Controller
      */
     public function show($kontrak)
     {
+        $list       = 'Pengukuran Kembali/Uitzet	1.00	ls	1,250,000.00	1,250,000.00	
+        Informasi Kegiatan	1.00	ls	300,000.00	300,000.00	
+        Direksikeet	1.00	Sewa	1,000,000.00	1,000,000.00	
+        SMK 3	1.00	Paket	1,650,000.00	1,650,000.00	
+        Pembayaran Iuran BPJS	1.00	Paket	395,500.00	395,500.00	
+        ';
+        $data   = explode("\t\n",$list);
+        dd($data);
+        die();
         $menu       = 'kontrak';
         $kontrak    = Kontrak::find(Crypt::decryptString($kontrak));
         $collapse   = 2;
