@@ -172,7 +172,14 @@
                                         <td>{{ $item->tgl_spk }}</td>                                        
                                         <td>{{ $item->nilai_pekerjaan }}</td>                                        
                                         <td>{{ $item->nama_perusahaan }}</td>                                        
-                                        <td>-</td>                                        
+                                        <td class="text-center">
+                                          @php
+                                              $progress = App\Models\Progress::where('kontrak_id',$item->kontrak_id)->orderBy('id','DESC')->first()
+                                          @endphp  
+                                          @if ($progress)
+                                              {{ $progress->nilai }}%
+                                          @endif
+                                        </td>                                        
                                   </tr>
                               @empty
                                   <tr class="text-center">
