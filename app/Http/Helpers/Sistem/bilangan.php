@@ -4,7 +4,14 @@
 if (! function_exists('rupiah')) {
     function rupiah($angka)
     {
-        $hasil_rupiah = "Rp " . number_format($angka,2,',','.');
+        // cek jika ada desimal
+       $drp    = explode('.',$angka);
+       if(count($drp) == 2) {
+            $hasil_rupiah = "Rp " . number_format($drp[0],2,',','.');
+            $hasil_rupiah = str_replace(',00',','.$drp[1],$hasil_rupiah);
+       } else {
+            $hasil_rupiah = number_format($angka,2,',','.');
+       }
         return $hasil_rupiah;
     }
 }
@@ -13,8 +20,8 @@ if (! function_exists('norupiah')) {
     {
         $hasil_rupiah = $custom;
         if (!is_null($angka)) {
+           
             $hasil_rupiah = number_format($angka,2,',','.');
-            $hasil_rupiah = str_replace(',00','',$hasil_rupiah);
         }
         return $hasil_rupiah;
     }
@@ -118,6 +125,7 @@ if (! function_exists('default_nilai')) {
     {
         $nilai = str_replace('Rp. ', '', $nilai);
         $nilai = str_replace('.', '', $nilai);
+        $nilai = str_replace(',', '.', $nilai);
         return $nilai;
     }
 }

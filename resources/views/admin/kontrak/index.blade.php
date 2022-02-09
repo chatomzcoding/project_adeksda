@@ -29,7 +29,7 @@
                 <div class="info-box-content">
                   <span class="info-box-text">Total Kontrak</span>
                   <span class="info-box-number">
-                        {{ count($kontrak)}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
@@ -155,42 +155,29 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                  <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
-                                                  <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
-                                                </div>
-                                            </div>
+                                      <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                          @csrf
+                                          @method('delete')
+                                          </form>
+                                          <div class="btn-group">
+                                              <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                              <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                              </button>
+                                              <div class="dropdown-menu" role="menu">
+                                                <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                <div class="dropdown-divider"></div>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
+                                              </div>
+                                          </div>
                                     </td>
-                                    @php
-                                        $pekerjaan = DbSistem::showtablefirst('pekerjaan',['id',$item->pekerjaan_id])
-                                    @endphp
-                                    @if ($pekerjaan)
-                                      <td>{{ $pekerjaan->kode_kegiatan }}</td>                                        
-                                      <td>{{ $pekerjaan->sub_kegiatan }}</td>                                        
-                                      <td>{{ $pekerjaan->nama_paket }}</td>                                        
-                                      <td>{{ $pekerjaan->kode_tender }}</td>                                        
-                                      <td>Kec. {{ $pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
-                                      <td>{{ $pekerjaan->sumber_dana }}</td>                                        
-                                      <td>{{ $pekerjaan->tahun_anggaran }}</td>                                        
-                                    @else
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                    @endif
+                                    <td>{{ $item->kode_kegiatan }}</td>                                        
+                                    <td>{{ $item->sub_kegiatan }}</td>                                        
+                                    <td>{{ $item->nama_paket }}</td>                                        
+                                    <td>{{ $item->kode_tender }}</td>                                        
+                                    <td>Kec. {{ $item->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
+                                    <td>{{ $item->sumber_dana }}</td>                                        
+                                    <td>{{ $item->tahun_anggaran }}</td>                                        
                                 </tr>
                             @empty
                                 <tr class="text-center">

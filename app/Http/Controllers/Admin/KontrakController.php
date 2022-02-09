@@ -25,9 +25,7 @@ class KontrakController extends Controller
     public function index()
     {
         $menu   = 'kontrak';
-        $main   = [
-            'link' => 'kontrak'
-        ];
+
         $user       = Auth::user();
         $kontrak    = Kontrak::orderBy('id','DESC')->get();
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
@@ -35,44 +33,56 @@ class KontrakController extends Controller
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
         $perusahaan     = Perusahaan::all();
 
-        if (isset($_GET['bast'])) {
-            $kontrak    = DB::table('kontrak')
-            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-            ->get();
-            return view('admin.bast.index', compact('menu','main','kontrak'));
-        }
-        if (isset($_GET['sesi'])) {
-            $user       = User::where('level','konsultan')->get();
-            $kontrak    = DB::table('kontrak_akses')
-                            ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
-                            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                            ->join('users','kontrak_akses.user_id','=','users.id')
-                            ->get();
-            return view('admin.kontrak.rekap', compact('menu','main','kontrak','user'));
-        }
-        if ($user->level == 'admin') {
-            return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
-            # code...
-        } else {
-            $id = (isset($_GET['kontrak'])) ? $_GET['kontrak'] : NULL ;
-            $dkontrak       = DB::table('kontrak')
+       
+
+        $sesi = (isset($_GET['sesi'])) ? $_GET['sesi'] : 'admin' ;
+        switch ($sesi) {
+            case 'admin':
+                $kontrak    = DB::table('kontrak')
                                 ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                ->where('kontrak.id',$id)
-                                ->select('pekerjaan.*','kontrak.id as idkontrak')
-                                ->first();
-            $kontrak        = DB::table('kontrak')
-                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                ->orderByDesc('kontrak.id')
                                 ->get();
-            $kontrakakses   = DB::table('kontrak_akses')
+                $main   = [
+                    'link' => 'kontrak',
+                    'statistik' => [
+                        'total' => count($kontrak)
+                    ]
+                ];
+                return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+                break;
+            case 'konsultan':
+                $id = (isset($_GET['kontrak'])) ? $_GET['kontrak'] : NULL ;
+                $dkontrak       = DB::table('kontrak')
+                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                    ->where('kontrak.id',$id)
+                                    ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                    ->first();
+                $kontrak        = DB::table('kontrak')
+                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                    ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                    ->get();
+                $kontrakakses   = DB::table('kontrak_akses')
+                                    ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                                    ->where('kontrak_akses.user_id',$user->id)
+                                    ->select('kontrak.*','kontrak_akses.id as idakses')
+                                    ->get();
+                
+                return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));
+                break;
+            case 'rekap':
+                $user       = User::where('level','konsultan')->get();
+                $kontrak    = DB::table('kontrak_akses')
                                 ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
-                                ->where('kontrak_akses.user_id',$user->id)
-                                ->select('kontrak.*','kontrak_akses.id as idakses')
+                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                ->join('users','kontrak_akses.user_id','=','users.id')
                                 ->get();
+                return view('admin.kontrak.rekap', compact('menu','main','kontrak','user'));
+                break;
             
-            return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));
+            default:
+                return redirect('dashboard','warningv2');
+                break;
         }
-        
 
     }
 

@@ -7,7 +7,12 @@
             <div class="form-group row">
                 <label for="" class="col-md-2 p-1">Masa Kontrak {!! ireq() !!}</label>
                 <div class="col-md-4">
-                    <input type="number" name="masa_kontrak" value="{{ $main['kontrak']->masa_kontrak }}" class="form-control" required>
+                    <div class="input-group mb-3">
+                        <input type="number" name="masa_kontrak" value="{{ $main['kontrak']->masa_kontrak }}" class="form-control" required>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Hari Kalender</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -15,23 +20,25 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-1">Nilai Penawaran {!! ireq() !!}</label>
                         <div class="col-md-8">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
                                 <input type="text" name="nilai_penawaran" id="rupiah"  value="{{ $main['kontrak']->nilai_penawaran }}" class="form-control" required>
-                                </div>
+                            </div>
+                                <small>Nilai Sebelumnya {{ rupiah($main['kontrak']['nilai_penawaran']) }}</small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4  p-1">Nilai Terkoreksi {!! ireq() !!}</label>
                         <div class="col-md-8">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
                                 <input type="text" name="nilai_terkoreksi" id="rupiah1"  value="{{ $main['kontrak']->nilai_terkoreksi }}" class="form-control" required>
-                                </div>
+                            </div>
+                                <small>Nilai Sebelumnya {{ rupiah($main['kontrak']['nilai_terkoreksi']) }}</small>
                         </div>
                     </div>
                 </div>
@@ -39,30 +46,32 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4  p-1">Nilai Negosiasi {!! ireq() !!}</label>
                         <div class="col-md-8">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
                                 <input type="text" name="nilai_negosiasi" id="rupiah2"  value="{{ $main['kontrak']->nilai_negosiasi }}" class="form-control" required>
-                                </div>
+                            </div>
+                                <small>Nilai Sebelumnya {{ rupiah($main['kontrak']['nilai_negosiasi']) }}</small>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4  p-1">Nilai Pekerjaan {!! ireq() !!}</label>
                         <div class="col-md-8">
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
                                 <input type="text" name="nilai_pekerjaan" id="rupiah3"  value="{{ $main['kontrak']->nilai_pekerjaan }}" class="form-control" required>
-                                </div>
+                            </div>
+                                <small>Nilai Sebelumnya {{ rupiah($main['kontrak']['nilai_negosiasi']) }}</small>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col text-right">
-                    <button type="submit" class="btn btn-success">SIMPAN PERUBAHAN <i class="fas fa-angle-right"></i></button>
+                    <button type="submit" class="btn btn-outline-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
                 </div>
             </div>
         </section>
