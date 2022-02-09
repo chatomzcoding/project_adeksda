@@ -17,6 +17,7 @@ class CreateTableProgress extends Migration
             $table->id();
             $table->integer('nilai');
             $table->string('nilai_panjang');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

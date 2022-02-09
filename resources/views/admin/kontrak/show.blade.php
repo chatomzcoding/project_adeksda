@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Data Kontrak Fisik
+    Data Kontrak
 @endsection
 
 @section('head')
@@ -15,12 +15,14 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0">Data Kontrak Fisik</h1>
+        <h1 class="m-0 text-capitalize">Data Kontrak @if ($main['datapekerjaan'])
+            | {{  $main['datapekerjaan']->jenis_pekerjaan }}
+        @endif</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('halaman/kontrakfisik')}}">Daftar Kontrak Fisik</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('kontrak')}}">Daftar Kontrak</a></li>
             <li class="breadcrumb-item active">Rincian Kontrak</li>
         </ol>
         </div><!-- /.col -->
@@ -48,6 +50,109 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
+                  <div class="row">
+                      @if ($main['datapekerjaan'])
+                      <div class="col-md-12 border p-3 mb-3">
+                        <table class="table">
+                            <tr>
+                                <th width="30%">Nama Paket</th>
+                                <td>{{ $main['datapekerjaan']->nama_paket }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kode Kegiatan / Tender</th>
+                                <td>{{ $main['datapekerjaan']->kode_kegiatan.' / '.$main['datapekerjaan']->kode_tender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Kode Belanja</th>
+                                <td>{{ $main['datapekerjaan']->kode_belanja }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nama Kegiatan</th>
+                                <td>{{ $main['datapekerjaan']->nama_kegiatan }}</td>
+                            </tr>
+                            <tr>
+                                <th>Sub Kegiatan</th>
+                                <td>{{ $main['datapekerjaan']->sub_kegiatan }}</td>
+                            </tr>
+                            <tr>
+                                <th>Alamat Pekerjaan</th>
+                                <td>Kecamatan {{ $main['datapekerjaan']->kecamatan }}, Kota Tasikmalaya</td>
+                            </tr>
+                            <tr>
+                                <th>Sumber Dana</th>
+                                <td>{{ $main['datapekerjaan']->sumber_dana }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tahun Anggaran</th>
+                                <td>{{ $main['datapekerjaan']->tahun_anggaran }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    @endif
+                      <div class="col-md-6">
+                          <div class="card">
+                              <div class="card-header bg-primary">
+                                  <strong>INFORMASI KONTRAK</strong>
+                              </div>
+                              <div class="card-body">
+                                  <table class="table">
+                                    <tr>
+                                        <th>Masa Kontrak</th>
+                                        <td>{{ $main['kontrak']->masa_kontrak }} Hari Kalender</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nilai Penawaran</th>
+                                        <td>Rp {{ rupiah($main['kontrak']->nilai_penawaran) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nilai Terkoreksi</th>
+                                        <td>Rp {{ rupiah($main['kontrak']->nilai_terkoreksi) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nilai Negosiasi</th>
+                                        <td>Rp {{ rupiah($main['kontrak']->nilai_negosiasi) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nilai Pekerjaan</th>
+                                        <td>Rp {{ rupiah($main['kontrak']->nilai_pekerjaan) }}</td>
+                                    </tr>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="card">
+                              <div class="card-header bg-primary">
+                                  <strong>INFORMASI ADENDUM</strong>
+                              </div>
+                              <div class="card-body">
+                                  <table class="table">
+                                    <tr>
+                                        <th>No Adendum</th>
+                                        <td>{{ $main['kontrak']->no_adendum }} Hari Kalender</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tanggal Adendum</th>
+                                        <td>{{ $main['kontrak']->tgl_adendum }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nilai</th>
+                                        <td>{{ $main['kontrak']->nilai }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Masa Kontrak</th>
+                                        <td>{{ $main['kontrak']->masakontrak_adendum }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tanggal Akhir Kontrak</th>
+                                        <td>{{ $main['kontrak']->tgl_akhir_kontrak }}</td>
+                                    </tr>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -58,31 +163,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Masa Kontrak</td>
-                                <td>{{ $main['kontrak']->masa_kontrak }} Hari Kalender</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Nilai Penawaran</td>
-                                <td>{{ rupiah($main['kontrak']->nilai_penawaran) }}</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Nilai Terkoreksi</td>
-                                <td>{{ rupiah($main['kontrak']->nilai_terkoreksi) }}</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Nilai Negosiasi</td>
-                                <td>{{ rupiah($main['kontrak']->nilai_negosiasi) }}</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Nilai Pekerjaan</td>
-                                <td>{{ rupiah($main['kontrak']->nilai_pekerjaan) }}</td>
-                            </tr>
+                            
                             <tr>
                                 <td>6</td>
                                 <td>Nomor Pengadaan</td>
@@ -123,58 +204,7 @@
                                 <td>Nomor SPP</td>
                                 <td>{{ $main['kontrak']->no_spp.' / '.$main['kontrak']->tgl_spp }}</td>
                             </tr>
-                            @if ($main['datapekerjaan'])
-                            <tr>
-                                <td>14</td>
-                                <td>Kode Kegiatan</td>
-                                <td>{{ $main['datapekerjaan']->kode_kegiatan }}</td>
-                            </tr>
-                            <tr>
-                                <td>15</td>
-                                <td>Kode Tender</td>
-                                <td>{{ $main['datapekerjaan']->kode_tender }}</td>
-                            </tr>
-                            <tr>
-                                <td>16</td>
-                                <td>Nama Kegiatan</td>
-                                <td>{{ $main['datapekerjaan']->nama_kegiatan }}</td>
-                            </tr>
-                            <tr>
-                                <td>17</td>
-                                <td>Sub Kegiatan</td>
-                                <td>{{ $main['datapekerjaan']->sub_kegiatan }}</td>
-                            </tr>
-                            <tr>
-                                <td>18</td>
-                                <td>Nama Paket</td>
-                                <td>{{ $main['datapekerjaan']->nama_paket }}</td>
-                            </tr>
-                            <tr>
-                                <td>19</td>
-                                <td>Alamat Pekerjaan</td>
-                                <td>Kecamatan {{ $main['datapekerjaan']->kecamatan }}, Kota Tasikmalaya</td>
-                            </tr>
-                            <tr>
-                                <td>20</td>
-                                <td>Kode Belanja</td>
-                                <td>{{ $main['datapekerjaan']->kode_belanja }}</td>
-                            </tr>
-                            <tr>
-                                <td>21</td>
-                                <td>Sumber Dana</td>
-                                <td>{{ $main['datapekerjaan']->sumber_dana }}</td>
-                            </tr>
-                            <tr>
-                                <td>22</td>
-                                <td>Tahun Anggaran</td>
-                                <td>{{ $main['datapekerjaan']->tahun_anggaran }}</td>
-                            </tr>
-                            <tr>
-                                <td>23</td>
-                                <td>Jenis Pekerjaan</td>
-                                <td>{{ $main['datapekerjaan']->jenis_pekerjaan }}</td>
-                            </tr>
-                            @endif
+            
                             @if ($main['dataperusahaan'])
                             <tr>
                                 <td>24</td>

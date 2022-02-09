@@ -16,6 +16,7 @@ class CreateTableKontrakAkses extends Migration
         Schema::create('kontrak_akses', function (Blueprint $table) {
             $table->id();
             $table->date('tgl_ambil');
+            $table->string('nama_perusahaan');
             $table->timestamps();
         });
     }

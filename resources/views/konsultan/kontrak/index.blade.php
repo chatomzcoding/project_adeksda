@@ -77,24 +77,28 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <section class="mb-3">
-                      <form action="{{ url($main['link']) }}" method="get">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <select name="kontrak" id="" class="form-control select2bs4"  style="width: 100%;" onchange="this.form.submit();">
-                                    <option value="semua" selected="selected">-- Pilih Kontrak --</option>
-                                    @foreach ($kontrak as $item)
-                                        <option value="{{ $item->idkontrak }}" @if ($id == $item->idkontrak)
-                                            selected
-                                        @endif>{{ strtoupper($item->kode_kegiatan.' | '.$item->nama_kegiatan) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section>
+                  @if (count($kontrak) <> count($kontrakakses))
+                    <section class="mb-3">
+                        <form action="{{ url($main['link']) }}" method="get">
+                          @csrf
+                          <input type="hidden" name="sesi" value="konsultan">
+                          <div class="row">
+                              <div class="form-group col-md-6">
+                                  <select name="kontrak" id="" class="form-control select2bs4"  style="width: 100%;" onchange="this.form.submit();">
+                                      <option value="semua" selected="selected">-- Pilih Kontrak --</option>
+                                      @foreach ($kontrak as $item)
+                                          <option value="{{ $item->id }}" @if ($id == $item->id)
+                                              selected
+                                          @endif>{{ strtoupper($item->nama_paket) }}</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                          </div>
+                      </form>
+                    </section>
+                  @endif
                   @if ($dkontrak)
-                  <section class="mb-3">
+                  <section class="mb-3 p-3">
                     <form action="{{ url('kontrakakses') }}" method="post">
                       @csrf
                       <input type="hidden" name="id" value="{{ $dkontrak->idkontrak }}">
@@ -106,92 +110,78 @@
                           <input type="text" id="sub_kegiatan" class="form-control" value="{{ $dkontrak->sub_kegiatan }}" disabled>
                         </div>
                         <div class="col-md-6">
-                          <label for="" class="small">Kode Tender</label>
-                          <input type="text" id="kode_tender" class="form-control" value="{{ $dkontrak->kode_tender }}" disabled>
-                          <label for="" class="small">Kode Belanja</label>
-                          <input type="text" id="kode_belanja" class="form-control" value="{{ $dkontrak->kode_belanja }}" disabled>
-                          <label for="" class="small">Kecamatan</label>
-                          <input type="text" id="kecamatan" class="form-control" value="{{ $dkontrak->kecamatan }}" disabled>
+                          <label for="" class="small">No SPK</label>
+                          <input type="text" id="no_spk" class="form-control" value="{{ $dkontrak->no_spk }}" disabled>
                         </div>
                         <div class="col-md-6">
-                          <label for="" class="small">Sumber Dana</label>
-                          <input type="text" id="sumber_dana" class="form-control" value="{{ $dkontrak->sumber_dana }}" disabled>
-                          <label for="" class="small">Tahun Anggaran</label>
-                          <input type="text" id="tahun_anggaran" class="form-control" value="{{ $dkontrak->tahun_anggaran }}" disabled>
-                          <label for="" class="small">Jenis Pekerjaan</label>
-                          <input type="text" id="jenis_pekerjaan" class="form-control" value="{{ $dkontrak->jenis_pekerjaan }}" disabled>
+                          <label for="" class="small">Tanggal SPK</label>
+                          <input type="date" id="tgl_spk" class="form-control" value="{{ $dkontrak->tgl_spk }}" disabled>
                         </div>
-                        <div class="col-md-12 text-right">
-                          <button type="submit" class="btn btn-outline-primary">PILIH KONTRAK</button>
+                        <div class="col-md-12 mt-2">
+                          <div class="form-group">
+                            <label for="">Nama Perusahaan {!! ireq() !!}</label>
+                            <input type="text" name="nama_perusahaan" class="form-control" required>
+                          </div>
+                          <div class="form-group text-right">
+                            <button type="submit" class="btn btn-outline-primary">PILIH KONTRAK</button>
+                          </div>
                         </div>
                       </div>
                     </form>
                   </section>
+                  @else
+                    <div class="table-responsive">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead class="text-center">
+                              <tr>
+                                  <th width="5%">No</th>
+                                  <th width="10%">Aksi</th>
+                                  <th>Nama Paket</th>
+                                  <th>Sub Kegiatan</th>
+                                  <th>Nomor SPK</th>
+                                  <th>Tanggal SPK</th>
+                                  <th>Nilai Kontrak</th>
+                                  <th>Nama Perusahaan</th>
+                                  <th>Progress</th>
+                              </tr>
+                          </thead>
+                          <tbody class="text-capitalize">
+                              @forelse ($kontrakakses as $item)
+                              <tr>
+                                      <td class="text-center">{{ $loop->iteration}}</td>
+                                      <td class="text-center">
+                                          <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                              @csrf
+                                              @method('delete')
+                                              </form>
+                                              <div class="btn-group">
+                                                  <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                  <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                  </button>
+                                                  <div class="dropdown-menu" role="menu">
+                                                    <a href="{{ url('kontrakakses/'.$item->idakses) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
+                                                  </div>
+                                              </div>
+                                      </td>
+                                        <td>{{ $item->nama_paket }}</td>                                        
+                                        <td>{{ $item->sub_kegiatan }}</td>                                        
+                                        <td>{{ $item->no_spk }}</td>                                        
+                                        <td>{{ $item->tgl_spk }}</td>                                        
+                                        <td>{{ $item->nilai_pekerjaan }}</td>                                        
+                                        <td>{{ $item->nama_perusahaan }}</td>                                        
+                                        <td>-</td>                                        
+                                  </tr>
+                              @empty
+                                  <tr class="text-center">
+                                      <td colspan="9" class="font-italic">-- belum ada data --</td>
+                                  </tr>
+                              @endforelse
+                      </table>
+                    </div>
                   @endif
-                  <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
-                                <th>Kode Kegitan</th>
-                                <th>Sub Kegiatan</th>
-                                <th>Nama Paket</th>
-                                <th>Kode Tender</th>
-                                <th>Alamat</th>
-                                <th>Sumber Dana</th>
-                                <th>Tahun Anggaran</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-capitalize">
-                            @forelse ($kontrakakses as $item)
-                            <tr>
-                                    <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                            <div class="btn-group">
-                                                <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                                <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                  <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrakakses/'.$item->idakses) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
-                                                  <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
-                                                </div>
-                                            </div>
-                                    </td>
-                                    @php
-                                        $pekerjaan = DbSistem::showtablefirst('pekerjaan',['id',$item->pekerjaan_id])
-                                    @endphp
-                                    @if ($pekerjaan)
-                                      <td>{{ $pekerjaan->kode_kegiatan }}</td>                                        
-                                      <td>{{ $pekerjaan->sub_kegiatan }}</td>                                        
-                                      <td>{{ $pekerjaan->nama_paket }}</td>                                        
-                                      <td>{{ $pekerjaan->kode_tender }}</td>                                        
-                                      <td>Kec. {{ $pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
-                                      <td>{{ $pekerjaan->sumber_dana }}</td>                                        
-                                      <td>{{ $pekerjaan->tahun_anggaran }}</td>                                        
-                                    @else
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                      <td>-</td>
-                                    @endif
-                                </tr>
-                            @empty
-                                <tr class="text-center">
-                                    <td colspan="9" class="font-italic">-- belum ada data --</td>
-                                </tr>
-                            @endforelse
-                    </table>
-                </div>
               </div>
             </div>
           </div>

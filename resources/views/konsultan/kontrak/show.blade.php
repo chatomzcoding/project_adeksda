@@ -7,7 +7,7 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-        <h1 class="m-0 text-capitalize">Data Kontrak - {{ $pekerjaan->nama_kegiatan }}</h1>
+        <h1 class="m-0 text-capitalize">Data Kontrak Fisik<br> <small>{{ $pekerjaan->nama_paket }}</small></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -28,6 +28,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title"></h3> --}}
+                <a href="{{ url('kontrak?sesi=konsultan') }}" class="btn btn-outline-secondary btn-sm pop-info" title="kembali"><i class="fas fa-angle-double-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Progress</a>
 
                     <div class="float-right">
@@ -85,7 +86,7 @@
                                                 </div>
                                             </div>
                                     </td>
-                                      <td>{{ $item->created_at }}</td>                                        
+                                      <td>{{ date_indo($item->tanggal) }}</td>                                        
                                       <td class="text-center">{{ $item->nilai }}%</td>                                        
                                       <td class="text-center">{{ $item->nilai_panjang }} m</td>                                        
                                 </tr>
@@ -117,6 +118,12 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Tanggal Progress {!! ireq() !!}</label>
+                        <div class="col-md-8 p-0">
+                            <input type="date" name="tanggal" id="tanggal" maxlength="9" value="{{ old('tanggal') }}" class="form-control" required>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">Nilai Progress (%) {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">

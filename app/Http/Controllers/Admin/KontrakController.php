@@ -25,7 +25,6 @@ class KontrakController extends Controller
     public function index()
     {
         $menu   = 'kontrak';
-
         $user               = Auth::user();
         $totalkontrak       = Kontrak::count();
         $totalkontrakproses = Kontrak::where('status','proses')->count();
@@ -41,6 +40,7 @@ class KontrakController extends Controller
                 $kontrak    = DB::table('kontrak')
                                 ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
                                 ->where('kontrak.status','selesai')
+                                ->select('kontrak.*','pekerjaan.*','kontrak.id as idkontrak')
                                 ->orderByDesc('kontrak.id')
                                 ->get();
                 $main   = [
@@ -68,17 +68,23 @@ class KontrakController extends Controller
                 $dkontrak       = DB::table('kontrak')
                                     ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
                                     ->where('kontrak.id',$id)
-                                    ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                    ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
                                     ->first();
                 $kontrak        = DB::table('kontrak')
                                     ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                    ->select('pekerjaan.*','kontrak.id as idkontrak')
+                                    ->select('pekerjaan.nama_paket','kontrak.id')
+                                    ->where('kontrak.status','selesai')
+                                    ->where('pekerjaan.jenis_pekerjaan','fisik')
                                     ->get();
                 $kontrakakses   = DB::table('kontrak_akses')
                                     ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
                                     ->where('kontrak_akses.user_id',$user->id)
-                                    ->select('kontrak.*','kontrak_akses.id as idakses')
+                                    ->select('pekerjaan.*','kontrak.*','kontrak_akses.*','kontrak_akses.id as idakses')
                                     ->get();
+                $main   = [
+                    'link' => 'kontrak'
+                ];
                 
                 return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));
                 break;
@@ -137,24 +143,35 @@ class KontrakController extends Controller
                 return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('success','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
                 break;
             case 'pendukung':
-                // penambahan nomor 
-
-                $nomor          = self::kodeNomor($request->id,$request->pekerjaan_id);
-                $barpk = (isset($nomor['BARPK'])) ? $nomor['BARPK'] : NULL ;
-                $spp = (isset($nomor['SPP'])) ? $nomor['SPP'] : NULL ;
-                Kontrak::where('id',$request->id)->update([
-                    'pekerjaan_id' => $request->pekerjaan_id,
-                    'perusahaan_id' => $request->perusahaan_id,
-                    'id_ketua' => $request->id_ketua,
-                    'id_sekretaris' => $request->id_sekretaris,
-                    'id_anggota' => $request->id_anggota,
-                    'no_sppbj' => $nomor['SPPBJ'],
-                    'no_barpk' => $barpk,
-                    'no_spk' => $nomor['SPK'],
-                    'no_spmk' => $nomor['SPMK'],
-                    'no_spl' => $nomor['SPL'],
-                    'no_spp' => $spp,
-                ]);
+                $kontrak   = Kontrak::find($request->id);
+                if (is_null($kontrak->no_sppbj)) {
+                    // penambahan nomor 
+                    $nomor          = self::kodeNomor($request->id,$request->pekerjaan_id);
+                    $barpk = (isset($nomor['BARPK'])) ? $nomor['BARPK'] : NULL ;
+                    $spp = (isset($nomor['SPP'])) ? $nomor['SPP'] : NULL ;
+                    Kontrak::where('id',$request->id)->update([
+                        'pekerjaan_id' => $request->pekerjaan_id,
+                        'perusahaan_id' => $request->perusahaan_id,
+                        'id_ketua' => $request->id_ketua,
+                        'id_sekretaris' => $request->id_sekretaris,
+                        'id_anggota' => $request->id_anggota,
+                        'no_sppbj' => $nomor['SPPBJ'],
+                        'no_barpk' => $barpk,
+                        'no_spk' => $nomor['SPK'],
+                        'no_spmk' => $nomor['SPMK'],
+                        'no_spl' => $nomor['SPL'],
+                        'no_spp' => $spp,
+                    ]);
+                } else {
+                    Kontrak::where('id',$request->id)->update([
+                        'pekerjaan_id' => $request->pekerjaan_id,
+                        'perusahaan_id' => $request->perusahaan_id,
+                        'id_ketua' => $request->id_ketua,
+                        'id_sekretaris' => $request->id_sekretaris,
+                        'id_anggota' => $request->id_anggota,
+                    ]);
+                }
+                
                 return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
                 break;
             case 'updateinformasi':
@@ -195,8 +212,9 @@ class KontrakController extends Controller
                     'nilai' => $request->nilai,
                     'masakontrak_adendum' => $request->masakontrak_adendum,
                     'tgl_akhir_kontrak' => $request->tgl_akhir_kontrak,
+                    'status' => 'selesai',
                 ]);
-                return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Kontrak telah selesai dibuat');
+                return redirect('kontrak/'.Crypt::encryptString($request->id).'?s=rincian')->with('successv2','Kontrak telah selesai dibuat. Berikut Rincian Kontrak tersebut');
                 break;
             
             default:
@@ -250,15 +268,6 @@ class KontrakController extends Controller
      */
     public function show($kontrak)
     {
-        $list       = 'Pengukuran Kembali/Uitzet	1.00	ls	1,250,000.00	1,250,000.00	
-        Informasi Kegiatan	1.00	ls	300,000.00	300,000.00	
-        Direksikeet	1.00	Sewa	1,000,000.00	1,000,000.00	
-        SMK 3	1.00	Paket	1,650,000.00	1,650,000.00	
-        Pembayaran Iuran BPJS	1.00	Paket	395,500.00	395,500.00	
-        ';
-        $data   = explode("\t\n",$list);
-        dd($data);
-        die();
         $menu       = 'kontrak';
         $kontrak    = Kontrak::find(Crypt::decryptString($kontrak));
         $collapse   = 2;
@@ -267,14 +276,20 @@ class KontrakController extends Controller
             $collapse = ($kontrak->tgl_bahp <> NULL) ? 4 : 3 ;
         }
         $dokumenspk     = [
-            'persiapan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','persiapan')->get(),
-            'pelaksana' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksana')->get(),
-            'pembantu' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pembantu')->get(),
+            'persiapan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','persiapan')->get(['uraian','satuan','kuantitas','harga']),
+            'pelaksanaan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksanaan')->get(['uraian','satuan','kuantitas','harga']),
+            'pembantu' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pembantu')->get(['uraian','satuan','kuantitas','harga']),
         ];
 
         if ($collapse == 4) {
             $collapse = (count($dokumenspk['persiapan']) > 0) ? 5 : 4 ;
         }
+
+        // khusus SPK
+        $kolomkosong    =  [['','','','','',], ['','','','','',], ['','','','','',]];
+        $spkpersiapan = (count($dokumenspk['persiapan']) > 0) ? $dokumenspk['persiapan'] : $kolomkosong ;
+        $spkpelaksanaan = (count($dokumenspk['pelaksanaan']) > 0) ? $dokumenspk['pelaksanaan'] : $kolomkosong ;
+        $spkpembantu = (count($dokumenspk['pembantu']) > 0) ? $dokumenspk['pembantu'] : $kolomkosong ;
 
         $main       = [
             'link' => 'kontrak/'.$kontrak,
@@ -288,7 +303,12 @@ class KontrakController extends Controller
             'dataketua' => Timlokus::find($kontrak->id_ketua),
             'datasekretaris' => Timlokus::find($kontrak->id_sekretaris),
             'dataanggota' => Timlokus::find($kontrak->id_anggota),
-            'dokumenspk' => $dokumenspk
+            'dokumenspk' => $dokumenspk,
+            'spk' => [
+                'persiapan' => $spkpersiapan,
+                'pelaksanaan' => $spkpelaksanaan,
+                'pembantu' => $spkpembantu,
+            ]
         ];
 
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
@@ -312,7 +332,7 @@ class KontrakController extends Controller
     {
         $pekerjaan      = Pekerjaan::find($pekerjaan_id)->first();
         $kode_kegiatan  = $pekerjaan->kode_kegiatan;
-        $kontrakterakhir    = Kontrak::where('id','<>',$kontrak_id)->where('no_spp','<>',NULL)->orderBy('id','DESC')->first();
+        $kontrakterakhir    = Kontrak::where('id','<>',$kontrak_id)->where('no_bahp','<>',NULL)->orderBy('id','DESC')->first();
         if ($pekerjaan->jenis_pekerjaan == 'fisik') {
             $list           = ['SPPBJ','BARPK','SPK','SPMK','SPL'];
         } else {
@@ -320,7 +340,7 @@ class KontrakController extends Controller
         }
         $nomor          = [];
         if ($kontrakterakhir) {
-            $nomorspp       = explode('/',$kontrakterakhir->no_spp);
+            $nomorspp       = explode('/',$kontrakterakhir->no_spl);
             $no_akhir       = $nomorspp[1];
             $no_akhir       = $no_akhir + 1;
             for ($i=0; $i < count($list); $i++) { 

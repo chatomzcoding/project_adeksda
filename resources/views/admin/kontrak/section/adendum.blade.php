@@ -23,6 +23,6 @@
         <input type="date" name="tgl_akhir_kontrak" value="{{ $main['kontrak']->tgl_akhir_kontrak }}" class="form-control col-md-8">
     </div>
     <div class="form-group text-right">
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN KONTRAK</button>
+        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i> SIMPAN KONTRAK</button>
     </div>
 </form>

@@ -156,7 +156,7 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                      <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->idkontrak)}}" method="post">
                                           @csrf
                                           @method('delete')
                                           </form>
@@ -166,7 +166,7 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                               </button>
                                               <div class="dropdown-menu" role="menu">
-                                                <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                <a href="{{ url('kontrak/'.Crypt::encryptString($item->idkontrak)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
                                                 <div class="dropdown-divider"></div>
                                                 <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
                                               </div>

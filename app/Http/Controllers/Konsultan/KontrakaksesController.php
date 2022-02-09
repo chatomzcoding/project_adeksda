@@ -43,7 +43,8 @@ class KontrakaksesController extends Controller
         Kontrakakses::create([
             'user_id' => Auth::user()->id,
             'kontrak_id' => $request->id,
-            'tgl_ambil' => tgl_sekarang()
+            'tgl_ambil' => tgl_sekarang(),
+            'nama_perusahaan' => $request->nama_perusahaan,
         ]);
 
         $kontrakakses   = Kontrakakses::where('kontrak_id',$request->id)->first();
@@ -66,7 +67,7 @@ class KontrakaksesController extends Controller
         $kontrakakses   = Kontrakakses::find($kontrakakses);
         $kontrak    = Kontrak::find($kontrakakses->kontrak_id);
         $pekerjaan  = Pekerjaan::find($kontrak->pekerjaan_id);
-        $progress   = Progress::where('kontrak_id',$kontrak->id)->get();
+        $progress   = Progress::where('kontrak_id',$kontrak->id)->orderby('id','DESC')->get();
 
         return view('konsultan.kontrak.show', compact('menu','main','kontrakakses','kontrak','progress','pekerjaan'));
         

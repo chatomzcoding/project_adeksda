@@ -15,7 +15,9 @@ class DokumenspkController extends Controller
      */
     public function index()
     {
-        //
+        $menu = '';
+        $dokumenspk = Dokumenspk::all(['uraian','kuantitas','satuan','harga']);
+        return view('index', compact('menu','dokumenspk'));
     }
 
     /**
@@ -25,7 +27,9 @@ class DokumenspkController extends Controller
      */
     public function create()
     {
-        //
+        $menu = '';
+        return view('tambah', compact('menu'));
+        
     }
 
     /**
@@ -41,37 +45,46 @@ class DokumenspkController extends Controller
             Dokumenspk::where('kontrak_id',$request->kontrak_id)->delete();
         }
         // save untuk pekerjaan persiapan
-        for ($i=0; $i < count($request->uraian1); $i++) { 
-            Dokumenspk::create([
-                'kontrak_id' => $request->kontrak_id,
-                'label' => 'persiapan',
-                'uraian' => $request->uraian1[$i],
-                'satuan' => $request->satuan1[$i],
-                'kuantitas' => $request->kuantitas1[$i],
-                'harga' => $request->harga1[$i],
-            ]);
+        $datapekerjaan = json_decode($request->data1);
+        for ($i=0; $i < count($datapekerjaan); $i++) { 
+            if ($datapekerjaan[0] <> '') {
+                Dokumenspk::create([
+                    'kontrak_id' => $request->kontrak_id,
+                    'label' => 'persiapan',
+                    'uraian' => $datapekerjaan[$i][0],
+                    'satuan' => $datapekerjaan[$i][1],
+                    'kuantitas' => $datapekerjaan[$i][2],
+                    'harga' => $datapekerjaan[$i][3],
+                ]);
+            }
         }
         // save untuk pekerjaan pelaksana
-        for ($i=0; $i < count($request->uraian2); $i++) { 
-            Dokumenspk::create([
-                'kontrak_id' => $request->kontrak_id,
-                'label' => 'pelaksana',
-                'uraian' => $request->uraian2[$i],
-                'satuan' => $request->satuan2[$i],
-                'kuantitas' => $request->kuantitas2[$i],
-                'harga' => $request->harga2[$i],
-            ]);
+        $datapelaksanaan = json_decode($request->data2);
+        for ($i=0; $i < count($datapelaksanaan); $i++) { 
+            if ($datapelaksanaan[0] <> '') {
+                Dokumenspk::create([
+                    'kontrak_id' => $request->kontrak_id,
+                    'label' => 'pelaksanaan',
+                    'uraian' => $datapelaksanaan[$i][0],
+                    'satuan' => $datapelaksanaan[$i][1],
+                    'kuantitas' => $datapelaksanaan[$i][2],
+                    'harga' => $datapelaksanaan[$i][3],
+                ]);
+            }
         }
         // save untuk pekerjaan pembantu
-        for ($i=0; $i < count($request->uraian3); $i++) { 
-            Dokumenspk::create([
-                'kontrak_id' => $request->kontrak_id,
-                'label' => 'pembantu',
-                'uraian' => $request->uraian3[$i],
-                'satuan' => $request->satuan3[$i],
-                'kuantitas' => $request->kuantitas3[$i],
-                'harga' => $request->harga3[$i],
-            ]);
+        $datapembantu = json_decode($request->data2);
+        for ($i=0; $i < count($datapembantu); $i++) { 
+            if ($datapembantu[0] <> '') {
+                Dokumenspk::create([
+                    'kontrak_id' => $request->kontrak_id,
+                    'label' => 'pembantu',
+                    'uraian' => $datapembantu[$i][0],
+                    'satuan' => $datapembantu[$i][1],
+                    'kuantitas' => $datapembantu[$i][2],
+                    'harga' => $datapembantu[$i][3],
+                ]);
+            }
         }
 
         return back()->with('successv2','Dokumen SPK sudah ditambahkan');
