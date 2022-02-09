@@ -26,29 +26,42 @@ class KontrakController extends Controller
     {
         $menu   = 'kontrak';
 
-        $user       = Auth::user();
+        $user               = Auth::user();
+        $totalkontrak       = Kontrak::count();
+        $totalkontrakproses = Kontrak::where('status','proses')->count();
         $kontrak    = Kontrak::orderBy('id','DESC')->get();
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
         $jenispekerjaan  = Kategori::where('label','jenis pekerjaan')->orderBy('nama','ASC')->get();
         $sumberdana  = Kategori::where('label','sumber dana')->orderBy('keterangan','ASC')->get();
         $perusahaan     = Perusahaan::all();
 
-       
-
         $sesi = (isset($_GET['sesi'])) ? $_GET['sesi'] : 'admin' ;
         switch ($sesi) {
             case 'admin':
                 $kontrak    = DB::table('kontrak')
                                 ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                ->where('kontrak.status','selesai')
                                 ->orderByDesc('kontrak.id')
                                 ->get();
                 $main   = [
                     'link' => 'kontrak',
                     'statistik' => [
-                        'total' => count($kontrak)
+                        'total' => $totalkontrak,
+                        'proses' => $totalkontrakproses
                     ]
                 ];
                 return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
+                break;
+            case 'proses':
+                $kontrak    = Kontrak::where('status','proses')->orderBy('id','DESC')->get();
+                $main   = [
+                    'link' => 'kontrak',
+                    'statistik' => [
+                        'total' => $totalkontrak,
+                        'proses' => $totalkontrakproses
+                    ]
+                ];
+                return view('admin.kontrak.proses', compact('menu','main','kontrak'));
                 break;
             case 'konsultan':
                 $id = (isset($_GET['kontrak'])) ? $_GET['kontrak'] : NULL ;
@@ -127,18 +140,20 @@ class KontrakController extends Controller
                 // penambahan nomor 
 
                 $nomor          = self::kodeNomor($request->id,$request->pekerjaan_id);
+                $barpk = (isset($nomor['BARPK'])) ? $nomor['BARPK'] : NULL ;
+                $spp = (isset($nomor['SPP'])) ? $nomor['SPP'] : NULL ;
                 Kontrak::where('id',$request->id)->update([
                     'pekerjaan_id' => $request->pekerjaan_id,
                     'perusahaan_id' => $request->perusahaan_id,
                     'id_ketua' => $request->id_ketua,
                     'id_sekretaris' => $request->id_sekretaris,
                     'id_anggota' => $request->id_anggota,
-                    'no_sppbj' => $nomor[0],
-                    'no_barpk' => $nomor[1],
-                    'no_spk' => $nomor[2],
-                    'no_spmk' => $nomor[3],
-                    'no_spl' => $nomor[4],
-                    'no_spp' => $nomor[5],
+                    'no_sppbj' => $nomor['SPPBJ'],
+                    'no_barpk' => $barpk,
+                    'no_spk' => $nomor['SPK'],
+                    'no_spmk' => $nomor['SPMK'],
+                    'no_spl' => $nomor['SPL'],
+                    'no_spp' => $spp,
                 ]);
                 return redirect('kontrak/'.Crypt::encryptString($request->id))->with('success','Informasi pendukung sudah tersimpan');
                 break;
@@ -210,6 +225,7 @@ class KontrakController extends Controller
                 $result         = [
                     'kode_tender' => $pekerjaan->kode_tender,
                     'nama_paket' => $pekerjaan->nama_paket,
+                    'nama_kegiatan' => $pekerjaan->nama_kegiatan,
                     'sub_kegiatan' => $pekerjaan->sub_kegiatan,
                     'kode_belanja' => $pekerjaan->kode_belanja,
                     'kecamatan' => $pekerjaan->kecamatan,
@@ -288,7 +304,11 @@ class KontrakController extends Controller
         $pekerjaan      = Pekerjaan::find($pekerjaan_id)->first();
         $kode_kegiatan  = $pekerjaan->kode_kegiatan;
         $kontrakterakhir    = Kontrak::where('id','<>',$kontrak_id)->where('no_spp','<>',NULL)->orderBy('id','DESC')->first();
-        $list           = ['SPPBJ','BARPK','SPK','SPMK','SPL','SPP'];
+        if ($pekerjaan->jenis_pekerjaan == 'fisik') {
+            $list           = ['SPPBJ','BARPK','SPK','SPMK','SPL'];
+        } else {
+            $list           = ['SPPBJ','SPP','SPK','SPMK','SPL'];
+        }
         $nomor          = [];
         if ($kontrakterakhir) {
             $nomorspp       = explode('/',$kontrakterakhir->no_spp);
@@ -305,12 +325,12 @@ class KontrakController extends Controller
                 } else {
                     $urutan = $no;
                 }
-                $nomor[] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
+                $nomor[$list[$i]] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
             }
         } else {
             for ($i=0; $i < count($list); $i++) {
                 $no         = $i + 1; 
-                $nomor[] = '610/000'.$no.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
+                $nomor[$list[$i]] = '610/000'.$no.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
             }
         }
         return $nomor;

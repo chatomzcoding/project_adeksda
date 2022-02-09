@@ -5,21 +5,21 @@
     <div class="step" data-target="#pekerjaan">
       <button type="button" class="step-trigger" role="tab" aria-controls="pekerjaan" id="pekerjaan-trigger">
         <span class="bs-stepper-circle">1</span>
-        <span class="bs-stepper-label">PEKERJAAN</span>
+        <span class="bs-stepper-label">PEKERJAAN {!! cekpendukung($main['kontrak']->pekerjaan_id) !!}</span>
       </button>
     </div>
     <div class="line"></div>
     <div class="step" data-target="#perusahaan">
       <button type="button" class="step-trigger" role="tab" aria-controls="perusahaan" id="perusahaan-trigger">
         <span class="bs-stepper-circle">2</span>
-        <span class="bs-stepper-label">PERUSAHAAN</span>
+        <span class="bs-stepper-label">PERUSAHAAN {!! cekpendukung($main['kontrak']->perusahaan_id) !!}</span>
       </button>
     </div>
     <div class="line"></div>
     <div class="step" data-target="#pegawai">
       <button type="button" class="step-trigger" role="tab" aria-controls="pegawai" id="pegawai-trigger">
         <span class="bs-stepper-circle">3</span>
-        <span class="bs-stepper-label">TIM TEKNIS</span>
+        <span class="bs-stepper-label">TIM TEKNIS {!! cekpendukung($main['kontrak']->id_ketua) !!}</span>
       </button>
     </div>
   </div>
@@ -40,16 +40,18 @@
               @foreach ($main['pekerjaan'] as $item)
                 <option value="{{ $item->id }}" @if ($main['kontrak']->pekerjaan_id == $item->id)
                   selected
-              @endif>{{ ucwords($item->kode_kegiatan.' || '.$item->nama_kegiatan) }}</option>
+              @endif>{{ ucwords($item->nama_paket) }}</option>
               @endforeach
             </select>
             <div class="row">
               <div class="col-md-12">
                 <label for="" class="small">Nama Paket</label>
-                <input type="text" id="nama_paket" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'nama_paket') }}" disabled>
+                <textarea name="" id="nama_paket" cols="30" rows="2" class="form-control" disabled>{{ cekvalue($main['datapekerjaan'],'nama_paket') }}</textarea>
+                <label for="" class="small">Nama Kegiatan</label>
+                <textarea name="" id="nama_kegiatan" cols="30" rows="2" class="form-control" disabled>{{ cekvalue($main['datapekerjaan'],'nama_kegiatan') }}</textarea>
                 <label for="" class="small">Sub Kegiatan</label>
                 <input type="text" id="sub_kegiatan" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'sub_kegiatan') }}" disabled>
-              </div>
+              </div>    
               <div class="col-md-6">
                 <label for="" class="small">Kode Tender</label>
                 <input type="text" id="kode_tender" class="form-control" value="{{ cekvalue($main['datapekerjaan'],'kode_tender') }}" disabled>
@@ -131,7 +133,7 @@
         <div class="row">
           <div class="col-md-8">
             <section class="form-group">
-              <label>Pilih Ketua Teknis Kegiatan</label>
+              <label>Pilih Ketua Tim Teknis</label>
                 <select class="form-control select2bs4" name="id_ketua" style="width: 100%;" required>
                   <option value="" selected="selected">-- cari NIP / Nama --</option>
                   @foreach ($main['timlokus'] as $item)
@@ -142,7 +144,7 @@
                 </select>
             </section>
             <section class="form-group">
-                <label>Pilih Sekretaris Teknis Kegiatan</label>
+                <label>Pilih Sekretaris Tim Teknis</label>
                   <select class="form-control select2bs4" name="id_sekretaris" style="width: 100%;" required>
                     <option value="" selected="selected">-- cari NIP / Nama --</option>
                     @foreach ($main['timlokus'] as $item)
@@ -153,7 +155,7 @@
                   </select>
             </section>
             <div class="form-group">
-              <label>Pilih Anggota Teknis Kegiatan</label>
+              <label>Pilih Anggota Tim Teknis</label>
                 <select class="form-control select2bs4" name="id_anggota" style="width: 100%;" required>
                   <option value="" selected="selected">-- cari NIP / Nama --</option>
                   @foreach ($main['timlokus'] as $item)
@@ -197,9 +199,9 @@
                   <label for="" class="col-md-4 p-2">Tambahkan Untuk {!! ireq() !!}</label>
                   <div class="col-md-8 p-0">
                       <select name="posisi" id="" class="form-control">
-                          <option value="id_ketua">Ketua Teknis Kegiatan</option>
-                          <option value="id_sekretaris">Sekretaris Teknis Kegiatan</option>
-                          <option value="id_anggota">Anggota Teknis Kegiatan</option>
+                          <option value="id_ketua">Ketua Tim Teknis</option>
+                          <option value="id_sekretaris">Sekretaris Tim Teknis</option>
+                          <option value="id_anggota">Anggota Tim Teknis</option>
                       </select>
                   </div>
               </div>

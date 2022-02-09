@@ -110,7 +110,7 @@
         </div>
     </div>
     <div class="text-right py-2">
-        <button type="submit" class="btn btn-primary">SELANJUTNYA</button>
+        <button type="submit" class="btn btn-outline-primary">SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>
     </div>
     
 </form>

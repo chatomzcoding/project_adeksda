@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
@@ -36,44 +36,17 @@
             </div>
             {{-- end col --}}
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Kontrak dalam proses</span>
+                  <span class="info-box-text">Total Kontrak Proses</span>
                   <span class="info-box-number">
                         {{ $main['statistik']['proses']}}
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -82,70 +55,26 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a>
-                    <a href="{{ url($main['link'].'?sesi=proses') }}" class="btn btn-outline-primary btn-sm pop-info" title="List Dalam Proses"><i class="fas fa-sync"></i> Kontrak Dalam Proses</a>
-                    <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
-                    </div>
+                <a href="{{ url('kontrak') }}" class="btn btn-outline-secondary btn-sm pop-info" title="kembali Daftar"><i class="fas fa-angle-double-left"></i> Kembali</a>
+                <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a>
+                <div class="float-right">
+                    <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
+                    <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                </div>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <section class="mb-3">
-                      <form action="{{ url($main['link']) }}" method="get">
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <select name="sumber_dana" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- sumber dana --</option>
-                                    @foreach ($sumberdana as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <select name="kecamatan" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- kecamatan --</option>
-                                    @foreach ($kecamatan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
-                                    <option value="semua">-- jenis pekerjaan --</option>
-                                    @foreach ($jenispekerjaan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                              <select name="perusahaan" id="" class="form-control select2bs4" style="width: 100%" onchange="this.form.submit();">
-                                <option value="semua"  selected="selected">-- perusahaan --</option>
-                                  @foreach ($perusahaan as $item)
-                                  <option value="{{ $item->id }}">{{ strtoupper($item->nama_perusahaan) }}</option>
-                                  @endforeach
-                              </select>
-                            </div>
-                            <div class="form-group col-md-1">
-                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
-                                  @for ($i = ambil_tahun(); $i > 2010; $i--)
-                                      <option value="{{ $i }}">{{ $i }}</option>
-                                  @endfor
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section>
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
+                                <th>Tanggal</th>
+                                <th>Nilai Kontrak</th>
                                 <th>Kode Kegitan</th>
                                 <th>Sub Kegiatan</th>
                                 <th>Nama Paket</th>
-                                <th>Kode Tender</th>
                                 <th>Alamat</th>
                                 <th>Sumber Dana</th>
                                 <th>Tahun Anggaran</th>
@@ -172,13 +101,27 @@
                                               </div>
                                           </div>
                                     </td>
-                                    <td>{{ $item->kode_kegiatan }}</td>                                        
-                                    <td>{{ $item->sub_kegiatan }}</td>                                        
-                                    <td>{{ $item->nama_paket }}</td>                                        
-                                    <td>{{ $item->kode_tender }}</td>                                        
-                                    <td>Kec. {{ $item->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
-                                    <td>{{ $item->sumber_dana }}</td>                                        
-                                    <td>{{ $item->tahun_anggaran }}</td>                                        
+                                    <td>{{ $item->created_at }}</td>                                        
+                                    <td>{{ rupiah($item->nilai_pekerjaan) }}</td>                                        
+                                    @if (is_null($item->pekerjaan_id))
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    @else
+                                        @php
+                                            $pekerjaan = DbSistem::showtablefirst('pekerjaan',['id',$item->pekerjaan_id])
+                                        @endphp
+                                        <td>{{ $pekerjaan->kode_kegiatan }}</td>                                        
+                                        <td>{{ $pekerjaan->sub_kegiatan }}</td>                                        
+                                        <td>{{ $pekerjaan->nama_paket }}</td>                                        
+                                        <td>{{ $pekerjaan->kode_tender }}</td>                                        
+                                        <td>Kec. {{ $pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
+                                        <td>{{ $pekerjaan->sumber_dana }}</td>                                        
+                                        <td>{{ $pekerjaan->tahun_anggaran }}</td>                                        
+                                    @endif
                                 </tr>
                             @empty
                                 <tr class="text-center">

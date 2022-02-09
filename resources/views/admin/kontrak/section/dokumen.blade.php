@@ -4,7 +4,7 @@
     <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
     <div class="row">
         <div class="col-md-4">
-            <strong>1. PENGADAAN {!! ireq() !!}</strong>
+            <strong>PENGADAAN {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -26,7 +26,7 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <strong>2. BAHP {!! ireq() !!}</strong>
+            <strong>BAHP {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -48,7 +48,7 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <strong>3. SPPBJ {!! ireq() !!}</strong>
+            <strong>SPPBJ {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -68,31 +68,57 @@
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <strong>4. BARPK {!! ireq() !!}</strong>
-        </div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Nomor BARPK</label>
-                        <input type="text" name="no_barpk" value="{{ $main['kontrak']->no_barpk }}" class="form-control" required>
-                    </div>
-                </div>      
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Tanggal Nomor BARPK</label>
-                        <input type="date" name="tgl_barpk" value="{{ $main['kontrak']->tgl_barpk }}" class="form-control" required>
-                    </div>
-                </div>      
+    @if (!is_null($main['kontrak']->no_spp))
+        <div class="row">
+            <div class="col-md-4">
+                <strong>SPP {!! ireq() !!}</strong>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Nomor SPP</label>
+                            <input type="text" name="no_spp"  value="{{ $main['kontrak']->no_spp }}" class="form-control" required>
+                        </div>
+                    </div>      
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Tanggal Nomor SPP</label>
+                            <input type="date" name="tgl_spp" value="{{ $main['kontrak']->tgl_spp }}" class="form-control" required>
+                        </div>
+                    </div>      
+                </div>
             </div>
         </div>
-    </div>
-    <hr>
+        <hr>
+    @endif
+    @if (!is_null($main['kontrak']->no_barpk))
+        <div class="row">
+            <div class="col-md-4">
+                <strong>BARPK {!! ireq() !!}</strong>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Nomor BARPK</label>
+                            <input type="text" name="no_barpk" value="{{ $main['kontrak']->no_barpk }}" class="form-control" required>
+                        </div>
+                    </div>      
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Tanggal Nomor BARPK</label>
+                            <input type="date" name="tgl_barpk" value="{{ $main['kontrak']->tgl_barpk }}" class="form-control" required>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+        </div>
+        <hr>
+    @endif
     <div class="row">
         <div class="col-md-4">
-            <strong>5. SPK {!! ireq() !!}</strong>
+            <strong>SPK {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -114,7 +140,7 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <strong>6. SPMK {!! ireq() !!}</strong>
+            <strong>SPMK {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -136,7 +162,7 @@
     <hr>
     <div class="row">
         <div class="col-md-4">
-            <strong>7. SPL {!! ireq() !!}</strong>
+            <strong>SPL {!! ireq() !!}</strong>
         </div>
         <div class="col-md-8">
             <div class="row">
@@ -155,31 +181,10 @@
             </div>
         </div>
     </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <strong>8. SPP {!! ireq() !!}</strong>
-        </div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Nomor SPP</label>
-                        <input type="text" name="no_spp"  value="{{ $main['kontrak']->no_spp }}" class="form-control" required>
-                    </div>
-                </div>      
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="">Tanggal Nomor SPP</label>
-                        <input type="date" name="tgl_spp" value="{{ $main['kontrak']->tgl_spp }}" class="form-control" required>
-                    </div>
-                </div>      
-            </div>
-        </div>
-    </div>
+   
     <div class="row">
         <div class="col text-right">
-            <button type="submit" class="btn btn-primary"> TAHAP SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>
+            <button type="submit" class="btn btn-outline-primary"> TAHAP SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>
         </div>
     </div>
 </form>

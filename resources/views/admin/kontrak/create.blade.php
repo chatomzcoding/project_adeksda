@@ -7,9 +7,6 @@
 @section('head')
   <!-- BS Stepper -->
   <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/bs-stepper/css/bs-stepper.min.css') }}">
-  <!-- Select2 -->
-  <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2/css/select2.min.css') }}">
-  <link rel="stylesheet" href=" {{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
 @section('header')
@@ -225,7 +222,6 @@
         <!-- BS-Stepper -->
       <script src=" {{ asset('template/admin/lte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
       <!-- Select2 -->
-<script src=" {{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
         <script>
             $(function () {
             $("#example1").DataTable({
@@ -247,15 +243,15 @@
               window.stepper = new Stepper(document.querySelector('.bs-stepper'))
             });
         </script>
-        <script>
-          $(function () {
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-              theme: 'bootstrap4'
-            })
-          })
-        </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            $(function () {
+              //Initialize Select2 Elements
+              $('.select2bs4').select2({
+                theme: 'bootstrap4'
+              })
+            })
+          </script>
         <script type="text/javascript">
                 function cek_perusahaan(){
                     var id = $("#dataperusahaan").val();
@@ -273,12 +269,6 @@
                         $('#npwp').val(obj.npwp);
                         $('#no_rek').val(obj.no_rek);
             
-                    //     var $jenis_kelamin = $('input:radio[name=jenis_kelamin]');
-                    // if(obj.jenis_kelamin == 'laki-laki'){
-                    //     $jenis_kelamin.filter('[value=laki-laki]').prop('checked', true);
-                    // }else{
-                    //     $jenis_kelamin.filter('[value=perempuan]').prop('checked', true);
-                    // }
                     });
                 }
                 function cek_pekerjaan(){
@@ -292,6 +282,7 @@
                         $('#kode_tender').val(obj.kode_tender);
                         $('#sub_kegiatan').val(obj.sub_kegiatan);
                         $('#nama_paket').val(obj.nama_paket);
+                        $('#nama_kegiatan').val(obj.nama_kegiatan);
                         $('#kecamatan').val(obj.kecamatan);
                         $('#kode_belanja').val(obj.kode_belanja);
                         $('#sumber_dana').val(obj.sumber_dana);

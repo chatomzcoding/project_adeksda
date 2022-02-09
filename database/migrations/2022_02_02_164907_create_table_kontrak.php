@@ -39,6 +39,7 @@ class CreateTableKontrak extends Migration
             $table->date('tgl_spl')->nullable();
             $table->string('no_spp')->nullable();
             $table->date('tgl_spp')->nullable();
+            $table->enum('status',['proses','selesai']);
             $table->timestamps();
         });
     }

@@ -10,6 +10,17 @@ if (! function_exists('cekvalue')) {
         return $result;
     }
 }
+// fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
+if (! function_exists('cekpendukung')) {
+    function cekpendukung($data)
+    {
+        $result = '<i class="fas fa-sync-alt"></i>';
+        if (!is_null($data)) {
+            $result     = '<i class="fas fa-check-circle"></i>';
+        }
+        return $result;
+    }
+}
 
 // fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
 if (! function_exists('datafilter')) {
