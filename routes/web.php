@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BastController;
 use App\Http\Controllers\Admin\DatapokokController;
 use App\Http\Controllers\Admin\DokumenspkController;
 use App\Http\Controllers\Admin\InfowebsiteController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('perusahaan', PerusahaanController::class);
         Route::get('ajax/{sesi}', [KontrakController::class, 'ajax'])->name('pajax');
         Route::resource('dokumenspk', DokumenspkController::class);
+        Route::resource('bast', BastController::class);
         // SISTEM
         Route::resource('datapokok', DatapokokController::class);
     });

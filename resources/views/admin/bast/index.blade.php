@@ -22,54 +22,29 @@
     
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Total Kontrak</span>
+                  <span class="info-box-text">Total BAST</span>
                   <span class="info-box-number">
-                        {{-- {{ count($kontrak)}} --}}
+                        {{ $main['statistik']['total']}}
                   </span>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
+                  <span class="info-box-text">Total Kontrak</span>
                   <span class="info-box-number">
+                    {{ $main['statistik']['kontrak']}}
+
                   </span>
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -78,7 +53,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a>
+                    <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah BAST</a>
                     <div class="float-right">
                         <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
@@ -90,16 +65,101 @@
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <select name="sumber_dana" id="" class="form-control" onchange="this.form.submit();">
+                                <select name="kontrak_id" id="" class="form-control" onchange="this.form.submit();">
                                     <option value="semua">-- Nama Paket --</option>
                                     @foreach ($kontrak as $item)
-                                        <option value="{{ $item->id }}">{{ strtoupper($item->nama_paket) }}</option>
+                                        @if (!DbSistem::showtablefirst('bast',['kontrak_id',$item->id]))
+                                          <option value="{{ $item->id }}" @if ($id == $item->id)
+                                              selected
+                                          @endif>{{ strtoupper($item->nama_paket) }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                     </form>
                   </section>
+                  @if ($dkontrak)
+                  <section class="mb-3 p-3">
+                    <form action="{{ url('bast') }}" method="post">
+                      @csrf
+                      <input type="hidden" name="kontrak_id" value="{{ $dkontrak->kontrak_id }}">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="" class="small">Nama Paket</label>
+                          <input type="text" id="nama_paket" class="form-control" value="{{ $dkontrak->nama_paket }}" disabled>
+                          <label for="" class="small">Sub Kegiatan</label>
+                          <input type="text" id="sub_kegiatan" class="form-control" value="{{ $dkontrak->sub_kegiatan }}" disabled>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="" class="small">No SPK</label>
+                          <input type="text" id="no_spk" class="form-control" value="{{ $dkontrak->no_spk }}" disabled>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="" class="small">Tanggal SPK</label>
+                          <input type="date" id="tgl_spk" class="form-control" value="{{ $dkontrak->tgl_spk }}" disabled>
+                        </div>
+                        <div class="col-md-4">
+                          <label for="" class="small">Jenis Pekerjaan</label>
+                          <input type="text" id="tgl_spk" class="form-control" value="{{ $dkontrak->jenis_pekerjaan }}" disabled>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <div class="form-group">
+                            <label for="">Tanggal Selesai Pekerjaan {!! ireq() !!}</label>
+                            <input type="date" name="tgl_selesai_pekerjaan" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Progress Pekerjaan (%){!! ireq() !!}</label>
+                            <input type="number" name="progress_pekerjaan" class="form-control" required>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <div class="form-group">
+                            <label for="">Tanggal Permohonan Ceklis {!! ireq() !!}</label>
+                            <input type="date" name="tgl_permohonan_ceklis" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Nomor Permohonan Ceklis {!! ireq() !!}</label>
+                            <input type="text" name="no_permohonan_ceklis" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Tanggal Surat PPK ke Tim Teknis {!! ireq() !!}</label>
+                            <input type="date" name="tgl_surat_ppk" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Tanggal Surat Tim Teknis {!! ireq() !!}</label>
+                            <input type="date" name="tgl_surat_tim" class="form-control" required>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <div class="form-group">
+                            <label for="">Tanggal BAST {!! ireq() !!}</label>
+                            <input type="date" name="tgl_bast" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Nomor BAST (sementara) {!! ireq() !!}</label>
+                            <input type="text" name="no_bast" value="{{ $nomorbast }}" class="form-control" required>
+                          </div>
+                          @if ($dkontrak->jenis_pekerjaan == 'fisik')
+                            <div class="form-group">
+                              <label for="">Konsultan Pengawas {!! ireq() !!}</label>
+                              <input type="text" name="konsultan_pengawas" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="">Direktur {!! ireq() !!}</label>
+                              <input type="text" name="direktur" class="form-control" required>
+                            </div>
+                          @endif
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group text-right">
+                            <button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i> SIMPAN BAST</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </section>
+                  @else
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -114,7 +174,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @forelse ($kontrak as $item)
+                            @forelse ($bast as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
@@ -136,10 +196,10 @@
                                             </div>
                                     </td>
                                       <td>{{ $item->nama_paket }}</td> 
-                                      <td>CV Mandiri Jaya</td> 
-                                      <td>{{ date_indo(tgl_sekarang()) }}</td>                                       
-                                      <td>610/0014/BAST/SDA</td>                                       
-                                      <td>{{ date_indo(tgl_sekarang()) }}</td>                                       
+                                      <td>{{ $item->nama_perusahaan }}</td> 
+                                      <td>{{ date_indo($item->tgl_selesai_pekerjaan) }}</td>                                       
+                                      <td>{{ $item->no_bast }}</td> 
+                                      <td>{{ date_indo($item->tgl_bast) }}</td>                                       
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -148,6 +208,7 @@
                             @endforelse
                     </table>
                 </div>
+                  @endif
               </div>
             </div>
           </div>

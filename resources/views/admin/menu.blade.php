@@ -5,7 +5,7 @@
   </a>
 </li>
 <li class="nav-item">
-  <a href="{{ url('/kontrak?bast=1')}}" class="nav-link">
+  <a href="{{ url('/bast')}}" class="nav-link">
     <i class="nav-icon fas fa-file"></i>
     <p class="text">BAST</p>
   </a>
