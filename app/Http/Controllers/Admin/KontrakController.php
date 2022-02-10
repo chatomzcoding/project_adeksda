@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dokumenspk;
 use App\Models\Kategori;
 use App\Models\Kontrak;
+use App\Models\Kontrakakses;
 use App\Models\Pekerjaan;
 use App\Models\Perusahaan;
 use App\Models\Timlokus;
@@ -89,12 +90,34 @@ class KontrakController extends Controller
                 return view('konsultan.kontrak.index', compact('menu','main','kontrak','kontrakakses','dkontrak','id'));
                 break;
             case 'rekap':
+                $menu       = 'rekap';
                 $user       = User::where('level','konsultan')->get();
-                $kontrak    = DB::table('kontrak_akses')
-                                ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
-                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                ->join('users','kontrak_akses.user_id','=','users.id')
-                                ->get();
+                $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : 'semua' ;
+                if ($user_id == 'semua') {
+                    $kontrak    = DB::table('kontrak_akses')
+                                    ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                    ->join('users','kontrak_akses.user_id','=','users.id')
+                                    ->get();
+                } else {
+                    $kontrak    = DB::table('kontrak_akses')
+                                    ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                                    ->join('users','kontrak_akses.user_id','=','users.id')
+                                    ->where('users.id',$user_id)
+                                    ->get();
+                }
+                
+                $main   = [
+                    'link' => 'kontrak',
+                    'statistik' => [
+                        'total' => Kontrak::count(),
+                        'kontrakakses' => Kontrakakses::count()
+                    ],
+                    'f' => [
+                        'user_id' => $user_id
+                    ]
+                ];
                 return view('admin.kontrak.rekap', compact('menu','main','kontrak','user'));
                 break;
             

@@ -41,7 +41,10 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="{{ url('kontrak') }}" class="btn btn-outline-primary btn-sm pop-info" title="Kembali" ><i class="fas fa-long-arrow-alt-left"></i></a>
                     @if ($main['kontrak'])
-                    <a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=rincian') }}" class="btn btn-outline-primary btn-sm pop-info" title="rincian kontrak" ><i class="fas fa-file-alt"></i> RINCIAN</a>
+                        @if ($main['kontrak']->status == 'selesai')
+                        <a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=rincian') }}" class="btn btn-outline-primary btn-sm pop-info" title="rincian kontrak" ><i class="fas fa-file-alt"></i> RINCIAN</a>
+                            
+                        @endif
                     @endif
                     <div class="float-right">
                         <a href="#" data-toggle="modal" data-target="#cetak" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Dokumen"><i class="fas fa-print"></i> CETAK</a>

@@ -51,44 +51,94 @@
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <div class="row">
-                      @if ($main['datapekerjaan'])
-                      <div class="col-md-12 border p-3 mb-3">
-                        <table class="table">
-                            <tr>
-                                <th width="30%">Nama Paket</th>
-                                <td>{{ $main['datapekerjaan']->nama_paket }}</td>
-                            </tr>
-                            <tr>
-                                <th>Kode Kegiatan / Tender</th>
-                                <td>{{ $main['datapekerjaan']->kode_kegiatan.' / '.$main['datapekerjaan']->kode_tender }}</td>
-                            </tr>
-                            <tr>
-                                <th>Kode Belanja</th>
-                                <td>{{ $main['datapekerjaan']->kode_belanja }}</td>
-                            </tr>
-                            <tr>
-                                <th>Nama Kegiatan</th>
-                                <td>{{ $main['datapekerjaan']->nama_kegiatan }}</td>
-                            </tr>
-                            <tr>
-                                <th>Sub Kegiatan</th>
-                                <td>{{ $main['datapekerjaan']->sub_kegiatan }}</td>
-                            </tr>
-                            <tr>
-                                <th>Alamat Pekerjaan</th>
-                                <td>Kecamatan {{ $main['datapekerjaan']->kecamatan }}, Kota Tasikmalaya</td>
-                            </tr>
-                            <tr>
-                                <th>Sumber Dana</th>
-                                <td>{{ $main['datapekerjaan']->sumber_dana }}</td>
-                            </tr>
-                            <tr>
-                                <th>Tahun Anggaran</th>
-                                <td>{{ $main['datapekerjaan']->tahun_anggaran }}</td>
-                            </tr>
-                        </table>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <strong>INFORMASI UMUM</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tr>
+                                        <th width="30%">Nama Paket</th>
+                                        <td>{{ $main['datapekerjaan']->nama_paket }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kode Kegiatan / Tender</th>
+                                        <td>{{ $main['datapekerjaan']->kode_kegiatan.' / '.$main['datapekerjaan']->kode_tender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Kode Belanja</th>
+                                        <td>{{ $main['datapekerjaan']->kode_belanja }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nama Kegiatan</th>
+                                        <td>{{ $main['datapekerjaan']->nama_kegiatan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sub Kegiatan</th>
+                                        <td>{{ $main['datapekerjaan']->sub_kegiatan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Alamat Pekerjaan</th>
+                                        <td>Kecamatan {{ $main['datapekerjaan']->kecamatan }}, Kota Tasikmalaya</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sumber Dana</th>
+                                        <td>{{ $main['datapekerjaan']->sumber_dana }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tahun Anggaran</th>
+                                        <td>{{ $main['datapekerjaan']->tahun_anggaran }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    @endif
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <strong>DOKUMEN KONTRAK</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th width="60%">Cover SPK</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>SPK</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>SP</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>SPMK</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>SPL</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    @if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik')
+                                        <tr>
+                                            <th>BARPK</th>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <th>SPPBJ</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>SSKK-BANPROV</th>
+                                        <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                       <div class="col-md-6">
                           <div class="card">
                               <div class="card-header bg-primary">
@@ -129,16 +179,16 @@
                                   <table class="table">
                                     <tr>
                                         <th>No Adendum</th>
-                                        <td>{{ $main['kontrak']->no_adendum }} Hari Kalender</td>
+                                        <td>{{ $main['kontrak']->no_adendum }}</td>
                                     </tr>
 
                                     <tr>
                                         <th>Tanggal Adendum</th>
-                                        <td>{{ $main['kontrak']->tgl_adendum }}</td>
+                                        <td>{{ date_indo($main['kontrak']->tgl_adendum) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Nilai</th>
-                                        <td>{{ $main['kontrak']->nilai }}</td>
+                                        <td>{{ $main['kontrak']->nilai }}%</td>
                                     </tr>
                                     <tr>
                                         <th>Masa Kontrak</th>
@@ -146,119 +196,102 @@
                                     </tr>
                                     <tr>
                                         <th>Tanggal Akhir Kontrak</th>
-                                        <td>{{ $main['kontrak']->tgl_akhir_kontrak }}</td>
+                                        <td>{{ date_indo($main['kontrak']->tgl_akhir_kontrak) }}</td>
                                     </tr>
                                   </table>
                               </div>
                           </div>
                       </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="5%">No</th>
-                                <th width="20%">Nama Rincian</th>
-                                <th>Isi Rincian</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                            <tr>
-                                <td>6</td>
-                                <td>Nomor Pengadaan</td>
-                                <td>{{ $main['kontrak']->no_pengadaan.' / '.$main['kontrak']->tgl_pengadaan }}</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>Nomor BAHP</td>
-                                <td>{{ $main['kontrak']->no_bahp.' / '.$main['kontrak']->tgl_bahp }}</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>Nomor SPPBJ</td>
-                                <td>{{ $main['kontrak']->no_sppbj.' / '.$main['kontrak']->tgl_sppbj }}</td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>Nomor BARPK</td>
-                                <td>{{ $main['kontrak']->no_barpk.' / '.$main['kontrak']->tgl_barpk }}</td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Nomor SPK</td>
-                                <td>{{ $main['kontrak']->no_spk.' / '.$main['kontrak']->tgl_spk }}</td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>Nomor SPMK</td>
-                                <td>{{ $main['kontrak']->no_spmk.' / '.$main['kontrak']->tgl_spmk }}</td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>Nomor SPL</td>
-                                <td>{{ $main['kontrak']->no_spl.' / '.$main['kontrak']->tgl_spl }}</td>
-                            </tr>
-                            <tr>
-                                <td>13</td>
-                                <td>Nomor SPP</td>
-                                <td>{{ $main['kontrak']->no_spp.' / '.$main['kontrak']->tgl_spp }}</td>
-                            </tr>
-            
-                            @if ($main['dataperusahaan'])
-                            <tr>
-                                <td>24</td>
-                                <td>Nama Perusahaan</td>
-                                <td>{{ $main['dataperusahaan']->nama_perusahaan }}</td>
-                            </tr>
-                            <tr>
-                                <td>25</td>
-                                <td>Direktur</td>
-                                <td>{{ $main['dataperusahaan']->direktur }}</td>
-                            </tr>
-                            <tr>
-                                <td>26</td>
-                                <td>Alamat Perusahaan</td>
-                                <td>{{ $main['dataperusahaan']->alamat }}</td>
-                            </tr>
-                            <tr>
-                                <td>27</td>
-                                <td>Bank</td>
-                                <td>{{ $main['dataperusahaan']->bank }}</td>
-                            </tr>
-                            <tr>
-                                <td>28</td>
-                                <td>Kantor Cabang</td>
-                                <td>{{ $main['dataperusahaan']->kantor_cabang }}</td>
-                            </tr>
-                            <tr>
-                                <td>29</td>
-                                <td>No Rekening Bank</td>
-                                <td>{{ $main['dataperusahaan']->no_rek }}</td>
-                            </tr>
-                            <tr>
-                                <td>30</td>
-                                <td>No NPWP</td>
-                                <td>{{ $main['dataperusahaan']->npwp }}</td>
-                            </tr>
-                            <tr>
-                                <td>31</td>
-                                <td>No Akta</td>
-                                <td>{{ $main['dataperusahaan']->no_akta }}</td>
-                            </tr>
-                            <tr>
-                                <td>32</td>
-                                <td>Tanggal Akta</td>
-                                <td>{{ $main['dataperusahaan']->tgl_akta }}</td>
-                            </tr>
-                            <tr>
-                                <td>33</td>
-                                <td>Nama Notaris</td>
-                                <td>{{ $main['dataperusahaan']->nama_notaris }}</td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                      <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <strong>RINCIAN</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tr>
+                                        <th>Nomor Pengadaan</th>
+                                        <td>{{ $main['kontrak']->no_pengadaan.' / '.$main['kontrak']->tgl_pengadaan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nomor BAHP</th>
+                                        <td>{{ $main['kontrak']->no_bahp.' / '.$main['kontrak']->tgl_bahp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nomor SPPBJ</th>
+                                        <td>{{ $main['kontrak']->no_sppbj.' / '.$main['kontrak']->tgl_sppbj }}</td>
+                                    </tr>
+                                    @if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik')
+                                        <tr>
+                                            <th>Nomor BARPK</th>
+                                            <td>{{ $main['kontrak']->no_barpk.' / '.$main['kontrak']->tgl_barpk }}</td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <th>Nomor SPK</th>
+                                        <td>{{ $main['kontrak']->no_spk.' / '.$main['kontrak']->tgl_spk }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nomor SPMK</th>
+                                        <td>{{ $main['kontrak']->no_spmk.' / '.$main['kontrak']->tgl_spmk }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nomor SPL</th>
+                                        <td>{{ $main['kontrak']->no_spl.' / '.$main['kontrak']->tgl_spl }}</td>
+                                    </tr>
+                                    @if ($main['datapekerjaan']->jenis_pekerjaan <> 'fisik')
+                                        <tr>
+                                            <th>Nomor SPP</th>
+                                            <td>{{ $main['kontrak']->no_spp.' / '.$main['kontrak']->tgl_spp }}</td>
+                                        </tr>
+                                    @endif
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                      <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <strong>INFORMASI PERUSAHAAN</strong>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <tr>
+                                        <th width="40%">Nama Perusahaan</th>
+                                        <td>{{ $main['dataperusahaan']->nama_perusahaan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Direktur</th>
+                                        <td>{{ $main['dataperusahaan']->direktur }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Alamat Perusahaan</th>
+                                        <td>{{ $main['dataperusahaan']->alamat }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank</th>
+                                        <td>{{ $main['dataperusahaan']->bank.' / '.$main['dataperusahaan']->kantor_cabang }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>No Rekening Bank</th>
+                                        <td>{{ $main['dataperusahaan']->no_rek }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>No NPWP</th>
+                                        <td>{{ $main['dataperusahaan']->npwp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Akta No/Tanggal</th>
+                                        <td>{{ $main['dataperusahaan']->no_akta.'/'. date_indo($main['dataperusahaan']->tanggal_akta) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nama Notaris</th>
+                                        <td>{{ $main['dataperusahaan']->nama_notaris }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                   </div>
               </div>
             </div>
