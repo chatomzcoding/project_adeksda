@@ -298,6 +298,9 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('template/admin/lte/dist/js/adminlte.js')}}"></script>
 
+<script src="{{ asset('template/admin/lte/plugins/daterangepicker/daterangepicker.js')}}"></script>
+
+
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('template/admin/lte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('template/admin/lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
@@ -321,6 +324,13 @@
 {{-- javascript chatomz --}}
 <script src="{{ asset('js/chatomz.js')}}"></script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+      $( ".tgldp" ).datepicker({
+        "dateFormat": "dd/mm/yyyy"
+      });
+  })
+</script>
 
 @yield('script')
 @stack('modals')

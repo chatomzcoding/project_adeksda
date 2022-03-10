@@ -73,7 +73,7 @@ class DokumenspkController extends Controller
             }
         }
         // save untuk pekerjaan pembantu
-        $datapembantu = json_decode($request->data2);
+        $datapembantu = json_decode($request->data3);
         for ($i=0; $i < count($datapembantu); $i++) { 
             if ($datapembantu[0] <> '') {
                 Dokumenspk::create([

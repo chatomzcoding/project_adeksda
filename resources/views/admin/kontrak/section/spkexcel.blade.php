@@ -13,7 +13,9 @@
     <h2 class="ui header">Pekerjaan Pembantu</h2>
     <div id="spreadsheet3"></div>
     <div class="ui divider hidden"></div>
-    <button type="submit" class="btn btn-primary">SIMPAN DATA</button>
+    <div class="text-right">
+        <button type="submit" class="btn btn-outline-primary">SELANJUTNYA <i class="fas fa-angle-double-right"></i></button>
+    </div>
 </form>
 
 @section('script')

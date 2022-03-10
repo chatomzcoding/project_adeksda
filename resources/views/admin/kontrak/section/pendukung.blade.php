@@ -2,22 +2,22 @@
   <div class="bs-stepper-header" role="tablist">
     <!-- your steps here -->
    
-    <div class="step" data-target="#pekerjaan">
-      <button type="button" class="step-trigger" role="tab" aria-controls="pekerjaan" id="pekerjaan-trigger">
+    <div class="step" data-target="#pekerjaan122">
+      <button type="button" class="step-trigger" role="tab" aria-controls="pekerjaan122" id="pekerjaan-trigger33">
         <span class="bs-stepper-circle">1</span>
         <span class="bs-stepper-label">PEKERJAAN {!! cekpendukung($main['kontrak']->pekerjaan_id) !!}</span>
       </button>
     </div>
     <div class="line"></div>
-    <div class="step" data-target="#perusahaan">
-      <button type="button" class="step-trigger" role="tab" aria-controls="perusahaan" id="perusahaan-trigger">
+    <div class="step" data-target="#perusahaan122">
+      <button type="button" class="step-trigger" role="tab" aria-controls="perusahaan122" id="perusahaan-trigger33">
         <span class="bs-stepper-circle">2</span>
         <span class="bs-stepper-label">PERUSAHAAN {!! cekpendukung($main['kontrak']->perusahaan_id) !!}</span>
       </button>
     </div>
     <div class="line"></div>
-    <div class="step" data-target="#pegawai">
-      <button type="button" class="step-trigger" role="tab" aria-controls="pegawai" id="pegawai-trigger">
+    <div class="step" data-target="#pegawai122">
+      <button type="button" class="step-trigger" role="tab" aria-controls="pegawai122" id="pegawai-trigger33">
         <span class="bs-stepper-circle">3</span>
         <span class="bs-stepper-label">TIM TEKNIS {!! cekpendukung($main['kontrak']->id_ketua) !!}</span>
       </button>
@@ -29,8 +29,7 @@
       <input type="hidden" name="sesi" value="pendukung">
       <input type="hidden" name="id" value="{{ $main['kontrak']->id }}">
     <!-- your steps content here -->
-   
-    <div id="pekerjaan" class="content" role="tabpanel" aria-labelledby="pekerjaan-trigger">
+    <div id="pekerjaan122" class="content" role="tabpanel" aria-labelledby="pekerjaan-trigger33">
       <div class="form-group">
         <div class="row">
           <div class="col-md-8">
@@ -40,7 +39,7 @@
               @foreach ($main['pekerjaan'] as $item)
                 <option value="{{ $item->id }}" @if ($main['kontrak']->pekerjaan_id == $item->id)
                   selected
-              @endif>{{ ucwords($item->nama_paket) }}</option>
+              @endif>{{ ucwords($item->nama_paket.$item->id) }}</option>
               @endforeach
             </select>
             <div class="row">
@@ -81,7 +80,7 @@
      
    
     </div>
-    <div id="perusahaan" class="content" role="tabpanel" aria-labelledby="perusahaan-trigger">
+    <div id="perusahaan122" class="content" role="tabpanel" aria-labelledby="perusahaan-trigger33">
       <div class="form-group">
         <div class="row">
           <div class="col-md-8">
@@ -128,7 +127,7 @@
       </div>
   
     </div>
-    <div id="pegawai" class="content" role="tabpanel" aria-labelledby="pegawai-trigger">
+    <div id="pegawai122" class="content" role="tabpanel" aria-labelledby="pegawai-trigger33">
       <div class="form-group">
         <div class="row">
           <div class="col-md-8">

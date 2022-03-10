@@ -163,7 +163,7 @@ class KontrakController extends Controller
                     'nilai_pekerjaan' => default_nilai($request->nilai_pekerjaan),
                 ]);
                 $kontrak    = Kontrak::latest()->first();
-                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('success','Informasi kontak sudah tersimpan, selanjutnya memilih tim lokus, pekerjaan dan perusahaan');
+                return redirect('kontrak/'.Crypt::encryptString($kontrak->id))->with('success','Informasi kontak sudah tersimpan, selanjutnya memilih tim Teknis, pekerjaan dan perusahaan');
                 break;
             case 'pendukung':
                 $kontrak   = Kontrak::find($request->id);
@@ -342,6 +342,9 @@ class KontrakController extends Controller
             case 'rincian':
                 return view('admin.kontrak.show', compact('menu','main','kecamatan','jenispekerjaan','sumberdana'));
                 break;
+            case 'cetak':
+                return self::cetak($kecamatan,$main,$jenispekerjaan,$sumberdana);
+                break;
             
             default:
                 return view('admin.kontrak.create', compact('menu','main','kecamatan','jenispekerjaan','sumberdana'));
@@ -351,9 +354,144 @@ class KontrakController extends Controller
 
     }
 
+    public static function cetak($kecamatan,$main,$jenispekerjaan,$sumberdana)
+    {
+        $folder     = 'kontrakfisik';
+        if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-pengawas') {
+            $folder = 'kontrakpengawas';
+        }
+        switch ($_GET['file']) {
+            case 'coverspk':
+                $file   = 'public/file/'.$folder.'/cover-spk.rtf';
+                $namafile   = 'Cover SPK '.tgl_sekarang();
+                break;
+            case 'spk':
+                $file   = 'public/file/'.$folder.'/spk.rtf';
+                $namafile   = 'SPK '.tgl_sekarang();
+                break;
+            case 'sp':
+                $file   = 'public/file/'.$folder.'/sp.rtf';
+                $namafile   = 'SP '.tgl_sekarang();
+                break;
+            case 'spmk':
+                $file   = 'public/file/'.$folder.'/spmk.rtf';
+                $namafile   = 'SPMK '.tgl_sekarang();
+                break;
+            case 'spl':
+                $file   = 'public/file/'.$folder.'/spl.rtf';
+                $namafile   = 'SPL '.tgl_sekarang();
+                break;
+            case 'barpk':
+                $file   = 'public/file/'.$folder.'/barpk.rtf';
+                $namafile   = 'BARPK '.tgl_sekarang();
+                break;
+            case 'sppbj':
+                $file   = 'public/file/'.$folder.'/sppbj.rtf';
+                $namafile   = 'SPPBJ '.tgl_sekarang();
+                break;
+            case 'sskk':
+                $file   = 'public/file/'.$folder.'/sskk.rtf';
+                $namafile   = 'SSKK-BANPROV '.tgl_sekarang();
+                break;
+                
+            default:
+                # code...
+                break;
+        }
+        $document = file_get_contents($file);
+        // kata / kalimat yang akan di ubah
+        // KONTRAK 
+        $document = str_replace("[masa_kontrak]", $main['kontrak']->masa_kontrak, $document);
+        $document = str_replace("[terbilang_masakontrak]", terbilang($main['kontrak']->masa_kontrak), $document);
+        $document = str_replace("[nilai_pekerjaan]", norupiah($main['kontrak']->nilai_pekerjaan), $document);
+        $document = str_replace("[nilai_terkoreksi]", norupiah($main['kontrak']->nilai_terkoreksi), $document);
+        $document = str_replace("[nilai_penawaran]", norupiah($main['kontrak']->nilai_penawaran), $document);
+        $document = str_replace("[nilai_negosiasi]", norupiah($main['kontrak']->nilai_negosiasi), $document);
+        $document = str_replace("[terbilang]", terbilang($main['kontrak']->nilai_pekerjaan), $document);
+        $document = str_replace("[no_spk]", $main['kontrak']->no_spk, $document);
+        $document = str_replace("[no_spp]", $main['kontrak']->no_spp, $document);
+        $document = str_replace("[no_spl]", $main['kontrak']->no_spl, $document);
+        $document = str_replace("[no_bahp]", $main['kontrak']->no_bahp, $document);
+        $document = str_replace("[no_sppbj]", $main['kontrak']->no_sppbj, $document);
+        $document = str_replace("[no_spmk]", $main['kontrak']->no_spmk, $document);
+        $document = str_replace("[no_barpk]", $main['kontrak']->no_barpk, $document);
+        $document = str_replace("[tgl_spk]", date_indo($main['kontrak']->tgl_spk), $document);
+        $document = str_replace("[tgl_spp]", date_indo($main['kontrak']->tgl_spp), $document);
+        $document = str_replace("[tgl_bahp]", date_indo($main['kontrak']->tgl_bahp), $document);
+        $document = str_replace("[tgl_sppbj]", date_indo($main['kontrak']->tgl_sppbj), $document);
+        $document = str_replace("[tgl_spmk]", date_indo($main['kontrak']->tgl_spmk), $document);
+        $document = str_replace("[tgl_spl]", date_indo($main['kontrak']->tgl_spl), $document);
+        $document = str_replace("[tgl_barpk]", date_indo($main['kontrak']->tgl_barpk), $document);
+        $document = str_replace("[hari_tglspl]", 'Minggu', $document);
+        $document = str_replace("[hari_tglspk]", 'Minggu', $document);
+        $document = str_replace("[hari_tglbarpk]", 'Minggu', $document);
+        $document = str_replace("[terbilang_tglbarpk]", 'terbilang tanggal barpk', $document);
+        $document = str_replace("[terbilang_tglspl]", 'terbilang tanggal spl', $document);
+        $document = str_replace("[terbilang_tglspk]", 'terbilang tanggal spk', $document);
+        $document = str_replace("[nama_ketua]", $main['dataketua']->nama, $document);
+        $document = str_replace("[nama_sekretaris]", $main['datasekretaris']->nama, $document);
+        $document = str_replace("[nama_anggota]", $main['dataanggota']->nama, $document);
+        // SSKK
+        $nilai40  = $main['kontrak']->nilai_pekerjaan * 40/100;
+        $nilai35  = $main['kontrak']->nilai_pekerjaan * 35/100;
+        $nilai20  = $main['kontrak']->nilai_pekerjaan * 20/100;
+        $nilai5  = $main['kontrak']->nilai_pekerjaan * 5/100;
+        $document = str_replace("[nilai_pekerjaan40]", norupiah($nilai40), $document);
+        $document = str_replace("[nilai_pekerjaan35]", norupiah($nilai35), $document);
+        $document = str_replace("[nilai_pekerjaan20]", norupiah($nilai20), $document);
+        $document = str_replace("[nilai_pekerjaan5]", norupiah($nilai5), $document);
+        
+        // PEKERJAAN
+        $document = str_replace("[kode_kegiatan]", $main['datapekerjaan']->kode_kegiatan, $document);
+        $document = str_replace("[kode_tender]", $main['datapekerjaan']->kode_tender, $document);
+        $document = str_replace("[nama_kegiatan]", $main['datapekerjaan']->nama_kegiatan, $document);
+        $document = str_replace("[sub_kegiatan]", $main['datapekerjaan']->sub_kegiatan, $document);
+        $document = str_replace("[nama_paket]", $main['datapekerjaan']->nama_paket, $document);
+        $document = str_replace("[kecamatan]", $main['datapekerjaan']->kecamatan, $document);
+        $document = str_replace("[sumber_dana]", $main['datapekerjaan']->sumber_dana, $document);
+        $document = str_replace("[tahun_anggaran]", $main['datapekerjaan']->tahun_anggaran, $document);
+        
+        // PERUSAHAAN
+        $document = str_replace("[nama_perusahaan]", $main['dataperusahaan']->nama_perusahaan, $document);
+        $document = str_replace("[direktur]", $main['dataperusahaan']->direktur, $document);
+        $document = str_replace("[alamat]", $main['dataperusahaan']->alamat, $document);
+        $document = str_replace("[bank]", $main['dataperusahaan']->bank, $document);
+        $document = str_replace("[kantor_cabang]", $main['dataperusahaan']->kantor_cabang, $document);
+        $document = str_replace("[no_rek]", $main['dataperusahaan']->no_rek, $document);
+        $document = str_replace("[no_akta]", $main['dataperusahaan']->no_akta, $document);
+        $document = str_replace("[tanggal_akta]", $main['dataperusahaan']->tanggal_akta, $document);
+        $document = str_replace("[nama_notaris]", $main['dataperusahaan']->nama_notaris, $document);
+        
+        // MASTER
+        $ppk    = Timlokus::where('status','ppk')->first();
+        if ($ppk) {
+            $nama_ppk = $ppk->nama;
+            $nip_ppk = $ppk->nip;
+        } else {
+            $nama_ppk = 'nama ppk';
+            $nip_ppk = 'nip ppk';
+        }
+        $document = str_replace("[nama_ppk]", $nama_ppk, $document);
+        $document = str_replace("[nama_pptk]", 'Nama PPTK', $document);
+        $document = str_replace("[nip_ppk]", $nip_ppk, $document);
+        $document = str_replace("[no_keputusan]", '900/Kep.29 - BPKAD/2021', $document);
+        $document = str_replace("[tgl_keputusan]", date_indo('2021-01-28'), $document);
+        $document = str_replace("[hari_akhirkontrak]", 'Senin', $document);
+        $document = str_replace("[tgl_akhirkontrak]", date_indo('2021-01-28'), $document);
+        $document = str_replace("[status_uangmuka]", "YA/TIDAK", $document);
+        
+
+
+        // output
+        header("Content-type: application/msword");
+        header("Content-disposition: inline; filename=".$namafile.".rtf");
+        header("Content-length: " . strlen($document));
+        echo $document;
+    }
+
     public static function kodeNomor($kontrak_id,$pekerjaan_id)
     {
-        $pekerjaan      = Pekerjaan::find($pekerjaan_id)->first();
+        $pekerjaan      = Pekerjaan::find($pekerjaan_id);
         $kode_kegiatan  = $pekerjaan->kode_kegiatan;
         $kontrakterakhir    = Kontrak::where('id','<>',$kontrak_id)->where('no_bahp','<>',NULL)->orderBy('id','DESC')->first();
         if ($pekerjaan->jenis_pekerjaan == 'fisik') {
@@ -377,12 +515,12 @@ class KontrakController extends Controller
                 } else {
                     $urutan = $no;
                 }
-                $nomor[$list[$i]] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
+                $nomor[$list[$i]] = '610/'.$urutan.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA/'.$pekerjaan->tahun_anggaran;
             }
         } else {
             for ($i=0; $i < count($list); $i++) {
                 $no         = $i + 1; 
-                $nomor[$list[$i]] = '610/000'.$no.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA';
+                $nomor[$list[$i]] = '610/000'.$no.'/'.$list[$i].'-'.$kode_kegiatan.'/SDA/'.$pekerjaan->tahun_anggaran;
             }
         }
         return $nomor;

@@ -84,7 +84,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="">Tanggal Nomor SPP</label>
-                            <input type="date" name="tgl_spp" value="{{ $main['kontrak']->tgl_spp }}" class="form-control" required>
+                            <input type="date" name="tgl_spp" value="{{ $main['kontrak']->tgl_spp }}" class="form-control tgldp" required>
                         </div>
                     </div>      
                 </div>
