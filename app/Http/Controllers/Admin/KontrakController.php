@@ -483,9 +483,15 @@ class KontrakController extends Controller
 
 
         // output
+        // header("Content-type: application/msword");
+        // header("Content-disposition: inline; filename=".$namafile.".rtf");
+        // header("Content-length: " . strlen($document));
+        // echo $document;
+        $namafile = $namafile.'.rtf';
         header("Content-type: application/msword");
-        header("Content-disposition: inline; filename=".$namafile.".rtf");
+        header("Content-disposition: inline; filename=".$namafile);
         header("Content-length: " . strlen($document));
+        header("Content-Disposition:attachment; filename=\"".$namafile."\"");
         echo $document;
     }
 
