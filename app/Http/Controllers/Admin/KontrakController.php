@@ -302,14 +302,15 @@ class KontrakController extends Controller
             'persiapan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','persiapan')->get(['uraian','satuan','kuantitas','harga']),
             'pelaksanaan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksanaan')->get(['uraian','satuan','kuantitas','harga']),
             'pembantu' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pembantu')->get(['uraian','satuan','kuantitas','harga']),
+            'tenagaahli' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','tenagaahli')->get(['uraian','satuan','kuantitas','harga','durasi']),
         ];
 
         if ($collapse == 4) {
-            $collapse = (count($dokumenspk['persiapan']) > 0) ? 5 : 4 ;
+            $collapse = (count($dokumenspk['persiapan']) > 0 || count($dokumenspk['tenagaahli']) > 0) ? 5 : 4 ;
         }
 
         // khusus SPK
-        $kolomkosong    =  [['','','','','',], ['','','','','',], ['','','','','',]];
+        $kolomkosong    =  [['','','','','',]];
         $spkpersiapan = (count($dokumenspk['persiapan']) > 0) ? $dokumenspk['persiapan'] : $kolomkosong ;
         $spkpelaksanaan = (count($dokumenspk['pelaksanaan']) > 0) ? $dokumenspk['pelaksanaan'] : $kolomkosong ;
         $spkpembantu = (count($dokumenspk['pembantu']) > 0) ? $dokumenspk['pembantu'] : $kolomkosong ;
@@ -359,6 +360,9 @@ class KontrakController extends Controller
         $folder     = 'kontrakfisik';
         if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-pengawas') {
             $folder = 'kontrakpengawas';
+        }
+        if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-perencana') {
+            $folder = 'kontrakperencana';
         }
         switch ($_GET['file']) {
             case 'coverspk':
