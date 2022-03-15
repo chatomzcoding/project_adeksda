@@ -53,10 +53,12 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah BAST</a>
+                @if ($dkontrak)
+                  <a href="{{ url('bast') }}" class="btn btn-outline-secondary btn-sm pop-info" title="Kembali ke daftar BAST"><i class="fas fa-angle-left"></i> Kembali</a>
+                @endif
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
+                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
@@ -188,8 +190,8 @@
                                                   <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> CETAK</a>
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-pen text-success" style="width: 25px"></i> EDIT</a>
+                                                  <a href="{{ url('bast/'.$item->id) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> CETAK</a>
+                                                  {{-- <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-pen text-success" style="width: 25px"></i> EDIT</a> --}}
                                                   <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
                                                 </div>

@@ -357,13 +357,21 @@ class KontrakController extends Controller
 
     public static function cetak($kecamatan,$main,$jenispekerjaan,$sumberdana)
     {
-        $folder     = 'kontrakfisik';
-        if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-pengawas') {
-            $folder = 'kontrakpengawas';
+        if (isset($_GET['sesi'])) {
+            $folder     = 'bastfisik';
+            if ($main['datapekerjaan']->jenis_pekerjaan <> 'fisik') {
+                $folder = 'bastkonsultan';
+            }
+        } else {
+            $folder     = 'kontrakfisik';
+            if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-pengawas') {
+                $folder = 'kontrakpengawas';
+            }
+            if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-perencana') {
+                $folder = 'kontrakperencana';
+            }
         }
-        if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-perencana') {
-            $folder = 'kontrakperencana';
-        }
+        
         switch ($_GET['file']) {
             case 'coverspk':
                 $file   = 'public/file/'.$folder.'/cover-spk.rtf';
@@ -397,9 +405,16 @@ class KontrakController extends Controller
                 $file   = 'public/file/'.$folder.'/sskk.rtf';
                 $namafile   = 'SSKK-BANPROV '.tgl_sekarang();
                 break;
-                
+            case 'ringkasankontrak':
+                $file   = 'public/file/'.$folder.'/ringkasankontrak.rtf';
+                $namafile   = 'RINGKASAN KONTRAK '.tgl_sekarang();
+                break;
+            case 'basthp':
+                $file   = 'public/file/'.$folder.'/basthp.rtf';
+                $namafile   = 'BAST Hasil Pekerjaan '.tgl_sekarang();
+                break;
             default:
-                # code...
+                die('akses tidak ada');
                 break;
         }
         $document = file_get_contents($file);

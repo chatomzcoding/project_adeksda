@@ -31,8 +31,8 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="{{ url($main['link']) }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-angle-double-left"></i> Kembali</a>
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
+                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
@@ -69,6 +69,10 @@
                                             <th>Tangggal BAST</th>
                                             <td>{{ $bast->tgl_bast }}</td>
                                         </tr>
+                                        <tr>
+                                            <th>Jenis Pekerjaan</th>
+                                            <td>{{ $bast->jenis_pekerjaan }}</td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
@@ -81,40 +85,36 @@
                                 <div class="card-body">
                                     <table class="table table-striped">
                                         <tr>
-                                            <th width="60%">Cetak Semua Dokumen BAST</th>
-                                            <td><a href="#" class="btn btn-info btn-sm"><i class="fas fa-print"></i> CETAK SEMUA</a></td>
-                                        </tr>
-                                        <tr>
                                             <th>Ringkasan Kontrak</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=ringkasankontrak&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>BAST Hasil Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=basthp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Lampiran Berita Acara Hasil Pemeriksaan Administrasi Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Lampiran Berita Acara Hasil Pemeriksaan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Lampiran Hasil Pemeriksaan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Pemeriksaan Hasil Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Laporan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Permohonan Pemeriksaan Hasil Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                     </table>
                                 </div>
