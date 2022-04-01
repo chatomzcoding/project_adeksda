@@ -54,8 +54,8 @@
                 <h3 class="card-title">DAFTAR REKAP PROGRESS</h3>
                     {{-- <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a> --}}
                     <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
+                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
+                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
                     </div>
               </div>
               <div class="card-body">
@@ -83,15 +83,19 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
-                                <th>Nama Konsultan</th>
                                 <th>Nama Paket</th>
+                                <th>Nilai Kontrak</th>
                                 <th>Nomor SPK</th>
+                                <th>Kontraktor Pelaksana</th>
                                 <th>Tanggal SPK</th>
-                                <th>Nama Perusahaan</th>
-                                <th>Progress</th>
+                                <th>Masa Pelaksanaan</th>
+                                <th>Tanggal Akhir Kontrak</th>
+                                <th>Progress Fisik</th>
+                                <th>Panjang</th>
+                                <th>Nama Konsultan</th>
                             </tr>
                         </thead>
-                        <tbody class="text-capitalize">
+                        <tbody>
                             @forelse ($kontrak as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
@@ -107,25 +111,34 @@
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
                                                   <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak_id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak_id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> Progress Fisik</a>
                                                   {{-- <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button> --}}
                                                 </div>
                                             </div>
                                     </td>
-                                      <td>{{ $item->name }}</td>                                        
-                                      <td>{{ $item->nama_paket }}</td>                                        
-                                      <td>{{ $item->no_spk }}</td>                                        
-                                      <td>{{ $item->tgl_spk }}</td>                                        
-                                      <td>{{ $item->nama_perusahaan }}</td>          
-                                      <td class="text-center">
-                                        @php
+                                    <td>{{ $item->nama_paket }}</td>                                        
+                                    <td>{{ rupiah($item->nilai_pekerjaan) }}</td>                                        
+                                    <td>{{ $item->no_spk }}</td>                                        
+                                    <td>{{ $item->nama_perusahaan }}</td>          
+                                    <td>{{ date_indo($item->tgl_spk) }}</td>
+                                    <td>{{ $item->masa_kontrak }} HK</td>
+                                    <td> {{ date_indo(tgl_akhir_kontrak($item->tgl_spk,$item->masa_kontrak)) }} </td>                                        
+                                    @php
                                             $progress = App\Models\Progress::where('kontrak_id',$item->kontrak_id)->orderBy('id','DESC')->first()
-                                        @endphp  
+                                            @endphp  
+                                      <td class="text-center">
                                         @if ($progress)
-                                            {{ $progress->nilai }}%
+                                        {{ $progress->nilai }}% <br>
                                         @endif
                                       </td>                                 
-                                </tr>
+                                      <td class="text-center">
+                                        @if ($progress)
+                                        {{ $progress->nilai_panjang }} m
+                                        @endif
+                                      </td>                                 
+                                      <td>{{ $item->name }}</td>                                        
+                                    </tr>
                             @empty
                                 <tr class="text-center">
                                     <td colspan="9" class="font-italic">-- belum ada data --</td>
@@ -167,7 +180,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy","excel"]
+                "buttons": ["copy","excel","pdf"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

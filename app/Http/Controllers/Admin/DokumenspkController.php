@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dokumenspk;
+use App\Models\Kontrak;
 use Illuminate\Http\Request;
 
 class DokumenspkController extends Controller
@@ -41,52 +42,57 @@ class DokumenspkController extends Controller
 
     public static function setbilangan($bilangan)
     {
-        $bilangan = str_replace(',','.',$bilangan);
-        $offset     = strlen($bilangan) - 3;
-        $bilangan = substr($bilangan,0,$offset);
-        $bilangan = str_replace('.','',$bilangan);
+        // $bilangan = str_replace(',','',$bilangan);
+        // $offset     = strlen($bilangan) - 3;
+        // $bilangan = substr($bilangan,0,$offset);
+        $bilangan = str_replace(',','',$bilangan);
         return $bilangan;
     }
     public function store(Request $request)
     {
-        // dd($request);
-        // $cekdokumenspk  = Dokumenspk::where('kontrak_id',$request->kontrak_id)->first();
-        // if ($cekdokumenspk) {
-        //     Dokumenspk::where('kontrak_id',$request->kontrak_id)->delete();
-        // }
-        // save untuk pekerjaan persiapan
-        $excel  = ['tenagaahli' => $request->data11,'tenagapendukung' => $request->data12,'biayasewa' => $request->data21,'biayarapat' => $request->data22,'biayakendaraan' => $request->data23,'biayapelaporan' => $request->data24];
-        foreach ($excel as $key => $value) {
-            $data = json_decode($value);
-            for ($i=0; $i < count($data); $i++) { 
-                if ($data[0] <> '') {
-                    Dokumenspk::create([
-                        'kontrak_id' => $request->kontrak_id,
-                        'label' => $key,
-                        'uraian' => $data[$i][0],
-                        'satuan' => $data[$i][6],
-                        'durasi' => $data[$i][4],
-                        'kuantitas' => $data[$i][3],
-                        'harga' => self::setbilangan($data[$i][7]),
-                    ]);
+        $cekdokumenspk  = Dokumenspk::where('kontrak_id',$request->kontrak_id)->first();
+        if ($cekdokumenspk) {
+            Dokumenspk::where('kontrak_id',$request->kontrak_id)->delete();
+        }
+        $pekerjaan        = Kontrak::find($request->kontrak_id)->pekerjaan;
+        if ($pekerjaan->jenis_pekerjaan == 'fisik') {
+            // save untuk fisik
+            $excel  = ['persiapan' => $request->data1,'pelaksanaan' => $request->data2,'pembantu' => $request->data3];
+            foreach ($excel as $key => $value) {
+                $data = json_decode($value);
+                for ($i=0; $i < count($data); $i++) { 
+                    if ($data[$i] <> '') {
+                        Dokumenspk::create([
+                            'kontrak_id' => $request->kontrak_id,
+                            'label' => $key,
+                             'uraian' => $data[$i][0],
+                            'kuantitas' => $data[$i][1],
+                            'satuan' => $data[$i][2],
+                            'harga' => self::setbilangan($data[$i][3]),
+                        ]);
+                    }
+                }
+            }
+        } else {
+            // save untuk pekerjaan pelaksana
+            $excel  = ['tenagaahli' => $request->data11,'tenagapendukung' => $request->data12,'biayasewa' => $request->data21,'biayarapat' => $request->data22,'biayakendaraan' => $request->data23,'biayapelaporan' => $request->data24];
+            foreach ($excel as $key => $value) {
+                $data = json_decode($value);
+                for ($i=0; $i < count($data); $i++) { 
+                    if ($data[0] <> '') {
+                        Dokumenspk::create([
+                            'kontrak_id' => $request->kontrak_id,
+                            'label' => $key,
+                            'uraian' => $data[$i][0],
+                            'satuan' => $data[$i][6],
+                            'durasi' => $data[$i][4],
+                            'kuantitas' => $data[$i][3],
+                            'harga' => self::setbilangan($data[$i][7]),
+                        ]);
+                    }
                 }
             }
         }
-        // save untuk pekerjaan pelaksana
-        // $datapelaksanaan = json_decode($request->data2);
-        // for ($i=0; $i < count($datapelaksanaan); $i++) { 
-        //     if ($datapelaksanaan[0] <> '') {
-        //         Dokumenspk::create([
-        //             'kontrak_id' => $request->kontrak_id,
-        //             'label' => 'pelaksanaan',
-        //             'uraian' => $datapelaksanaan[$i][0],
-        //             'satuan' => $datapelaksanaan[$i][1],
-        //             'kuantitas' => $datapelaksanaan[$i][2],
-        //             'harga' => $datapelaksanaan[$i][3],
-        //         ]);
-        //     }
-        // }
-        // save untuk pekerjaan pembantu
 
         return back()->with('successv2','Dokumen SPK sudah ditambahkan');
     }

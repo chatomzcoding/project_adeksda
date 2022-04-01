@@ -21,6 +21,23 @@ if (! function_exists('cekpendukung')) {
         return $result;
     }
 }
+// fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
+if (! function_exists('tgl_akhir_kontrak')) {
+    function tgl_akhir_kontrak($tgl,$masakontrak)
+    {
+        return $tgl;
+    }
+}
+// fungsi untuk menampilkan nip
+if (! function_exists('nip')) {
+    function nip($nip)
+    {
+        if (!is_null($nip)) {
+            $result = substr($nip,0,8).' '.substr($nip,8,6).' '.substr($nip,14,1).' '.substr($nip,15,3);
+            return $result;
+        }
+    }
+}
 
 // fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
 if (! function_exists('datafilter')) {
@@ -52,3 +69,4 @@ if (! function_exists('datafilter')) {
         return $result;
     }
 }
+

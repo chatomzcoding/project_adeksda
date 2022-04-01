@@ -42,7 +42,7 @@
             <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-tie"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Tim Lokus</span>
+              <span class="info-box-text">Tim Teknis</span>
               <span class="info-box-number">
                 {{ $statistik['timlokus'] }}
 

@@ -15,7 +15,8 @@ class DatapokokController extends Controller
      */
     public function index()
     {
-        //
+        $menu   = 'datapokok';
+        return view('admin.datapokok', compact('menu'));
     }
 
     /**

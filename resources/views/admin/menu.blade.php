@@ -12,7 +12,7 @@
 </li>
 <li class="nav-item">
   <a href="{{ url('/kontrak?sesi=rekap')}}" class="nav-link">
-    <i class="nav-icon fas fa-file"></i>
+    <i class="nav-icon fas fa-copy"></i>
     <p class="text">REKAP PROGRESS</p>
   </a>
 </li>

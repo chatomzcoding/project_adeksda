@@ -129,7 +129,11 @@
                                     <div class="card-body">
                                         @switch($main['datapekerjaan']->jenis_pekerjaan)
                                             @case('fisik')
-                                                @include('admin.kontrak.section.spkexcel')
+                                                @if ($main['collapse'] > 4)
+                                                    <x-listspk :jenis="$main['datapekerjaan']" :spk="$main['spk']"></x-listspk>
+                                                @else
+                                                    @include('admin.kontrak.section.spkexcel')
+                                                @endif
                                                 
                                                 @break
                                             @default

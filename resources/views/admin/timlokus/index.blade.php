@@ -139,7 +139,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                            <input type="text" name="nip" id="nip" maxlength="18" value="{{ old('nip') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -203,7 +203,7 @@
                     <div class="form-group row">
                         <label for="" class="col-md-4 p-2">NIP {!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
-                            <input type="text" name="nip" id="nip" maxlength="16" value="{{ old('nip') }}" class="form-control" required>
+                            <input type="text" name="nip" id="nip" maxlength="18" value="{{ old('nip') }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group row">

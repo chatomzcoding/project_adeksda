@@ -12,4 +12,9 @@ class Kontrak extends Model
     protected $table = 'kontrak';
 
     protected $guarded = [];
+
+    public function pekerjaan()
+    {
+        return $this->belongsTo(Pekerjaan::class,'pekerjaan_id');
+    }
 }

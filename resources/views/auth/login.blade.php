@@ -31,10 +31,10 @@
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
-    <div class="card-header">
+    <div class="card-header pb-0">
       {{-- <a href="#" class="h1"><b>Chatomz</b>Company</a> --}}
-      <section class="p-3 m-3 text-center">
-        <img src="{{ asset('/img/logo.png')}}" alt="" width="200px">
+      <section class="p-3 mb-0 text-center">
+        <img src="{{ asset('/img/logo.png')}}" alt="" width="170px">
         <h3>ADEKSDAKOTA</h3>
       </section>
     </div>

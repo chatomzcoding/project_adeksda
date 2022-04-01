@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bast;
 use App\Models\Dokumenspk;
 use App\Models\Kategori;
 use App\Models\Kontrak;
@@ -413,6 +414,30 @@ class KontrakController extends Controller
                 $file   = 'public/file/'.$folder.'/basthp.rtf';
                 $namafile   = 'BAST Hasil Pekerjaan '.tgl_sekarang();
                 break;
+            case 'php':
+                $file   = 'public/file/'.$folder.'/php.rtf';
+                $namafile   = 'Pemeriksaan Hasil Pekerjaan '.tgl_sekarang();
+                break;
+            case 'lpap':
+                $file   = 'public/file/'.$folder.'/lp administrasi pekerjaan.rtf';
+                $namafile   = 'Lampiran Berita Acara Hasil pemeriksaan administrasi pekerjaan '.tgl_sekarang();
+                break;
+            case 'lpp':
+                $file   = 'public/file/'.$folder.'/lpp.rtf';
+                $namafile   = 'Lampiran Berita Acara Hasil pemeriksaan  pekerjaan '.tgl_sekarang();
+                break;
+            case 'lhpp':
+                $file   = 'public/file/'.$folder.'/lhpp.rtf';
+                $namafile   = 'Laporan Hasil Pemeriksaan Pekerjaan '.tgl_sekarang();
+                break;
+            case 'lp':
+                $file   = 'public/file/'.$folder.'/lp.rtf';
+                $namafile   = 'Laporan Pekerjaan '.tgl_sekarang();
+                break;
+            case 'pphp':
+                $file   = 'public/file/'.$folder.'/pphp.rtf';
+                $namafile   = 'Permohonan Pemeriksaan Hasil Pekerjaan '.tgl_sekarang();
+                break;
             default:
                 die('akses tidak ada');
                 break;
@@ -434,6 +459,7 @@ class KontrakController extends Controller
         $document = str_replace("[no_sppbj]", $main['kontrak']->no_sppbj, $document);
         $document = str_replace("[no_spmk]", $main['kontrak']->no_spmk, $document);
         $document = str_replace("[no_barpk]", $main['kontrak']->no_barpk, $document);
+        $document = str_replace("[no_adendum]", $main['kontrak']->no_adendum, $document);
         $document = str_replace("[tgl_spk]", date_indo($main['kontrak']->tgl_spk), $document);
         $document = str_replace("[tgl_spp]", date_indo($main['kontrak']->tgl_spp), $document);
         $document = str_replace("[tgl_bahp]", date_indo($main['kontrak']->tgl_bahp), $document);
@@ -441,6 +467,7 @@ class KontrakController extends Controller
         $document = str_replace("[tgl_spmk]", date_indo($main['kontrak']->tgl_spmk), $document);
         $document = str_replace("[tgl_spl]", date_indo($main['kontrak']->tgl_spl), $document);
         $document = str_replace("[tgl_barpk]", date_indo($main['kontrak']->tgl_barpk), $document);
+        $document = str_replace("[tgl_adendum]", date_indo($main['kontrak']->tgl_adendum), $document);
         $document = str_replace("[hari_tglspl]", 'Minggu', $document);
         $document = str_replace("[hari_tglspk]", 'Minggu', $document);
         $document = str_replace("[hari_tglbarpk]", 'Minggu', $document);
@@ -450,6 +477,9 @@ class KontrakController extends Controller
         $document = str_replace("[nama_ketua]", $main['dataketua']->nama, $document);
         $document = str_replace("[nama_sekretaris]", $main['datasekretaris']->nama, $document);
         $document = str_replace("[nama_anggota]", $main['dataanggota']->nama, $document);
+        $document = str_replace("[nip_ketua]", nip($main['dataketua']->nip), $document);
+        $document = str_replace("[nip_sekretaris]", nip($main['datasekretaris']->nip), $document);
+        $document = str_replace("[nip_anggota]", nip($main['dataanggota']->nip), $document);
         // SSKK
         $nilai40  = $main['kontrak']->nilai_pekerjaan * 40/100;
         $nilai35  = $main['kontrak']->nilai_pekerjaan * 35/100;
@@ -464,8 +494,10 @@ class KontrakController extends Controller
         $document = str_replace("[kode_kegiatan]", $main['datapekerjaan']->kode_kegiatan, $document);
         $document = str_replace("[kode_tender]", $main['datapekerjaan']->kode_tender, $document);
         $document = str_replace("[nama_kegiatan]", $main['datapekerjaan']->nama_kegiatan, $document);
+        $document = str_replace("[NAMA_KEGIATAN]", strtoupper($main['datapekerjaan']->nama_kegiatan), $document);
         $document = str_replace("[sub_kegiatan]", $main['datapekerjaan']->sub_kegiatan, $document);
         $document = str_replace("[nama_paket]", $main['datapekerjaan']->nama_paket, $document);
+        $document = str_replace("[NAMA_PAKET]", strtoupper($main['datapekerjaan']->nama_paket), $document);
         $document = str_replace("[kecamatan]", $main['datapekerjaan']->kecamatan, $document);
         $document = str_replace("[sumber_dana]", $main['datapekerjaan']->sumber_dana, $document);
         $document = str_replace("[tahun_anggaran]", $main['datapekerjaan']->tahun_anggaran, $document);
@@ -481,6 +513,22 @@ class KontrakController extends Controller
         $document = str_replace("[tanggal_akta]", $main['dataperusahaan']->tanggal_akta, $document);
         $document = str_replace("[nama_notaris]", $main['dataperusahaan']->nama_notaris, $document);
         
+        // BAST
+        if (isset($_GET['sesi'])) {
+            $bast   = Bast::where('kontrak_id',$main['kontrak']->id)->first();
+            if ($bast) {
+                $document = str_replace("[tgl_selesai_pekerjaan]", date_indo($bast->tgl_selesai_pekerjaan), $document);
+                $document = str_replace("[progress_pekerjaan]", $bast->progress_pekerjaan, $document);
+                $document = str_replace("[tgl_permohonan_ceklis]", date_indo($bast->tgl_permohonan_ceklis), $document);
+                $document = str_replace("[no_permohonan_ceklis]", $bast->no_permohonan_ceklis, $document);
+                $document = str_replace("[tgl_surat_ppk]", date_indo($bast->tgl_surat_ppk), $document);
+                $document = str_replace("[tgl_surat_tim]", date_indo($bast->tgl_surat_tim), $document);
+                $document = str_replace("[tgl_bast]", date_indo($bast->tgl_bast), $document);
+                $document = str_replace("[no_bast]", $bast->no_bast, $document);
+                $document = str_replace("[konsultan_pengawas]", $bast->konsultan_pengawas, $document);
+                $document = str_replace("[direktur_pengawas]", $bast->direktur, $document);
+            }
+        }
         // MASTER
         $ppk    = Timlokus::where('status','ppk')->first();
         if ($ppk) {
@@ -493,6 +541,7 @@ class KontrakController extends Controller
         $document = str_replace("[nama_ppk]", $nama_ppk, $document);
         $document = str_replace("[nama_pptk]", 'Nama PPTK', $document);
         $document = str_replace("[nip_ppk]", $nip_ppk, $document);
+        $document = str_replace("[nip_pptk]", 'NIP PPTK', $document);
         $document = str_replace("[no_keputusan]", '900/Kep.29 - BPKAD/2021', $document);
         $document = str_replace("[tgl_keputusan]", date_indo('2021-01-28'), $document);
         $document = str_replace("[hari_akhirkontrak]", 'Senin', $document);

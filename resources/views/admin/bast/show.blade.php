@@ -46,7 +46,7 @@
                                 <div class="card-body">
                                     <table class="table">
                                         <tr>
-                                            <th width="30%">Nama Paket</th>
+                                            <th width="40%">Nama Paket</th>
                                             <td>{{ $bast->nama_paket }}</td>
                                         </tr>
                                         <tr>
@@ -55,7 +55,7 @@
                                         </tr>
                                         <tr>
                                             <th>Tanggal Selesai Pekerjaan</th>
-                                            <td>{{ $bast->tgl_selesai_pekerjaan }}</td>
+                                            <td>{{ date_indo($bast->tgl_selesai_pekerjaan) }}</td>
                                         </tr>
                                         <tr>
                                             <th>Progress Pekerjaan</th>
@@ -67,7 +67,7 @@
                                         </tr>
                                         <tr>
                                             <th>Tangggal BAST</th>
-                                            <td>{{ $bast->tgl_bast }}</td>
+                                            <td>{{ date_indo($bast->tgl_bast) }}</td>
                                         </tr>
                                         <tr>
                                             <th>Jenis Pekerjaan</th>
@@ -94,27 +94,27 @@
                                         </tr>
                                         <tr>
                                             <th>Lampiran Berita Acara Hasil Pemeriksaan Administrasi Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=lpap&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Lampiran Berita Acara Hasil Pemeriksaan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=lpp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Lampiran Hasil Pemeriksaan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=lhpp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Pemeriksaan Hasil Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=php&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Laporan Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=lp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
                                             <th>Permohonan Pemeriksaan Hasil Pekerjaan</th>
-                                            <td><a href="#" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
+                                            <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak_id).'?s=cetak&file=pphp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                     </table>
                                 </div>
