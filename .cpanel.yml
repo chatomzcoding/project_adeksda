@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/u1496746/public_html/adeksda
+    - export DEPLOYPATH=/home/n1652435/public_html
     - /bin/cp -R routes $DEPLOYPATH
     - /bin/cp -R resources $DEPLOYPATH
     - /bin/cp -R app $DEPLOYPATH
