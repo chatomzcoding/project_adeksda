@@ -98,7 +98,7 @@
                                 </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="5" class="font-italic">-- belum ada data --</td>
+                                    <td colspan="6" class="font-italic">-- belum ada data --</td>
                                 </tr>
                             @endforelse
                     </table>
