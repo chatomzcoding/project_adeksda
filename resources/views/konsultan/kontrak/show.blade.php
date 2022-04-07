@@ -31,10 +31,10 @@
                 <a href="{{ url('kontrak?sesi=konsultan') }}" class="btn btn-outline-secondary btn-sm pop-info" title="kembali"><i class="fas fa-angle-double-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Progress</a>
 
-                    <div class="float-right">
+                    {{-- <div class="float-right">
                         <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
-                    </div>
+                    </div> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -63,6 +63,7 @@
                                 <th>Tanggal</th>
                                 <th>Nilai Progress</th>
                                 <th>Nilai Panjang</th>
+                                <th>Dokumentasi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -80,7 +81,7 @@
                                                   <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                  {{-- <a href="{{ url('kontrak/'.Crypt::encryptString($item->id)) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a> --}}
                                                   <div class="dropdown-divider"></div>
                                                   <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button>
                                                 </div>
@@ -89,6 +90,11 @@
                                       <td>{{ date_indo($item->tanggal) }}</td>                                        
                                       <td class="text-center">{{ $item->nilai }}%</td>                                        
                                       <td class="text-center">{{ $item->nilai_panjang }} m</td>                                        
+                                      <td class="text-center">
+                                          @if (!is_null($item->photo))
+                                            <img src="{{ asset('img/konsultan/'.$item->photo) }}" alt="dokumentasi" width="100px">
+                                         @endif
+                                    </td>                                        
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -134,6 +140,12 @@
                         <label for="" class="col-md-4 p-2">Nilai Panjang (m){!! ireq() !!}</label>
                         <div class="col-md-8 p-0">
                             <input type="number" name="nilai_panjang" id="nilai_panjang" maxlength="9" value="{{ old('nilai_panjang') }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">photo (opsional)</label>
+                        <div class="col-md-8 p-0">
+                            <input type="file" name="photo" id="photo" class="form-control">
                         </div>
                     </div>
                 </section>

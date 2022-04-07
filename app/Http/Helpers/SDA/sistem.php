@@ -25,6 +25,8 @@ if (! function_exists('cekpendukung')) {
 if (! function_exists('tgl_akhir_kontrak')) {
     function tgl_akhir_kontrak($tgl,$masakontrak)
     {
+        $masakontrak    = $masakontrak - 1;
+        $tgl = date('Y-m-d', strtotime('+'.$masakontrak.' days', strtotime($tgl))); //operasi penjumlahan tanggal sebanyak 6 hari
         return $tgl;
     }
 }

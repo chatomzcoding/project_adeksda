@@ -36,7 +36,29 @@ class ProgressController extends Controller
      */
     public function store(Request $request)
     {
-        Progress::create($request->all());
+        if (isset($request->photo)) {
+             // menyimpan data file yang diupload ke variabel $file
+            $file = $request->file('photo');
+            $photo = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'public/img/konsultan';
+            // isi dengan nama folder tempat kemana file diupload
+            $file->move($tujuan_upload,$photo);
+
+            Progress::create([
+                'kontrak_id' => $request->kontrak_id,
+                'nilai' => $request->nilai,
+                'nilai_panjang' => $request->nilai_panjang,
+                'tanggal' => $request->tanggal,
+                'photo' => $photo,
+            ]);
+        } else {
+            Progress::create([
+                'kontrak_id' => $request->kontrak_id,
+                'nilai' => $request->nilai,
+                'nilai_panjang' => $request->nilai_panjang,
+                'tanggal' => $request->tanggal,
+            ]);
+        }
 
         return back()->with('ds','Progress');
     }
@@ -83,6 +105,8 @@ class ProgressController extends Controller
      */
     public function destroy(Progress $progress)
     {
-        //
+        deletefile('img/konsultan/'.$progress->photo);
+        $progress->delete();
+        return back()->with('dd','Progress');
     }
 }

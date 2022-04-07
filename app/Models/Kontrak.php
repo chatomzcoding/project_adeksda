@@ -17,4 +17,9 @@ class Kontrak extends Model
     {
         return $this->belongsTo(Pekerjaan::class,'pekerjaan_id');
     }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
+    }
 }

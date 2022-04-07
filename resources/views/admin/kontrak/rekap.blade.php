@@ -111,9 +111,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
                                                   <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak_id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak_id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> Progress Fisik</a>
-                                                  {{-- <div class="dropdown-divider"></div>
-                                                  <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item"><i class="fas fa-trash-alt text-danger"style="width: 25px"></i> HAPUS</button> --}}
+                                                  <a href="{{ url('kontrak?sesi=progress&kontrak_id='.$item->kontrak_id) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> Progress Fisik</a>
                                                 </div>
                                             </div>
                                     </td>
@@ -141,7 +139,7 @@
                                     </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="9" class="font-italic">-- belum ada data --</td>
+                                    <td colspan="12" class="font-italic">-- belum ada data --</td>
                                 </tr>
                             @endforelse
                     </table>
@@ -179,7 +177,7 @@
         <script>
             $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy","excel","pdf"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({

@@ -122,6 +122,11 @@ class KontrakController extends Controller
                 return view('admin.kontrak.rekap', compact('menu','main','kontrak','user'));
                 break;
             
+            case 'progress':
+                $kontrak    = Kontrak::find($_GET['kontrak_id']);
+                return view('admin.kontrak.progress', compact('menu','kontrak','user'));
+                break;
+            
             default:
                 return redirect('dashboard','warningv2');
                 break;
