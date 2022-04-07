@@ -11,12 +11,10 @@ class Listspk extends Component
      *
      * @return void
      */
-    public $jenis;
     public $spk;
 
-    public function __construct($jenis,$spk)
+    public function __construct($spk)
     {
-        $this->jenis = $jenis;
         $this->spk = $spk;
     }
 

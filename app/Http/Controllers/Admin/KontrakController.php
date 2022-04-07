@@ -347,7 +347,8 @@ class KontrakController extends Controller
         $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
         switch ($s) {
             case 'rincian':
-                return view('admin.kontrak.show', compact('menu','main','kecamatan','jenispekerjaan','sumberdana'));
+                return view('admin.kontrak.show', compact('menu','main','kecamatan','jenispekerjaan','sumberdana','kontrak'));
+
                 break;
             case 'cetak':
                 return self::cetak($kecamatan,$main,$jenispekerjaan,$sumberdana);

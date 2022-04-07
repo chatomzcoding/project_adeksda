@@ -273,7 +273,11 @@
                                 </div>
                                 <div class="tab-pane fade" id="v-pills-spk" role="tabpanel" aria-labelledby="v-pills-spk-tab">
                                     <section class="p-3">
-                                       <x-listspk :jenis="$main['datapekerjaan']" :spk="$main['spk']"></x-listspk>
+                                        @if ($kontrak->pekerjaan->jenis_pekerjaan == 'fisik')
+                                            <x-listspk :spk="$main['spk']"></x-listspk>
+                                        @else
+                                            <x-listspkkonsultan :spk="$kontrak->spk"></x-listspkkonsultan>
+                                        @endif
                                     </section>
                                 </div>
                               </div>

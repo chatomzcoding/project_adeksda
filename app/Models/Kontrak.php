@@ -22,4 +22,9 @@ class Kontrak extends Model
     {
         return $this->hasMany(Progress::class);
     }
+  
+    public function spk()
+    {
+        return $this->hasMany(Dokumenspk::class);
+    }
 }
