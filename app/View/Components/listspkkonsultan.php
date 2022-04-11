@@ -101,7 +101,7 @@ class listspkkonsultan extends Component
                 }
             }
         }
-        $data   = [
+        $list   = [
             [
                 'label' => 'A',
                 'judul' => 'Biaya Langsung Personil',
@@ -126,6 +126,6 @@ class listspkkonsultan extends Component
             'nilai' => norupiah($nilai),
             'bulat' => norupiah($bulat),
         ];
-        return view('components.listspkkonsultan', compact('data','result'));
+        return view('components.listspkkonsultan', compact('list','result'));
     }
 }

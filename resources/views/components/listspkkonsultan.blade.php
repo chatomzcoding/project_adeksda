@@ -1,4 +1,4 @@
-@if (isset($data))
+@if (isset($list))
     <table class="table table-bordered">
         <thead>
             <tr class="text-center">
@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data as $row)
+            @foreach ($list as $row)
                 <tr class="table-info">
                     <th>{{ $row['label'] }}</th>
                     <th colspan="7" class="text-uppercase">{{ $row['judul'] }}</th>
