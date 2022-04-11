@@ -1,4 +1,4 @@
-@if (isset($data))
+@if (isset($list))
     <table class="table table-bordered">
         <thead>
             <tr class="text-center">
