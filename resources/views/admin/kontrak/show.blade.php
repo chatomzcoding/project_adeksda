@@ -276,7 +276,7 @@
                                         @if ($kontrak->pekerjaan->jenis_pekerjaan == 'fisik')
                                             <x-listspk :spk="$main['spk']"></x-listspk>
                                         @else
-                                            <x-listspkkonsultan :spk="$kontrak->spk"></x-listspkkonsultan>
+                                            <x-konsultanspk :spk="$kontrak->spk"></x-konsultanspk>
                                         @endif
                                         {{-- percobaan --}}
                                         <h2>hasil input spk</h2>
