@@ -64,6 +64,6 @@
     </table>
 @else
     <div class="alert alert-warning">
-        Data SPK tidak sesuai dengan format sistem {{ $cek }}
+        Data SPK tidak sesuai dengan format sistem
     </div>    
     @endif
