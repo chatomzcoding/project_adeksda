@@ -126,6 +126,7 @@ class listspkkonsultan extends Component
             'nilai' => norupiah($nilai),
             'bulat' => norupiah($bulat),
         ];
-        return view('components.listspkkonsultan', compact('list','result'));
+        $cek    = 'hallo';
+        return view('components.listspkkonsultan', compact('list','result','cek'));
     }
 }
