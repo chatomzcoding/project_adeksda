@@ -304,35 +304,39 @@
                 </div>
                 <div class="modal-body p-3">
                     <section class="p-3">
-                        <table class="table table-striped">
-                            @php
-                                $cetak = ['coverspk' => 'Cover SPK','sp'=>'SP','spmk' => 'SPMK','spl'=>'SPL']
-                            @endphp
-                            @foreach ($cetak as $item => $judul)
+                        @if ($kontrak->pekerjaan->jenis_pekerjaan == 'fisik')
+                            <table class="table table-striped">
+                                @php
+                                    $cetak = ['coverspk' => 'Cover SPK','sp'=>'SP','spmk' => 'SPMK','spl'=>'SPL']
+                                @endphp
+                                @foreach ($cetak as $item => $judul)
+                                    <tr>
+                                        <th width="60%">{{ $judul }}</th>
+                                        <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file='.$item) }}" target="_blank" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                @endforeach
+                                @if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik')
+                                    <tr>
+                                        <th>BARPK</th>
+                                        <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=barpk') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
+                                @endif
                                 <tr>
-                                    <th width="60%">{{ $judul }}</th>
-                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file='.$item) }}" target="_blank" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    <th>SPK</th>
+                                    <td><a href="#" class="btn btn-outline-warning btn-sm"><i class="fas fa-print"></i> DALAM PROSES</a></td>
                                 </tr>
-                            @endforeach
-                            @if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik')
                                 <tr>
-                                    <th>BARPK</th>
-                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=barpk') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    <th>SPPBJ</th>
+                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=sppbj')}}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
                                 </tr>
-                            @endif
-                            <tr>
-                                <th>SPK</th>
-                                <td><a href="#" class="btn btn-outline-warning btn-sm"><i class="fas fa-print"></i> DALAM PROSES</a></td>
-                            </tr>
-                            <tr>
-                                <th>SPPBJ</th>
-                                <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=sppbj')}}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
-                            </tr>
-                            <tr>
-                                <th>SSKK-BANPROV</th>
-                                <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=sskk')}}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <th>SSKK-BANPROV</th>
+                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=sskk')}}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                </tr>
+                            </table>
+                        @else
+                            
+                        @endif
                     </section>
                 </div>
                 <div class="modal-footer text-right">
