@@ -39,16 +39,30 @@ class listspkkonsultan extends Component
         $total = 0;
         foreach ($this->spk as $row) {
             if ($row->uraian <> '' || $row->uraian <> NULL) {
-                $harga      = str_replace('.00','',$row->harga);
-                $harga      = str_replace(',','',$harga);
-                $mm         = $row->kuantitas;
+                $dharga = $row->harga;
+                $dkuantitas     = $row->kuantitas;
+                if (preg_match("/.00\z/i", $dharga)) {
+                    $harga  = str_replace('.00','',$dharga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $cek    = 1;
+                } else {
+                    $harga = $dharga;
+                }
+                if (preg_match('/,/', $dkuantitas)) {
+                    $kuantitas  = str_replace(',','.',$dkuantitas);
+                } else {
+                    $kuantitas = $dkuantitas;
+                }
+                $mm         = $kuantitas;
                 if (!is_null($row->durasi) AND $row->durasi <> "") {
-                    $mm     = $row->durasi * $row->kuantitas;
+                    $mm     = $row->durasi * $kuantitas;
                 }
                 $subtotal   = $harga * $mm;
                 $list[$row->label][] = [ 
                     $row->uraian,
-                    $row->kuantitas,
+                    $kuantitas,
                     $row->durasi,
                     $row->satuan,
                     $mm,

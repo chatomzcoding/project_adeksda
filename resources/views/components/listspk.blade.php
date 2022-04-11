@@ -24,8 +24,8 @@
                         <td>{{ $key[1] }}</td>
                         <td class="text-rught">{{ $key[2] }}</td>
                         <td class="text-center">{{ $key[3] }}</td>
-                        <td class="text-right">{{ $key[4] }}</td>
-                        <td class="text-right">{{ $key[5] }}</td>
+                        <td class="text-right">{{ norupiah($key[4]) }}</td>
+                        <td class="text-right">{{ norupiah($key[5]) }}</td>
                         <td></td>
                     </tr>
                 @endforeach
