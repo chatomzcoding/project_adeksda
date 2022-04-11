@@ -55,15 +55,20 @@ class Konsultanspk extends Component
                 } else {
                     $kuantitas = $dkuantitas;
                 }
+                if (preg_match('/,/', $row->durasi)) {
+                    $durasi  = str_replace(',','.',$row->durasi);
+                } else {
+                    $durasi = $row->durasi;
+                }
                 $mm         = $kuantitas;
-                if (!is_null($row->durasi) AND $row->durasi <> "") {
-                    $mm     = $row->durasi * $kuantitas;
+                if (!is_null($durasi) AND $durasi <> "") {
+                    $mm     = $durasi * $kuantitas;
                 }
                 $subtotal   = $harga * $mm;
                 $list[$row->label][] = [ 
                     $row->uraian,
                     $kuantitas,
-                    $row->durasi,
+                    $durasi,
                     $row->satuan,
                     $mm,
                     norupiah($harga),
