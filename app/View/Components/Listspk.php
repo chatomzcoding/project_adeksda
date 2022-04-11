@@ -34,18 +34,31 @@ class Listspk extends Component
             $total  = 0;
             $no     = 1;
             foreach ($sesi as $key) {
-                $harga  = str_replace('.00','',$key->harga);
-                $harga  = str_replace(',','',$harga);
-                $subtotal = $harga * $key->kuantitas;
+                $dharga     = $key->harga;
+                $dkuantitas = $key->kuantitas;
+                if (preg_match("/.00\z/i", $dharga)) {
+                    $harga  = str_replace('.00','',$dharga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $cek    = 1;
+                } else {
+                    $harga = $dharga;
+                }
+                if (preg_match('/,/', $dkuantitas)) {
+                    $kuantitas  = str_replace(',','.',$dkuantitas);
+                } else {
+                    $kuantitas = $dkuantitas;
+                }
+                
+                $subtotal = $harga * $kuantitas;
                 $data[] = [
                     $no,
                     $key->uraian,
                     $key->kuantitas,
                     $key->satuan,
-                    norupiah($harga),
-                    // $harga,
-                    norupiah($subtotal),
-                    // $subtotal,
+                    $harga,
+                    $subtotal,
                 ];
                 $total  = $total + $subtotal;
                 $no++;
