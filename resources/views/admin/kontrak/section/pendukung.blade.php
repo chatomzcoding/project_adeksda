@@ -39,7 +39,7 @@
               @foreach ($main['pekerjaan'] as $item)
                 <option value="{{ $item->id }}" @if ($main['kontrak']->pekerjaan_id == $item->id)
                   selected
-              @endif>{{ ucwords($item->nama_paket.$item->id) }}</option>
+              @endif>{{ ucwords($item->nama_paket) }}</option>
               @endforeach
             </select>
             <div class="row">
