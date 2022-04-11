@@ -278,6 +278,34 @@
                                         @else
                                             <x-listspkkonsultan :spk="$kontrak->spk"></x-listspkkonsultan>
                                         @endif
+                                        {{-- percobaan --}}
+                                        <h2>hasil input spk</h2>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Bagian</th>
+                                                    <th>Uraian</th>
+                                                    <th>Satuan</th>
+                                                    <th>Kuantitas</th>
+                                                    <th>Harga</th>
+                                                    <th>Durasi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($kontrak->spk as $item)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $item->label }}</td>
+                                                        <td>{{ $item->uraian }}</td>
+                                                        <td>{{ $item->satuan }}</td>
+                                                        <td>{{ $item->kuantitas }}</td>
+                                                        <td>{{ $item->harga }}</td>
+                                                        <td>{{ $item->durasi }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </section>
                                 </div>
                               </div>
