@@ -43,7 +43,9 @@ class Listspk extends Component
                     $key->kuantitas,
                     $key->satuan,
                     norupiah($harga),
+                    // $harga,
                     norupiah($subtotal),
+                    // $subtotal,
                 ];
                 $total  = $total + $subtotal;
                 $no++;

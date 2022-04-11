@@ -332,7 +332,6 @@
                 </div>
                 <div class="modal-body p-3">
                     <section class="p-3">
-                        @if ($kontrak->pekerjaan->jenis_pekerjaan == 'fisik')
                             <table class="table table-striped">
                                 @php
                                     $cetak = ['coverspk' => 'Cover SPK','sp'=>'SP','spmk' => 'SPMK','spl'=>'SPL']
@@ -362,9 +361,6 @@
                                     <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=sskk')}}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
                                 </tr>
                             </table>
-                        @else
-                            
-                        @endif
                     </section>
                 </div>
                 <div class="modal-footer text-right">
