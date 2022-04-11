@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class listspkkonsultan extends Component
+class Listspkkonsultan extends Component
 {
     /**
      * Create a new component instance.
