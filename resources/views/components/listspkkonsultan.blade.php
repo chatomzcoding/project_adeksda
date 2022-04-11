@@ -67,6 +67,3 @@
         Data SPK tidak sesuai dengan format sistem {{ $cek }}
     </div>    
     @endif
-    <div class="alert alert-warning">
-        Data SPK tidak sesuai dengan format sistem {{ $cek }}
-    </div>    
