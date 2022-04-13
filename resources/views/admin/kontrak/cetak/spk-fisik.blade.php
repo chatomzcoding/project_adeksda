@@ -100,7 +100,7 @@
                         <p class=headerFooter>
                             <table class="noborder" style="margin-bottom: 0px;">
                                 <tr>
-                                    <td width="20%">
+                                    <td width="20%" rowspan="2">
                                         <img src="{{ asset('img/logo-mini.png') }}" alt="" class="gambar">
                                     </td>
                                     <td class="text-center">
@@ -110,14 +110,17 @@
                                         TASIKMALAYA </span>
                                     </td>
                                 </tr>
+                                <tr class="line">
+                                    <td class="text-right f10" colspan="2">Kode Pos : 46115</td>
+                                </tr>
                             </table>
+                            <hr class="garis">
                         </p>
                     </div>
                     &nbsp;
                 </td>
             </tr>
         </table>
-        <hr class="garis">
         <main style="margin-top: 10px">
             <section>
                 <table>
@@ -137,7 +140,7 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <span>SURAT PERINTAH KERJA (SPK) Nomor : {{ $main['kontrak']->no_spk }}</span>
+                            <span>SURAT PERINTAH KERJA (SPK) Nomor : {{ $main['kontrak']->no_spk }} Tanggal {{ date_indo($main['kontrak']->tgl_bahp) }}</span>
                         </td>
                     </tr>
                     <tr>
@@ -146,13 +149,13 @@
                         </td>
                         <td colspan="3">
                             <span>
-                                Dokumen Pengadaan Nomor : {{ $main['kontrak']->no_pengadaan }}
+                                Dokumen Pengadaan Nomor : {{ $main['kontrak']->no_pengadaan }} Tanggal {{ date_indo($main['kontrak']->tgl_pengadaan) }}
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <span>Berita Acara Hasil Pelelangan Nomor : {{ $main['kontrak']->no_bahp }}</span>
+                            <span>Berita Acara Hasil Pelelangan Nomor : {{ $main['kontrak']->no_bahp }} Tanggal {{ date_indo($main['kontrak']->tgl_bahp) }}</span>
                         </td>
                     </tr>
                     <tr>

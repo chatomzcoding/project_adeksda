@@ -1,6 +1,6 @@
 @php
     header('Content-Type: application/vnd.msword');
-    header('Content-Disposition: attachment; filename="data spk pengawasan.doc"');
+    header('Content-Disposition: attachment; filename="data spk perencanaan.doc"');
     header('Cache-Control: private, max-age=0, must-revalidate');
 @endphp
 <!DOCTYPE html>
