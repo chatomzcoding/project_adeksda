@@ -217,8 +217,8 @@
                                     <td>{{ $j[0] }}</td>
                                     <td class="text-center">{{ $j[1] }}</td>
                                     <td class="text-center">{{ $j[2] }}</td>
-                                    <td class="text-center">{{ $j[3] }}</td>
                                     <td class="text-center">{{ $j[4] }}</td>
+                                    <td class="text-center">{{ $j[3] }}</td>
                                     <td class="text-right">{{ norupiah($j[5]) }}</td>
                                     <td class="text-right">{{ norupiah($j[6]) }}</td>
                                 </tr>
