@@ -370,12 +370,20 @@ class KontrakController extends Controller
                 $folder = 'bastkonsultan';
             }
         } else {
-            $folder     = 'kontrakfisik';
+            if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik') {
+                $folder     = 'kontrakfisik';
+                $dataspk    = self::dataspkfisik($main['spk']);
+                $file       = 'spk-fisik';
+            }
             if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-pengawas') {
                 $folder = 'kontrakpengawas';
+                $dataspk    = self::dataspkkonsultan($main['kontrak']->spk);
+                $file       = 'spk-pengawasan';
             }
             if ($main['datapekerjaan']->jenis_pekerjaan == 'konsultan-perencana') {
                 $folder = 'kontrakperencana';
+                $dataspk    = self::dataspkkonsultan($main['kontrak']->spk);
+                $file       = 'spk-perencanaan';
             }
         }
         
@@ -385,8 +393,11 @@ class KontrakController extends Controller
                 $namafile   = 'Cover SPK '.tgl_sekarang();
                 break;
             case 'spk':
-                $file   = 'public/file/'.$folder.'/spk.rtf';
-                $namafile   = 'SPK '.tgl_sekarang();
+                return view('admin.kontrak.cetak.'.$file,compact('dataspk','main'));
+                break;
+            case 'ttdspk':
+                $file   = 'public/file/'.$folder.'/ttdspk.rtf';
+                $namafile   = 'TTD SPK '.tgl_sekarang();
                 break;
             case 'sp':
                 $file   = 'public/file/'.$folder.'/sp.rtf';
@@ -454,11 +465,13 @@ class KontrakController extends Controller
         $document = str_replace("[masa_kontrak]", $main['kontrak']->masa_kontrak, $document);
         $document = str_replace("[terbilang_masakontrak]", terbilang($main['kontrak']->masa_kontrak), $document);
         $document = str_replace("[nilai_pekerjaan]", norupiah($main['kontrak']->nilai_pekerjaan), $document);
+        $document = str_replace("[terbilang_nilaipekerjaan]", terbilang($main['kontrak']->nilai_pekerjaan), $document);
         $document = str_replace("[nilai_terkoreksi]", norupiah($main['kontrak']->nilai_terkoreksi), $document);
         $document = str_replace("[nilai_penawaran]", norupiah($main['kontrak']->nilai_penawaran), $document);
         $document = str_replace("[nilai_negosiasi]", norupiah($main['kontrak']->nilai_negosiasi), $document);
         $document = str_replace("[terbilang]", terbilang($main['kontrak']->nilai_pekerjaan), $document);
         $document = str_replace("[no_spk]", $main['kontrak']->no_spk, $document);
+        $document = str_replace("[no_pengadaan]", $main['kontrak']->no_pengadaan, $document);
         $document = str_replace("[no_spp]", $main['kontrak']->no_spp, $document);
         $document = str_replace("[no_spl]", $main['kontrak']->no_spl, $document);
         $document = str_replace("[no_bahp]", $main['kontrak']->no_bahp, $document);
@@ -467,6 +480,7 @@ class KontrakController extends Controller
         $document = str_replace("[no_barpk]", $main['kontrak']->no_barpk, $document);
         $document = str_replace("[no_adendum]", $main['kontrak']->no_adendum, $document);
         $document = str_replace("[tgl_spk]", date_indo($main['kontrak']->tgl_spk), $document);
+        $document = str_replace("[tgl_pengadaan]", date_indo($main['kontrak']->tgl_pengadaan), $document);
         $document = str_replace("[tgl_spp]", date_indo($main['kontrak']->tgl_spp), $document);
         $document = str_replace("[tgl_bahp]", date_indo($main['kontrak']->tgl_bahp), $document);
         $document = str_replace("[tgl_sppbj]", date_indo($main['kontrak']->tgl_sppbj), $document);
@@ -544,14 +558,23 @@ class KontrakController extends Controller
             $nama_ppk = 'nama ppk';
             $nip_ppk = 'nip ppk';
         }
+        $pptk    = Timlokus::where('status','pptk')->first();
+        if ($pptk) {
+            $nama_pptk = $pptk->nama;
+            $nip_pptk = $pptk->nip;
+        } else {
+            $nama_pptk = 'nama pptk';
+            $nip_pptk = 'nip pptk';
+        }
+        $tanggalakhirkontrak    = tgl_akhir_kontrak($main['kontrak']->tgl_spk,$main['kontrak']->masa_kontrak);
         $document = str_replace("[nama_ppk]", $nama_ppk, $document);
-        $document = str_replace("[nama_pptk]", 'Nama PPTK', $document);
+        $document = str_replace("[nama_pptk]", $nama_pptk, $document);
         $document = str_replace("[nip_ppk]", $nip_ppk, $document);
-        $document = str_replace("[nip_pptk]", 'NIP PPTK', $document);
+        $document = str_replace("[nip_pptk]", $nip_pptk, $document);
         $document = str_replace("[no_keputusan]", '900/Kep.29 - BPKAD/2021', $document);
         $document = str_replace("[tgl_keputusan]", date_indo('2021-01-28'), $document);
-        $document = str_replace("[hari_akhirkontrak]", 'Senin', $document);
-        $document = str_replace("[tgl_akhirkontrak]", date_indo('2021-01-28'), $document);
+        $document = str_replace("[hari_akhirkontrak]", hari_indo($tanggalakhirkontrak), $document);
+        $document = str_replace("[tgl_akhirkontrak]", date_indo($tanggalakhirkontrak), $document);
         $document = str_replace("[status_uangmuka]", "YA/TIDAK", $document);
         
 
@@ -604,6 +627,181 @@ class KontrakController extends Controller
             }
         }
         return $nomor;
+    }
+
+    public static function dataspkfisik($spk)
+    {
+        $list   = [];
+        $nomor  = 0;
+        $judul  = ['I. Pekerjaan Persiapan','II. Pekerjaan Pelaksanaan','III. Pekerjaan Pembantu'];
+        $jumlah = 0;
+        foreach ($spk as $sesi) {
+            $data   = [];
+            $total  = 0;
+            $no     = 1;
+            foreach ($sesi as $key) {
+                $dharga     = $key->harga;
+                $dkuantitas = $key->kuantitas;
+                if (preg_match("/.00\z/i", $dharga)) {
+                    $harga  = str_replace('.00','',$dharga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                } else {
+                    $harga = $dharga;
+                }
+                if (preg_match('/,/', $dkuantitas)) {
+                    $kuantitas  = str_replace(',','.',$dkuantitas);
+                } else {
+                    $kuantitas = $dkuantitas;
+                }
+                
+                $subtotal = $harga * $kuantitas;
+                $data[] = [
+                    $no,
+                    $key->uraian,
+                    $key->kuantitas,
+                    $key->satuan,
+                    $harga,
+                    $subtotal,
+                ];
+                $total  = $total + $subtotal;
+                $no++;
+            }
+            $list[] = [
+                'judul' => $judul[$nomor],
+                'data' => $data,
+                'total' => norupiah($total)
+            ];
+            $jumlah = $jumlah + $total;
+            $nomor++;
+        }
+        $ppn        = 10/100 * $jumlah;
+        $nilai      = $jumlah + $ppn;
+        $bulat      = round($nilai);
+        $bulat      = str_replace('.00','',$bulat);
+        $batas      = strlen($bulat) - 3;
+        $bulat      = substr($bulat,0,$batas).'000';
+        $result     = [
+            'jumlah' => norupiah($jumlah),
+            'ppn' => norupiah($ppn),
+            'nilai' => norupiah($nilai),
+            'bulat' => norupiah($bulat),
+        ];
+
+        return [
+            'data' => $list,
+            'hasil' => $result
+        ];
+    }
+
+    public static function dataspkkonsultan($spk)
+    {
+        $list   = [];
+        $nomor  = 0;
+        $judul  = [
+            'tenagaahli' => 'Tenaga Ahli',
+            'tenagapendukung' => 'Tenaga Pendukung',
+            'biayasewa' => 'Biaya Sewa Peralatan dan Lapangan',
+            'biayarapat' => 'Biaya Rapat',
+            'biayakendaraan' => 'Biaya Kendaraan Operasinal',
+            'biayapelaporan' => 'Biaya Pelaporan dan Pengadaan',
+        ];
+
+        $total = 0;
+        foreach ($spk as $row) {
+            if ($row->uraian <> '' || $row->uraian <> NULL) {
+                $dharga = $row->harga;
+                $dkuantitas     = $row->kuantitas;
+                if (preg_match("/.00\z/i", $dharga)) {
+                    $harga  = str_replace('.00','',$dharga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                    $harga  = str_replace('.','',$harga);
+                } else {
+                    $harga = $dharga;
+                }
+                if (preg_match('/,/', $dkuantitas)) {
+                    $kuantitas  = str_replace(',','.',$dkuantitas);
+                } else {
+                    $kuantitas = $dkuantitas;
+                }
+                $mm         = $kuantitas;
+                if (!is_null($row->durasi) AND $row->durasi <> "") {
+                    $mm     = $row->durasi * $kuantitas;
+                }
+                $subtotal   = $harga * $mm;
+                $list[$row->label][] = [ 
+                    $row->uraian,
+                    $kuantitas,
+                    $row->durasi,
+                    $row->satuan,
+                    $mm,
+                    $harga,
+                    $subtotal,
+                ];
+                $total = $total + $subtotal;
+            }
+        }
+        $personil   = [];
+        $nonpersonil   = [];
+        $no = 1;
+        $nomor = 1;
+        foreach ($judul as $key => $value) {
+            if (isset($list[$key])) {
+                $jumlah     = 0;
+                foreach ($list[$key] as $row) {
+                    $jumlah     = $jumlah + $row[6];
+                }
+                if ($key == 'tenagaahli' || $key == 'tenagapendukung') {
+                    $personil[$key] = [
+                        'no' => $no,
+                        'data' => $list[$key],
+                        'judul' => $value,
+                        'jumlah' => $jumlah
+                    ];
+                    $no++;
+                }else{
+                    $nonpersonil[$key] = [
+                        'no' => $nomor,
+                        'data' => $list[$key],
+                        'judul' => $value,
+                        'jumlah' => $jumlah
+                    ];
+                    $nomor++;
+                }
+            }
+        }
+        $list   = [
+            [
+                'label' => 'A',
+                'judul' => 'Biaya Langsung Personil',
+                'data' => $personil
+            ],
+            [
+                'label' => 'B',
+                'judul' => 'Biaya Langsung Non Personil',
+                'data' => $nonpersonil,
+            ]
+        ];
+
+        $ppn        = 10/100 * $total;
+        $nilai      = $total + $ppn;
+        $bulat      = round($nilai);
+        $bulat      = str_replace('.00','',$bulat);
+        $batas      = strlen($bulat) - 3;
+        $bulat      = substr($bulat,0,$batas).'000';
+        $result     = [
+            'jumlah' => norupiah($total),
+            'ppn' => norupiah($ppn),
+            'nilai' => norupiah($nilai),
+            'bulat' => $bulat,
+        ];
+
+        return [
+            'data' => $list,
+            'hasil' => $result,
+        ];
     }
 
     /**

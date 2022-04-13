@@ -145,3 +145,10 @@ function kompres($file,$temp)
         imagedestroy($tmp_image);
         return $name;
     }
+
+    if (! function_exists('romawi')) {
+        function romawi($no){
+           $romawi = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+            return $romawi[$no];
+        }
+    }

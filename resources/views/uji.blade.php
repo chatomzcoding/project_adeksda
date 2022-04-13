@@ -3,7 +3,6 @@
     header('Content-Disposition: attachment; filename="data spk fisik.doc"');
     header('Cache-Control: private, max-age=0, must-revalidate');
 @endphp
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,18 +10,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Data SPK FISIK</title>
-    <style>
+    <style type="text/css">
         @page {
-            size: f4 landscape;
-            margin: 1.25cm 1.5cm 1.5cm 1.5cm;
-            font-family: Arial, Helvetica, sans-serif
-        }
-        body {
+        size: f4 Portrait;
+        margin: 1.25cm 1.5cm 1.5cm 1.5cm;
+        font-family: Arial, Helvetica, sans-serif
+    }
+    @page Section1 {
+        margin:0.75in 0.75in 0.75in 0.75in;
+        size:595.45pt 841.7pt;
+        mso-page-orientation:Portrait;
+        mso-header-margin:0.5in;
+        mso-header: h1;
+        mso-footer-margin:0.5in;
+        mso-footer: f1;
+    }
+
+    div.Section1 {page:Section1;}
+
+    p.headerFooter { margin:0in; text-align: center; }
+    body {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 0.38cm;
         }
         table {
-            /* border-collapse: collapse; */
+            border-collapse: collapse;
             width: 100%;
         }
         table, th, td {
@@ -74,25 +86,31 @@
             margin-bottom: 20px;
             margin-top: 0px;
         }
-        .Break {
-        clear:all;
-        page-break-before:always;
-        mso-special-character:line-break;
-        }
-        </style>
+    </style>
 </head>
 <body>
-    <div class="container">
-        <table class="noborder" style="margin-bottom: 0px;">
-            <tr>
-                <td width="20%">
-                    <img src="{{ asset('img/logo-mini.png') }}" alt="" class="gambar">
-                </td>
-                <td class="text-center">
-                    <span class="f14">PEMERINTAH KOTA TASIKMALAYA </span> <br>
-                    <strong class="f16">DINAS PEKERJAAN UMUM DAN TATA RUANG </strong> <br>
-                    <span class="f10">Jalan Noenoeng, Trisnaputra No. 5 Telp/Faks. (265) 342631 <br>
-                    TASIKMALAYA </span>
+    <div class=Section1>
+        <table style='margin-left:50in;'>
+            <tr style='height:1pt;mso-height-rule:exactly'>
+                <td>
+                    <div style='mso-element:header' id=h1>
+                        <p class=headerFooter>
+                            <table class="noborder" style="margin-bottom: 0px;">
+                                <tr>
+                                    <td width="20%">
+                                        <img src="{{ asset('img/logo-mini.png') }}" alt="" class="gambar">
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="f14">PEMERINTAH KOTA TASIKMALAYA </span> <br>
+                                        <strong class="f16">DINAS PEKERJAAN UMUM DAN TATA RUANG </strong> <br>
+                                        <span class="f10">Jalan Noenoeng, Trisnaputra No. 5 Telp/Faks. (265) 342631 <br>
+                                        TASIKMALAYA </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </p>
+                    </div>
+                    &nbsp;
                 </td>
             </tr>
         </table>
@@ -220,7 +238,8 @@
                 
             </section>
         </main>
-
     </div>
+{{-- <br clear=all style='mso-special-character:line-break; page-break-before:always'>
+This is page 2 --}}
 </body>
 </html>

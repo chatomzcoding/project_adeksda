@@ -349,8 +349,12 @@
                                     </tr>
                                 @endif
                                 <tr>
-                                    <th>SPK</th>
-                                    <td><a href="#" class="btn btn-outline-warning btn-sm"><i class="fas fa-print"></i> DALAM PROSES</a></td>
+                                    <th>DATA SPK</th>
+                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=spk') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                </tr>
+                                <tr>
+                                    <th>DOKUMEN SPK</th>
+                                    <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=ttdspk') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
                                 </tr>
                                 <tr>
                                     <th>SPPBJ</th>
