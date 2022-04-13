@@ -32,8 +32,8 @@
                             <td>{{ $key[0] }}</td>
                             <td>{{ $key[1] }}</td>
                             <td class="text-center">{{ $key[2] }}</td>
-                            <td class="text-center">{{ $key[3] }}</td>
                             <td class="text-center">{{ $key[4] }}</td>
+                            <td class="text-center">{{ $key[3] }}</td>
                             <td class="text-right">{{ $key[5] }}</td>
                             <td class="text-right">{{ norupiah($key[6]) }}</td>
                         </tr>

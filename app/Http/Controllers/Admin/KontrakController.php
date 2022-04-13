@@ -726,9 +726,14 @@ class KontrakController extends Controller
                 } else {
                     $kuantitas = $dkuantitas;
                 }
+                if (preg_match('/,/', $row->durasi)) {
+                    $durasi  = str_replace(',','.',$row->durasi);
+                } else {
+                    $durasi = $row->durasi;
+                }
                 $mm         = $kuantitas;
                 if (!is_null($row->durasi) AND $row->durasi <> "") {
-                    $mm     = $row->durasi * $kuantitas;
+                    $mm     = $durasi * $kuantitas;
                 }
                 $subtotal   = $harga * $mm;
                 $list[$row->label][] = [ 
