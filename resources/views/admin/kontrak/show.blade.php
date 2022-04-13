@@ -279,7 +279,7 @@
                                             <x-konsultanspk :spk="$kontrak->spk"></x-konsultanspk>
                                         @endif
                                         {{-- percobaan --}}
-                                        <h2>hasil input spk</h2>
+                                        {{-- <h2>hasil input spk</h2>
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -305,7 +305,7 @@
                                                     </tr>
                                                 @endforeach
                                             </tbody>
-                                        </table>
+                                        </table> --}}
                                     </section>
                                 </div>
                               </div>
