@@ -161,6 +161,8 @@ class BastController extends Controller
      */
     public function destroy(Bast $bast)
     {
-        //
+        $bast->delete();
+
+        return back()->with('dd','BAST');
     }
 }

@@ -111,6 +111,10 @@
                             <input type="date" name="tgl_selesai_pekerjaan" class="form-control" required>
                           </div>
                           <div class="form-group">
+                            <label for="">Tanggal Ringkasan Kontrak {!! ireq() !!}</label>
+                            <input type="date" name="tgl_ringkasan_kontrak" class="form-control" required>
+                          </div>
+                          <div class="form-group">
                             <label for="">Progress Pekerjaan (%){!! ireq() !!}</label>
                             <input type="number" name="progress_pekerjaan" class="form-control" required>
                           </div>
@@ -135,11 +139,19 @@
                         </div>
                         <div class="col-md-4 mt-2">
                           <div class="form-group">
+                            <label for="">Tanggal DPA {!! ireq() !!}</label>
+                            <input type="date" name="tgl_dpa" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Nomor DPA {!! ireq() !!}</label>
+                            <input type="text" name="no_dpa" value="" class="form-control" required>
+                          </div>
+                          <div class="form-group">
                             <label for="">Tanggal BAST {!! ireq() !!}</label>
                             <input type="date" name="tgl_bast" class="form-control" required>
                           </div>
                           <div class="form-group">
-                            <label for="">Nomor BAST (sementara) {!! ireq() !!}</label>
+                            <label for="">Nomor BAST {!! ireq() !!}</label>
                             <input type="text" name="no_bast" value="{{ $nomorbast }}" class="form-control" required>
                           </div>
                           @if ($dkontrak->jenis_pekerjaan == 'fisik')

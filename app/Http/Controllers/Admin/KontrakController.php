@@ -481,7 +481,7 @@ class KontrakController extends Controller
         $document = str_replace("[no_sppbj]", $main['kontrak']->no_sppbj, $document);
         $document = str_replace("[no_spmk]", $main['kontrak']->no_spmk, $document);
         $document = str_replace("[no_barpk]", $main['kontrak']->no_barpk, $document);
-        $document = str_replace("[no_adendum]", $main['kontrak']->no_adendum, $document);
+            $document = str_replace("[no_adendum]", $main['kontrak']->no_adendum, $document);
         $document = str_replace("[tgl_spk]", date_indo($main['kontrak']->tgl_spk), $document);
         $document = str_replace("[tgl_pengadaan]", date_indo($main['kontrak']->tgl_pengadaan), $document);
         $document = str_replace("[tgl_spp]", date_indo($main['kontrak']->tgl_spp), $document);
@@ -490,7 +490,16 @@ class KontrakController extends Controller
         $document = str_replace("[tgl_spmk]", date_indo($main['kontrak']->tgl_spmk), $document);
         $document = str_replace("[tgl_spl]", date_indo($main['kontrak']->tgl_spl), $document);
         $document = str_replace("[tgl_barpk]", date_indo($main['kontrak']->tgl_barpk), $document);
-        $document = str_replace("[tgl_adendum]", date_indo($main['kontrak']->tgl_adendum), $document);
+        if (!is_null($main['kontrak']->tgl_adendum)) {
+            $document = str_replace("[tgl_adendum]", ', '.date_indo($main['kontrak']->tgl_adendum), $document);
+        } else {
+            $document = str_replace("[tgl_adendum]", '', $document);
+        }
+        if (!is_null($main['kontrak']->nilai)) {
+            $document = str_replace("[nilai]", ', '.norupiah($main['kontrak']->nilai), $document);
+        } else {
+            $document = str_replace("[nilai]", '', $document);
+        }
         $document = str_replace("[hari_tglspl]", hari_indo($main['kontrak']->tgl_spl), $document);
         $document = str_replace("[hari_tglspk]", hari_indo($main['kontrak']->tgl_spk), $document);
         $document = str_replace("[hari_tglbarpk]", hari_indo($main['kontrak']->tgl_barpk), $document);
@@ -526,6 +535,7 @@ class KontrakController extends Controller
         $document = str_replace("[nama_paket]", $main['datapekerjaan']->nama_paket, $document);
         $document = str_replace("[NAMA_PAKET]", strtoupper($main['datapekerjaan']->nama_paket), $document);
         $document = str_replace("[kecamatan]", ucwords($main['datapekerjaan']->kecamatan), $document);
+        $document = str_replace("[KECAMATAN]", strtoupper($main['datapekerjaan']->kecamatan), $document);
         $document = str_replace("[sumber_dana]", $sumberdana->keterangan, $document);
         $document = str_replace("[tahun_anggaran]", $main['datapekerjaan']->tahun_anggaran, $document);
         
@@ -539,19 +549,25 @@ class KontrakController extends Controller
         $document = str_replace("[no_akta]", $main['dataperusahaan']->no_akta, $document);
         $document = str_replace("[tanggal_akta]", $main['dataperusahaan']->tanggal_akta, $document);
         $document = str_replace("[nama_notaris]", $main['dataperusahaan']->nama_notaris, $document);
+        $document = str_replace("[npwp]", $main['dataperusahaan']->npwp, $document);
         
         // BAST
         if (isset($_GET['sesi'])) {
             $bast   = Bast::where('kontrak_id',$main['kontrak']->id)->first();
             if ($bast) {
                 $document = str_replace("[tgl_selesai_pekerjaan]", date_indo($bast->tgl_selesai_pekerjaan), $document);
+                $document = str_replace("[tgl_dpa]", date_indo($bast->tgl_dpa), $document);
+                $document = str_replace("[tgl_ringkasan_kontrak]", date_indo($bast->tgl_ringkasan_kontrak), $document);
                 $document = str_replace("[progress_pekerjaan]", $bast->progress_pekerjaan, $document);
                 $document = str_replace("[tgl_permohonan_ceklis]", date_indo($bast->tgl_permohonan_ceklis), $document);
                 $document = str_replace("[no_permohonan_ceklis]", $bast->no_permohonan_ceklis, $document);
                 $document = str_replace("[tgl_surat_ppk]", date_indo($bast->tgl_surat_ppk), $document);
                 $document = str_replace("[tgl_surat_tim]", date_indo($bast->tgl_surat_tim), $document);
                 $document = str_replace("[tgl_bast]", date_indo($bast->tgl_bast), $document);
+                $document = str_replace("[terbilang_tglbast]", terbilangtanggal($bast->tgl_bast), $document);
+                $document = str_replace("[hari_tglbast]", hari_indo($bast->tgl_bast), $document);
                 $document = str_replace("[no_bast]", $bast->no_bast, $document);
+                $document = str_replace("[no_dpa]", $bast->no_dpa, $document);
                 $document = str_replace("[konsultan_pengawas]", $bast->konsultan_pengawas, $document);
                 $document = str_replace("[direktur_pengawas]", $bast->direktur, $document);
             }
