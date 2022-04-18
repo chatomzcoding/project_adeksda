@@ -247,8 +247,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td colspan="2" class="text-center">PPN 10%</td>
-                        <td class="text-right">{{ $dataspk['hasil']['jumlah'] }}</td>
+                        <td colspan="2" class="text-center">PPN 11%</td>
+                        <td class="text-right">{{ $dataspk['hasil']['ppn'] }}</td>
                     </tr>
                     <tr>
                         <td></td>

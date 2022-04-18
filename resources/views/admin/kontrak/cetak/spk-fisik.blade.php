@@ -218,8 +218,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td colspan="2">PPN 10%</td>
-                        <td>{{ $dataspk['hasil']['jumlah'] }}</td>
+                        <td colspan="2">PPN 11%</td>
+                        <td>{{ $dataspk['hasil']['ppn'] }}</td>
                     </tr>
                     <tr>
                         <td></td>

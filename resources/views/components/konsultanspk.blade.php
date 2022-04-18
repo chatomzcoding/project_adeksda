@@ -49,7 +49,7 @@
                 <th class="text-right">{{ $result['jumlah'] }}</th>
             </tr>
             <tr>
-                <td colspan="7" class="text-right">PPN 10%</td>
+                <td colspan="7" class="text-right">PPN 11%</td>
                 <td class="text-right">{{ $result['ppn'] }}</td>
             </tr>
             <tr>

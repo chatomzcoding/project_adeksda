@@ -334,7 +334,7 @@
                     <section class="p-3">
                             <table class="table table-striped">
                                 @php
-                                    $cetak = ['coverspk' => 'Cover SPK','sp'=>'SP','spmk' => 'SPMK','spl'=>'SPL']
+                                    $cetak = ['coverspk' => 'Cover SPK','sp'=>'SP','spmk' => 'SPMK']
                                 @endphp
                                 @foreach ($cetak as $item => $judul)
                                     <tr>
@@ -343,6 +343,10 @@
                                     </tr>
                                 @endforeach
                                 @if ($main['datapekerjaan']->jenis_pekerjaan == 'fisik')
+                                    <tr>
+                                        <th>SPL</th>
+                                        <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=spl') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>
+                                    </tr>
                                     <tr>
                                         <th>BARPK</th>
                                         <td><a href="{{ url('kontrak/'.Crypt::encryptString($main['kontrak']->id).'?s=cetak&file=barpk') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK DOKUMEN</a></td>

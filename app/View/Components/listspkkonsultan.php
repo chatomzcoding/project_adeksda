@@ -114,7 +114,7 @@ class Listspkkonsultan extends Component
             ]
         ];
 
-        $ppn        = 10/100 * $total;
+        $ppn        = 11/100 * $total;
         $nilai      = $total + $ppn;
         $bulat      = round($nilai);
         $bulat      = str_replace('.00','',$bulat);

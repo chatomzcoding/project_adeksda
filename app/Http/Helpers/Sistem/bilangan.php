@@ -108,7 +108,7 @@ if (! function_exists('terbilang')) {
             $kalimat = str_replace("satu ribu","seribu",$kalimat);
         }
 
-        return trim($kalimat);
+        return ucwords(trim($kalimat));
     }
 }
 

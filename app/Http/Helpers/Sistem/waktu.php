@@ -157,3 +157,14 @@ if (! function_exists('db_datetime')) {
         return $result;
     }
 }
+if (! function_exists('terbilangtanggal')) {
+    function terbilangtanggal($tanggal)
+    {
+        if (!is_null($tanggal)) {
+            $tgl			= substr($tanggal, 8,2);
+            $bulan			= substr($tanggal, 5,2);
+            $tahun			= substr($tanggal, 0,4);
+            return terbilang($tgl).' bulan '.bulan_indo($bulan).' tahun '.terbilang($tahun);
+        }
+    }
+}

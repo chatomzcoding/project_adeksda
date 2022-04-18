@@ -386,7 +386,7 @@ class KontrakController extends Controller
                 $file       = 'spk-perencanaan';
             }
         }
-        
+
         switch ($_GET['file']) {
             case 'coverspk':
                 $file   = 'public/file/'.$folder.'/cover-spk.rtf';
@@ -459,6 +459,9 @@ class KontrakController extends Controller
                 die('akses tidak ada');
                 break;
         }
+
+
+    
         $document = file_get_contents($file);
         // kata / kalimat yang akan di ubah
         // KONTRAK 
@@ -488,18 +491,21 @@ class KontrakController extends Controller
         $document = str_replace("[tgl_spl]", date_indo($main['kontrak']->tgl_spl), $document);
         $document = str_replace("[tgl_barpk]", date_indo($main['kontrak']->tgl_barpk), $document);
         $document = str_replace("[tgl_adendum]", date_indo($main['kontrak']->tgl_adendum), $document);
-        $document = str_replace("[hari_tglspl]", 'Minggu', $document);
-        $document = str_replace("[hari_tglspk]", 'Minggu', $document);
-        $document = str_replace("[hari_tglbarpk]", 'Minggu', $document);
-        $document = str_replace("[terbilang_tglbarpk]", 'terbilang tanggal barpk', $document);
-        $document = str_replace("[terbilang_tglspl]", 'terbilang tanggal spl', $document);
-        $document = str_replace("[terbilang_tglspk]", 'terbilang tanggal spk', $document);
+        $document = str_replace("[hari_tglspl]", hari_indo($main['kontrak']->tgl_spl), $document);
+        $document = str_replace("[hari_tglspk]", hari_indo($main['kontrak']->tgl_spk), $document);
+        $document = str_replace("[hari_tglbarpk]", hari_indo($main['kontrak']->tgl_barpk), $document);
+        $document = str_replace("[hari_tglspp]", hari_indo($main['kontrak']->tgl_spp), $document);
+        $document = str_replace("[terbilang_tglbarpk]", terbilangtanggal($main['kontrak']->tgl_barpk), $document);
+        $document = str_replace("[terbilang_tglspl]", terbilangtanggal($main['kontrak']->tgl_spl), $document);
+        $document = str_replace("[terbilang_tglspk]", terbilangtanggal($main['kontrak']->tgl_spk), $document);
         $document = str_replace("[nama_ketua]", $main['dataketua']->nama, $document);
         $document = str_replace("[nama_sekretaris]", $main['datasekretaris']->nama, $document);
         $document = str_replace("[nama_anggota]", $main['dataanggota']->nama, $document);
         $document = str_replace("[nip_ketua]", nip($main['dataketua']->nip), $document);
         $document = str_replace("[nip_sekretaris]", nip($main['datasekretaris']->nip), $document);
         $document = str_replace("[nip_anggota]", nip($main['dataanggota']->nip), $document);
+
+
         // SSKK
         $nilai40  = $main['kontrak']->nilai_pekerjaan * 40/100;
         $nilai35  = $main['kontrak']->nilai_pekerjaan * 35/100;
@@ -511,6 +517,7 @@ class KontrakController extends Controller
         $document = str_replace("[nilai_pekerjaan5]", norupiah($nilai5), $document);
         
         // PEKERJAAN
+        $sumberdana     = Kategori::where('label','sumber dana')->where('nama',$main['datapekerjaan']->sumber_dana)->first();
         $document = str_replace("[kode_kegiatan]", $main['datapekerjaan']->kode_kegiatan, $document);
         $document = str_replace("[kode_tender]", $main['datapekerjaan']->kode_tender, $document);
         $document = str_replace("[nama_kegiatan]", $main['datapekerjaan']->nama_kegiatan, $document);
@@ -518,8 +525,8 @@ class KontrakController extends Controller
         $document = str_replace("[sub_kegiatan]", $main['datapekerjaan']->sub_kegiatan, $document);
         $document = str_replace("[nama_paket]", $main['datapekerjaan']->nama_paket, $document);
         $document = str_replace("[NAMA_PAKET]", strtoupper($main['datapekerjaan']->nama_paket), $document);
-        $document = str_replace("[kecamatan]", $main['datapekerjaan']->kecamatan, $document);
-        $document = str_replace("[sumber_dana]", $main['datapekerjaan']->sumber_dana, $document);
+        $document = str_replace("[kecamatan]", ucwords($main['datapekerjaan']->kecamatan), $document);
+        $document = str_replace("[sumber_dana]", $sumberdana->keterangan, $document);
         $document = str_replace("[tahun_anggaran]", $main['datapekerjaan']->tahun_anggaran, $document);
         
         // PERUSAHAAN
@@ -676,7 +683,7 @@ class KontrakController extends Controller
             $jumlah = $jumlah + $total;
             $nomor++;
         }
-        $ppn        = 10/100 * $jumlah;
+        $ppn        = 11/100 * $jumlah;
         $nilai      = $jumlah + $ppn;
         $bulat      = round($nilai);
         $bulat      = str_replace('.00','',$bulat);
@@ -790,7 +797,7 @@ class KontrakController extends Controller
             ]
         ];
 
-        $ppn        = 10/100 * $total;
+        $ppn        = 11/100 * $total;
         $nilai      = $total + $ppn;
         $bulat      = round($nilai);
         $bulat      = str_replace('.00','',$bulat);

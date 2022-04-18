@@ -71,7 +71,7 @@ class Listspk extends Component
             $jumlah = $jumlah + $total;
             $nomor++;
         }
-        $ppn        = 10/100 * $jumlah;
+        $ppn        = 11/100 * $jumlah;
         $nilai      = $jumlah + $ppn;
         $bulat      = round($nilai);
         $bulat      = str_replace('.00','',$bulat);
