@@ -35,26 +35,26 @@
             { type: 'text', title:'Harga', width:'120' },
             { type: 'text', title:'Sub Total', width:'200' },
         ],
-        updateTable:function(instance, cell, col, row, val, label, cellName) {
-            if (cell.innerHTML == 'Total') {
-                cell.parentNode.style.backgroundColor = '#fffaa3';
-            }
-            if (col == 1) {
-                kuantitas = cell.innerText;
-            }
-            if (col == 3) {
-                nilaiharga = cell.innerText;
-                nilaiharga = nilaiharga.replace(".00",'');
-                nilaiharga = nilaiharga.replace("Rp",'');
-                nilaiharga = nilaiharga.replace(/,/g,'');
-                // cell.innerHTML = formatRupiah(nilaiharga);
-                cell.innerHTML = nilaiharga;
-            }
-            if (col == 4) {
-                subtotal = kuantitas * nilaiharga;
-                cell.innerHTML = subtotal;
-            }
-        },
+        // updateTable:function(instance, cell, col, row, val, label, cellName) {
+        //     if (cell.innerHTML == 'Total') {
+        //         cell.parentNode.style.backgroundColor = '#fffaa3';
+        //     }
+        //     if (col == 1) {
+        //         kuantitas = cell.innerText;
+        //     }
+        //     if (col == 3) {
+        //         nilaiharga = cell.innerText;
+        //         nilaiharga = nilaiharga.replace(".00",'');
+        //         nilaiharga = nilaiharga.replace("Rp",'');
+        //         nilaiharga = nilaiharga.replace(/,/g,'');
+        //         // cell.innerHTML = formatRupiah(nilaiharga);
+        //         cell.innerHTML = nilaiharga;
+        //     }
+        //     if (col == 4) {
+        //         subtotal = kuantitas * nilaiharga;
+        //         cell.innerHTML = subtotal;
+        //     }
+        // },
         columnSorting:false,
     });
     jspreadsheet(document.getElementById('spreadsheet2'), {
@@ -66,26 +66,26 @@
             { type: 'text', title:'Harga', width:'120' },
             { type: 'text', title:'Sub Total', width:'200' },
         ],
-        updateTable:function(instance, cell, col, row, val, label, cellName) {
-            if (cell.innerHTML == 'Total') {
-                cell.parentNode.style.backgroundColor = '#fffaa3';
-            }
-            if (col == 1) {
-                kuantitas = cell.innerText;
-            }
-            if (col == 3) {
-                nilaiharga = cell.innerText;
-                nilaiharga = nilaiharga.replace(".00",'');
-                nilaiharga = nilaiharga.replace("Rp",'');
-                nilaiharga = nilaiharga.replace(/,/g,'');
-                // cell.innerHTML = formatRupiah(nilaiharga);
-                cell.innerHTML = nilaiharga;
-            }
-            if (col == 4) {
-                subtotal = kuantitas * nilaiharga;
-                cell.innerHTML = subtotal;
-            }
-        },
+        // updateTable:function(instance, cell, col, row, val, label, cellName) {
+        //     if (cell.innerHTML == 'Total') {
+        //         cell.parentNode.style.backgroundColor = '#fffaa3';
+        //     }
+        //     if (col == 1) {
+        //         kuantitas = cell.innerText;
+        //     }
+        //     if (col == 3) {
+        //         nilaiharga = cell.innerText;
+        //         nilaiharga = nilaiharga.replace(".00",'');
+        //         nilaiharga = nilaiharga.replace("Rp",'');
+        //         nilaiharga = nilaiharga.replace(/,/g,'');
+        //         // cell.innerHTML = formatRupiah(nilaiharga);
+        //         cell.innerHTML = nilaiharga;
+        //     }
+        //     if (col == 4) {
+        //         subtotal = kuantitas * nilaiharga;
+        //         cell.innerHTML = subtotal;
+        //     }
+        // },
         columnSorting:false,
     });
     jspreadsheet(document.getElementById('spreadsheet3'), {
@@ -97,26 +97,26 @@
             { type: 'text', title:'Harga', width:'120' },
             { type: 'text', title:'Sub Total', width:'200' },
         ],
-        updateTable:function(instance, cell, col, row, val, label, cellName) {
-            if (cell.innerHTML == 'Total') {
-                cell.parentNode.style.backgroundColor = '#fffaa3';
-            }
-            if (col == 1) {
-                kuantitas = cell.innerText;
-            }
-            if (col == 3) {
-                nilaiharga = cell.innerText;
-                nilaiharga = nilaiharga.replace(".00",'');
-                nilaiharga = nilaiharga.replace("Rp",'');
-                nilaiharga = nilaiharga.replace(/,/g,'');
-                // cell.innerHTML = formatRupiah(nilaiharga);
-                cell.innerHTML = nilaiharga;
-            }
-            if (col == 4) {
-                subtotal = kuantitas * nilaiharga;
-                cell.innerHTML = subtotal;
-            }
-        },
+        // updateTable:function(instance, cell, col, row, val, label, cellName) {
+        //     if (cell.innerHTML == 'Total') {
+        //         cell.parentNode.style.backgroundColor = '#fffaa3';
+        //     }
+        //     if (col == 1) {
+        //         kuantitas = cell.innerText;
+        //     }
+        //     if (col == 3) {
+        //         nilaiharga = cell.innerText;
+        //         nilaiharga = nilaiharga.replace(".00",'');
+        //         nilaiharga = nilaiharga.replace("Rp",'');
+        //         nilaiharga = nilaiharga.replace(/,/g,'');
+        //         // cell.innerHTML = formatRupiah(nilaiharga);
+        //         cell.innerHTML = nilaiharga;
+        //     }
+        //     if (col == 4) {
+        //         subtotal = kuantitas * nilaiharga;
+        //         cell.innerHTML = subtotal;
+        //     }
+        // },
         columnSorting:false,
     });
 
