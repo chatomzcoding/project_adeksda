@@ -161,7 +161,7 @@
                     <tr>
                         <td colspan="7" class="text-center">
                             <span>
-                                SUMBER DANA : {{ $main['kontrak']->pekerjaan->sumber_dana }} Tahun Anggaran {{ $main['kontrak']->pekerjaan->tahun_anggaran }}
+                                SUMBER DANA : {{ $sumberdana->keterangan }} Tahun Anggaran {{ $main['kontrak']->pekerjaan->tahun_anggaran }}
                             </span>
                         </td>
                     </tr>

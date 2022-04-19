@@ -421,7 +421,8 @@ class KontrakController extends Controller
                 $namafile   = 'Cover SPK '.tgl_sekarang();
                 break;
             case 'spk':
-                return view('admin.kontrak.cetak.'.$file,compact('dataspk','main'));
+                $sumberdana     = Kategori::where('label','sumber dana')->where('nama',$main['datapekerjaan']->sumber_dana)->first();
+                return view('admin.kontrak.cetak.'.$file,compact('dataspk','main','sumberdana'));
                 break;
             case 'ttdspk':
                 $file   = 'public/file/'.$folder.'/ttdspk.rtf';
