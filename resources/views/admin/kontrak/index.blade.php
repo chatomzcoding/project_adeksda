@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
@@ -36,7 +36,7 @@
             </div>
             {{-- end col --}}
             {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-6">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-info elevation-1"><i class="fas fa-list"></i></span>
                 <div class="info-box-content">
@@ -47,33 +47,6 @@
                 </div>
               </div>
             </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-p']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
-            {{-- start col --}}
-            <div class="col-12 col-sm-6 col-md-3">
-              <div class="info-box mb-3">
-                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-list"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Info Statistik</span>
-                  <span class="info-box-number">
-                        {{-- {{ $main['statistik']['total-aktif']}} --}}
-                  </span>
-                </div>
-              </div>
-            </div>
-            {{-- end col --}}
         </div>
         <div class="row">
           <!-- left column -->
@@ -84,10 +57,7 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                     <a href="{{ url($main['link'].'/create') }}" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data List Baru"><i class="fas fa-plus"></i> Tambah Kontrak</a>
                     <a href="{{ url($main['link'].'?sesi=proses') }}" class="btn btn-outline-primary btn-sm pop-info" title="List Dalam Proses"><i class="fas fa-sync"></i> Kontrak Dalam Proses</a>
-                    <div class="float-right">
-                        {{-- <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a> --}}
-                    </div>
+                    <a href="{{ url($main['link']) }}" class="btn btn-outline-info btn-sm pop-info" title="List Dalam Proses"><i class="fas fa-sync"></i> Bersihkan Filter</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -98,7 +68,9 @@
                                 <select name="sumber_dana" id="" class="form-control" onchange="this.form.submit();">
                                     <option value="semua">-- sumber dana --</option>
                                     @foreach ($sumberdana as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->keterangan) }}</option>
+                                        <option value="{{ $item->nama }}" @if ($main['f']['sumber_dana'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->keterangan) }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -106,30 +78,29 @@
                                 <select name="kecamatan" id="" class="form-control" onchange="this.form.submit();">
                                     <option value="semua">-- kecamatan --</option>
                                     @foreach ($kecamatan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                        <option value="{{ $item->nama }}" @if ($main['f']['kecamatan'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama) }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
-                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
+                                <select name="jenis_pekerjaan" id="" class="form-control" onchange="this.form.submit();">
                                     <option value="semua">-- jenis pekerjaan --</option>
                                     @foreach ($jenispekerjaan as $item)
-                                        <option value="{{ $item->nama }}">{{ strtoupper($item->nama) }}</option>
+                                        <option value="{{ $item->nama }}" @if ($main['f']['jenis_pekerjaan'] == $item->nama)
+                                            selected
+                                        @endif>{{ strtoupper($item->nama) }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group col-md-3">
-                              <select name="perusahaan" id="" class="form-control select2bs4" style="width: 100%" onchange="this.form.submit();">
-                                <option value="semua"  selected="selected">-- perusahaan --</option>
-                                  @foreach ($perusahaan as $item)
-                                  <option value="{{ $item->id }}">{{ strtoupper($item->nama_perusahaan) }}</option>
-                                  @endforeach
-                              </select>
-                            </div>
-                            <div class="form-group col-md-1">
-                                <select name="jenispekerjaan" id="" class="form-control" onchange="this.form.submit();">
+                            <div class="form-group col-md-2">
+                                <select name="tahun_anggaran" id="" class="form-control" onchange="this.form.submit();">
+                                  <option value="semua">-- tahun anggaran --</option>
                                   @for ($i = ambil_tahun(); $i > 2010; $i--)
-                                      <option value="{{ $i }}">{{ $i }}</option>
+                                      <option value="{{ $i }}" @if ($main['f']['tahun_anggaran'] == $i)
+                                          selected
+                                      @endif>{{ $i }}</option>
                                   @endfor
                                 </select>
                             </div>
@@ -145,7 +116,7 @@
                                 <th>Kode Kegitan</th>
                                 <th>Sub Kegiatan</th>
                                 <th>Nama Paket</th>
-                                <th>Kode Tender</th>
+                                <th>Jenis Pekerjaan</th>
                                 <th>Alamat</th>
                                 <th>Sumber Dana</th>
                                 <th>Tahun Anggaran</th>
@@ -175,10 +146,10 @@
                                     <td>{{ $item->kode_kegiatan }}</td>                                        
                                     <td>{{ $item->sub_kegiatan }}</td>                                        
                                     <td>{{ $item->nama_paket }}</td>                                        
-                                    <td>{{ $item->kode_tender }}</td>                                        
+                                    <td>{{ $item->jenis_pekerjaan }}</td>                                        
                                     <td>Kec. {{ $item->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
                                     <td>{{ $item->sumber_dana }}</td>                                        
-                                    <td>{{ $item->tahun_anggaran }}</td>                                        
+                                    <td class="text-center">{{ $item->tahun_anggaran }}</td>                                        
                                 </tr>
                             @empty
                                 <tr class="text-center">

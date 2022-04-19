@@ -40,18 +40,22 @@ class KontrakController extends Controller
         $sesi = (isset($_GET['sesi'])) ? $_GET['sesi'] : 'admin' ;
         switch ($sesi) {
             case 'admin':
-                $kontrak    = DB::table('kontrak')
-                                ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                ->where('kontrak.status','selesai')
-                                ->select('kontrak.*','pekerjaan.*','kontrak.id as idkontrak')
-                                ->orderByDesc('kontrak.id')
-                                ->get();
+                $filter         = ['tahun_anggaran','sumber_dana','jenis_pekerjaan','kecamatan'];
+                // $kontrak    = Kontrak::where('kontrak.status','selesai')->orderByDesc('id')->get();
+                $kontrak = DB::table('kontrak')
+                            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                            ->where('kontrak.status','selesai')
+                            ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
+                            ->get();
+                $data          = datafilter($kontrak,$filter);
+                $kontrak    = $data['list'];
                 $main   = [
                     'link' => 'kontrak',
                     'statistik' => [
                         'total' => $totalkontrak,
                         'proses' => $totalkontrakproses
-                    ]
+                    ],
+                    'f' => $data['filter']
                 ];
                 return view('admin.kontrak.index', compact('menu','main','kontrak','kecamatan','jenispekerjaan','sumberdana','perusahaan'));
                 break;
@@ -339,6 +343,11 @@ class KontrakController extends Controller
                 'persiapan' => $spkpersiapan,
                 'pelaksanaan' => $spkpelaksanaan,
                 'pembantu' => $spkpembantu,
+            ],
+            'spkfisik' =>   [
+                'persiapan' => self::spkfisikedit($spkpersiapan),
+                'pelaksanaan' => self::spkfisikedit($spkpelaksanaan),
+                'pembantu' => self::spkfisikedit($spkpembantu),
             ]
         ];
 
@@ -361,6 +370,24 @@ class KontrakController extends Controller
         }
         
 
+    }
+
+    public static function spkfisikedit($dokumenspk)
+    {
+
+        $result = [];
+        foreach ($dokumenspk as $key) {
+            $subtotal = round($key->kuantitas * $key->harga,2);
+            $data      = [
+                $key->uraian,
+                $key->kuantitas,
+                $key->satuan,
+                norupiah($key->harga),
+                norupiah($subtotal)
+            ];
+            $result[] = $data;
+        }
+        return $result;
     }
 
     public static function cetak($kecamatan,$main,$jenispekerjaan,$sumberdana)

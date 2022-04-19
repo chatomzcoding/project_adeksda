@@ -130,7 +130,8 @@
                                         @switch($main['datapekerjaan']->jenis_pekerjaan)
                                             @case('fisik')
                                                 @if ($main['collapse'] > 4)
-                                                    <x-listspk :jenis="$main['datapekerjaan']" :spk="$main['spk']"></x-listspk>
+                                                    {{-- <x-listspk :jenis="$main['datapekerjaan']" :spk="$main['spk']"></x-listspk> --}}
+                                                    @include('admin.kontrak.section.spkexceledit')
                                                 @else
                                                     @include('admin.kontrak.section.spkexcel')
                                                 @endif

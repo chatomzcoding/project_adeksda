@@ -42,11 +42,18 @@ class DokumenspkController extends Controller
 
     public static function setbilangan($bilangan)
     {
-        // $bilangan = str_replace(',','',$bilangan);
-        // $offset     = strlen($bilangan) - 3;
-        // $bilangan = substr($bilangan,0,$offset);
         $bilangan = str_replace(',','',$bilangan);
-        return $bilangan;
+        $bilangan = str_replace('.','',$bilangan);
+        $bilangan   = str_split($bilangan);
+        $hasil      = NULL;
+        $batas      = count($bilangan) - 3;
+        for ($i=0; $i < count($bilangan); $i++) { 
+            $hasil .= $bilangan[$i];
+            if ($i == $batas) {
+                $hasil .= '.';
+            }
+        }
+        return $hasil;
     }
     public function store(Request $request)
     {

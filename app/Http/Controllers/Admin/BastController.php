@@ -80,7 +80,7 @@ class BastController extends Controller
         } else {
             $urutan = $no_urut;
         }
-        $nomor = "610/".$urutan."/BAST/SDA";
+        $nomor = "610/".$urutan."/BAST/SDA/".$kontrak->pekerjaan->tahun_anggaran;
         return $nomor;
     }
 

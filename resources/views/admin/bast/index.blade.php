@@ -118,6 +118,14 @@
                             <label for="">Progress Pekerjaan (%){!! ireq() !!}</label>
                             <input type="number" name="progress_pekerjaan" class="form-control" required>
                           </div>
+                          <div class="form-group">
+                            <label for="">Tanggal BAST {!! ireq() !!}</label>
+                            <input type="date" name="tgl_bast" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Nomor BAST {!! ireq() !!}</label>
+                            <input type="text" name="no_bast" value="{{ $nomorbast }}" class="form-control" required>
+                          </div>
                         </div>
                         <div class="col-md-4 mt-2">
                           <div class="form-group">
@@ -146,14 +154,7 @@
                             <label for="">Nomor DPA {!! ireq() !!}</label>
                             <input type="text" name="no_dpa" value="" class="form-control" required>
                           </div>
-                          <div class="form-group">
-                            <label for="">Tanggal BAST {!! ireq() !!}</label>
-                            <input type="date" name="tgl_bast" class="form-control" required>
-                          </div>
-                          <div class="form-group">
-                            <label for="">Nomor BAST {!! ireq() !!}</label>
-                            <input type="text" name="no_bast" value="{{ $nomorbast }}" class="form-control" required>
-                          </div>
+                         
                           @if ($dkontrak->jenis_pekerjaan == 'fisik')
                             <div class="form-group">
                               <label for="">Konsultan Pengawas {!! ireq() !!}</label>
@@ -164,8 +165,6 @@
                               <input type="text" name="direktur" class="form-control" required>
                             </div>
                           @endif
-                        </div>
-                        <div class="col-md-12">
                           <div class="form-group text-right">
                             <button type="submit" class="btn btn-outline-primary"><i class="fas fa-save"></i> SIMPAN BAST</button>
                           </div>

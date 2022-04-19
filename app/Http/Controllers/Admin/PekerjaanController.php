@@ -65,7 +65,7 @@ class PekerjaanController extends Controller
             'kode_tender' => $request->kode_tender,
             'nama_paket' => $request->nama_paket,
             'sub_kegiatan' => $request->sub_kegiatan,
-            'kecamatan' => $request->kecamatan,
+            'kecamatan' => strtolower($request->kecamatan),
             'kode_belanja' => $request->kode_belanja,
             'sumber_dana' => $request->sumber_dana,
             'tahun_anggaran' => $request->tahun_anggaran,
