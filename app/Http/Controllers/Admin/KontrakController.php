@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bast;
+use App\Models\Datapokok;
 use App\Models\Dokumenspk;
 use App\Models\Kategori;
 use App\Models\Kontrak;
@@ -573,7 +574,8 @@ class KontrakController extends Controller
             }
         }
         // MASTER
-        $ppk    = Timlokus::where('status','ppk')->first();
+        $datapokok  = Datapokok::first();
+        $ppk    = Timlokus::find($datapokok->id_ppk);
         if ($ppk) {
             $nama_ppk = $ppk->nama;
             $nip_ppk = $ppk->nip;
@@ -581,7 +583,7 @@ class KontrakController extends Controller
             $nama_ppk = 'nama ppk';
             $nip_ppk = 'nip ppk';
         }
-        $pptk    = Timlokus::where('status','pptk')->first();
+        $pptk    = Timlokus::find($datapokok->id_pptk);
         if ($pptk) {
             $nama_pptk = $pptk->nama;
             $nip_pptk = $pptk->nip;
@@ -594,8 +596,11 @@ class KontrakController extends Controller
         $document = str_replace("[nama_pptk]", $nama_pptk, $document);
         $document = str_replace("[nip_ppk]", $nip_ppk, $document);
         $document = str_replace("[nip_pptk]", $nip_pptk, $document);
-        $document = str_replace("[no_keputusan]", '900/Kep.29 - BPKAD/2021', $document);
-        $document = str_replace("[tgl_keputusan]", date_indo('2021-01-28'), $document);
+        $document = str_replace("[no_keputusan]", $datapokok->no_keputusan, $document);
+        $document = str_replace("[nama_instansi]", $datapokok->nama_instansi, $document);
+        $document = str_replace("[alamat_instansi]", $datapokok->alamat_instansi, $document);
+        $document = str_replace("[kode_pos]", $datapokok->kode_pos, $document);
+        $document = str_replace("[tgl_keputusan]", date_indo($datapokok->tgl_keputusan), $document);
         $document = str_replace("[hari_akhirkontrak]", hari_indo($tanggalakhirkontrak), $document);
         $document = str_replace("[tgl_akhirkontrak]", date_indo($tanggalakhirkontrak), $document);
         $document = str_replace("[status_uangmuka]", "YA/TIDAK", $document);

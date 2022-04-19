@@ -19,39 +19,60 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-        <!-- left column -->
         <div class="col-md-12">
-            <!-- general form elements -->
             <div class="card">
             <div class="card-header">
                 <h3 class="card-title">PENGATURAN DATA POKOK</h3>
-                {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah User Baru </a> --}}
             </div>
             <div class="card-body">
                 @include('sistem.notifikasi')
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Nama Instansi</label>
-                    <input type="text" value="DINAS PEKERJAAN UMUM DAN TATA RUANG" class="form-control col-md-8">
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Alamat Instansi</label>
-                    <input type="text" value="Jalan Noenoeng Tisnasaputra No.5, Telp/Faks. (0265) 342631" class="form-control col-md-8">
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Kode POS</label>
-                    <input type="text" value="46115" class="form-control col-md-8">
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Nomor Keputusan Kepala Dinas</label>
-                    <input type="text" value="900/Kep. 29-BPKAD/2021" class="form-control col-md-8">
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Tanggal Keputusan Kepala Dinas</label>
-                    <input type="date" data-date="" value="2021-01-18" data-date-format="DD-MM-YYY" class="form-control col-md-8">
-                </div>
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
-                </div>
+                <form action="{{ url('datapokok/'.$datapokok->id) }}" method="post">
+                    @csrf
+                    @method('patch')
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Instansi</label>
+                        <input type="text" name="nama_instansi" value="{{ $datapokok->nama_instansi }}" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Alamat Instansi</label>
+                        <input type="text" name="alamat_instansi" value="{{ $datapokok->alamat_instansi }}" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Kode POS</label>
+                        <input type="text" name="kode_pos" value="{{ $datapokok->kode_pos }}" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nomor Keputusan Kepala Dinas</label>
+                        <input type="text" name="no_keputusan" value="{{ $datapokok->no_keputusan }}" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Tanggal Keputusan Kepala Dinas</label>
+                        <input type="date" name="tgl_keputusan" data-date="" value="{{ $datapokok->tgl_keputusan }}" data-date-format="DD-MM-YYY" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Pejabat Pembuatan Keputusan (PPK)</label>
+                        <select name="id_ppk" id="" class="form-control col-md-8">
+                            @foreach ($tim as $item)
+                                <option value="{{ $item->id }}" @if ($item->id == $datapokok->id_ppk)
+                                    selected
+                                @endif>{{ $item->nama.' | '.$item->nip }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Pejabat Pelaksana Teknis Kegiatan (PPTK)</label>
+                        <select name="id_pptk" id="" class="form-control col-md-8">
+                            @foreach ($tim as $item)
+                                <option value="{{ $item->id }}" @if ($item->id == $datapokok->id_pptk)
+                                    selected
+                                @endif>{{ $item->nama.' | '.$item->nip }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
+                    </div>
+                </form>
             </div>
             </div>
         </div>

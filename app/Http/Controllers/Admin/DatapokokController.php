@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Datapokok;
+use App\Models\Timlokus;
 use Illuminate\Http\Request;
 
 class DatapokokController extends Controller
@@ -15,8 +16,10 @@ class DatapokokController extends Controller
      */
     public function index()
     {
-        $menu   = 'datapokok';
-        return view('admin.datapokok', compact('menu'));
+        $menu       = 'datapokok';
+        $datapokok  = Datapokok::first();
+        $tim       = Timlokus::all();
+        return view('admin.datapokok', compact('menu','datapokok','tim'));
     }
 
     /**
@@ -71,7 +74,17 @@ class DatapokokController extends Controller
      */
     public function update(Request $request, Datapokok $datapokok)
     {
-        //
+        Datapokok::where('id',$datapokok->id)->update([
+            'nama_instansi' => $request->nama_instansi,
+            'alamat_instansi' => $request->alamat_instansi,
+            'kode_pos' => $request->kode_pos,
+            'no_keputusan' => $request->no_keputusan,
+            'tgl_keputusan' => $request->tgl_keputusan,
+            'id_ppk' => $request->id_ppk,
+            'id_pptk' => $request->id_pptk,
+        ]);
+
+        return back()->with('du','data pokok');
     }
 
     /**

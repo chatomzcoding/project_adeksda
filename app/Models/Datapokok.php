@@ -9,7 +9,7 @@ class Datapokok extends Model
 {
     use HasFactory;
 
-    protected $table = 'info_website';
+    protected $table = 'datapokok';
 
     protected $guarded = [];
 }

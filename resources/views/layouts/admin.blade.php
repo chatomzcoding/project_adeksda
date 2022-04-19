@@ -323,6 +323,14 @@
 
 {{-- javascript chatomz --}}
 <script src="{{ asset('js/chatomz.js')}}"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+  })
+</script>
 
 <script type="text/javascript">
   $(document).ready(function() {
