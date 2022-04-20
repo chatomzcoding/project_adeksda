@@ -127,22 +127,15 @@
                                 show
                                 @endif" aria-labelledby="headingfour" data-parent="#accordionExample">
                                     <div class="card-body">
+                                        {{-- <section>
+                                            <a href="{{ url('kontrak/'.Crypt::encryptString()) }}">BUKA EXCEL</a>
+                                        </section> --}}
                                         @switch($main['datapekerjaan']->jenis_pekerjaan)
                                             @case('fisik')
-                                                @if ($main['collapse'] > 4)
-                                                    {{-- <x-listspk :jenis="$main['datapekerjaan']" :spk="$main['spk']"></x-listspk> --}}
-                                                    @include('admin.kontrak.section.spkexceledit')
-                                                @else
                                                     @include('admin.kontrak.section.spkexcel')
-                                                @endif
-                                                
                                                 @break
                                             @default
-                                            {{-- @if ($main['collapse'] > 4) --}}
-                                                {{-- @include('admin.kontrak.section.spkkonsultanedit') --}}
-                                            {{-- @else --}}
                                                 @include('admin.kontrak.section.spkkonsultan')
-                                            {{-- @endif --}}
                                         @endswitch
                                     </div>
                                 </div>
@@ -245,6 +238,249 @@
     <!-- /.modal -->
 
     @section('script')
+    @if ($main['kontrak'])
+        <script>
+            // [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, '=B1*C1' ],
+            // [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '' ],
+            var data1 = @json($main['spkfisik']['persiapan']);
+            var data2 = @json($main['spkfisik']['pelaksanaan']);
+            var data3 = @json($main['spkfisik']['pembantu']);
+        
+            jspreadsheet(document.getElementById('spreadsheet1'), {
+                data:data1,
+                columns: [
+                    { type: 'text', title:'Uraian', width:'500' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
+                    { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Sub Total', width:'200' },
+                ],
+                // updateTable:function(instance, cell, col, row, val, label, cellName) {
+                //     if (cell.innerHTML == 'Total') {
+                //         cell.parentNode.style.backgroundColor = '#fffaa3';
+                //     }
+                //     if (col == 1) {
+                //         kuantitas = cell.innerText;
+                //     }
+                //     if (col == 3) {
+                //         nilaiharga = cell.innerText;
+                //         nilaiharga = nilaiharga.replace(".00",'');
+                //         nilaiharga = nilaiharga.replace("Rp",'');
+                //         nilaiharga = nilaiharga.replace(/,/g,'');
+                //         // cell.innerHTML = formatRupiah(nilaiharga);
+                //         cell.innerHTML = nilaiharga;
+                //     }
+                //     if (col == 4) {
+                //         subtotal = kuantitas * nilaiharga;
+                //         cell.innerHTML = subtotal;
+                //     }
+                // },
+                columnSorting:false,
+            });
+            jspreadsheet(document.getElementById('spreadsheet2'), {
+                data:data2,
+                columns: [
+                    { type: 'text', title:'Uraian', width:'500' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
+                    { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Sub Total', width:'200' },
+                ],
+                // updateTable:function(instance, cell, col, row, val, label, cellName) {
+                //     if (cell.innerHTML == 'Total') {
+                //         cell.parentNode.style.backgroundColor = '#fffaa3';
+                //     }
+                //     if (col == 1) {
+                //         kuantitas = cell.innerText;
+                //     }
+                //     if (col == 3) {
+                //         nilaiharga = cell.innerText;
+                //         nilaiharga = nilaiharga.replace(".00",'');
+                //         nilaiharga = nilaiharga.replace("Rp",'');
+                //         nilaiharga = nilaiharga.replace(/,/g,'');
+                //         // cell.innerHTML = formatRupiah(nilaiharga);
+                //         cell.innerHTML = nilaiharga;
+                //     }
+                //     if (col == 4) {
+                //         subtotal = kuantitas * nilaiharga;
+                //         cell.innerHTML = subtotal;
+                //     }
+                // },
+                columnSorting:false,
+            });
+            jspreadsheet(document.getElementById('spreadsheet3'), {
+                data:data3,
+                columns: [
+                    { type: 'text', title:'Uraian', width:'500' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
+                    { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Sub Total', width:'200' },
+                ],
+                // updateTable:function(instance, cell, col, row, val, label, cellName) {
+                //     if (cell.innerHTML == 'Total') {
+                //         cell.parentNode.style.backgroundColor = '#fffaa3';
+                //     }
+                //     if (col == 1) {
+                //         kuantitas = cell.innerText;
+                //     }
+                //     if (col == 3) {
+                //         nilaiharga = cell.innerText;
+                //         nilaiharga = nilaiharga.replace(".00",'');
+                //         nilaiharga = nilaiharga.replace("Rp",'');
+                //         nilaiharga = nilaiharga.replace(/,/g,'');
+                //         // cell.innerHTML = formatRupiah(nilaiharga);
+                //         cell.innerHTML = nilaiharga;
+                //     }
+                //     if (col == 4) {
+                //         subtotal = kuantitas * nilaiharga;
+                //         cell.innerHTML = subtotal;
+                //     }
+                // },
+                columnSorting:false,
+            });
+        
+            $(function () {
+            $('#formMobil').submit(function (event) {
+                $('#datapersiapan').val(JSON.stringify(data1));
+                $('#datapelaksanaan').val(JSON.stringify(data2));
+                $('#datapembantu').val(JSON.stringify(data3));
+            });
+            });
+        </script>
+
+<script>
+    // [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, '=B1*C1' ],
+    // [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '' ],
+    var data11 = @json($main['spkkonsultan'][0]);
+    var data12 = @json($main['spkkonsultan'][1]);
+    var data21 = @json($main['spkkonsultan'][2]);
+    var data22 = @json($main['spkkonsultan'][3]);
+    var data23 = @json($main['spkkonsultan'][4]);
+    var data24 = @json($main['spkkonsultan'][5]);
+
+    jspreadsheet(document.getElementById('tenagaahli'), {
+        data:data11,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+    jspreadsheet(document.getElementById('tenagapendukung'), {
+        data:data12,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+    jspreadsheet(document.getElementById('biayasewa'), {
+        data:data21,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+    jspreadsheet(document.getElementById('biayarapat'), {
+        data:data22,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+
+    jspreadsheet(document.getElementById('biayakendaraan'), {
+        data:data23,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+    jspreadsheet(document.getElementById('biayapelaporan'), {
+        data:data24,
+        columns: [
+            { type: 'text', title:'Uraian Pekerjaan', width:'300' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'', width:'1' },
+            { type: 'text', title:'Personil', width:'70' },
+            { type: 'text', title:'Durasi', width:'70' },
+            { type: 'text', title:'MM', width:'70' },
+            { type: 'text', title:'Satuan', width:'80' },
+            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Jumlah Biaya', width:'200' },
+        ],
+        updateTable:function(instance, cell, col, row, val, label, cellName) {
+            
+        },
+        columnSorting:false,
+    });
+
+    $(function () {
+      $('#spkkonsultan').submit(function (event) {
+        $('#datatenagaahli').val(JSON.stringify(data11));
+        $('#datatenagapendukung').val(JSON.stringify(data12));
+        $('#databiayasewa').val(JSON.stringify(data21));
+        $('#databiayarapat').val(JSON.stringify(data22));
+        $('#databiayakendaraan').val(JSON.stringify(data23));
+        $('#databiayapelaporan').val(JSON.stringify(data24));
+      });
+    });
+</script>
+    @endif
         <!-- BS-Stepper -->
       <script src=" {{ asset('template/admin/lte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
       <!-- Select2 -->
@@ -270,6 +506,8 @@
             });
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src=" {{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
+
         <script>
             $(function () {
               //Initialize Select2 Elements

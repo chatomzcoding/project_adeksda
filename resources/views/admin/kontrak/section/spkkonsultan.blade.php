@@ -31,7 +31,7 @@
     </div>
 </form>
 
-@section('script')
+{{-- @section('script')
 <script>
     // [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, '=B1*C1' ],
     // [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '' ],
@@ -163,4 +163,4 @@
       });
     });
 </script>
-@endsection
+@endsection --}}
