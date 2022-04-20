@@ -620,7 +620,7 @@ class KontrakController extends Controller
         $document = str_replace("[direktur]", $main['dataperusahaan']->direktur, $document);
         $document = str_replace("[alamat]", $main['dataperusahaan']->alamat, $document);
         $document = str_replace("[bank]", $main['dataperusahaan']->bank, $document);
-        $document = str_replace("[kantor_cabang]", $main['dataperusahaan']->kantor_cabang, $document);
+        $document = str_replace("[kantor_cabang]", $main['dataperusahaan']->bank.' '.$main['dataperusahaan']->kantor_cabang, $document);
         $document = str_replace("[no_rek]", $main['dataperusahaan']->no_rek, $document);
         $document = str_replace("[no_akta]", $main['dataperusahaan']->no_akta, $document);
         $document = str_replace("[tanggal_akta]", $main['dataperusahaan']->tanggal_akta, $document);
