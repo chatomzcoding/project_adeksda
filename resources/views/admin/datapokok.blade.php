@@ -50,7 +50,7 @@
                         <input type="date" name="tgl_keputusan" data-date="" value="{{ $datapokok->tgl_keputusan }}" data-date-format="DD-MM-YYY" class="form-control col-md-8">
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Pejabat Pembuatan Keputusan (PPK)</label>
+                        <label for="" class="col-md-4">Pejabat Pembuatan Komitmen (PPK)</label>
                         <select name="id_ppk" id="" class="form-control col-md-8">
                             @foreach ($tim as $item)
                                 <option value="{{ $item->id }}" @if ($item->id == $datapokok->id_ppk)
