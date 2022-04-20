@@ -140,7 +140,7 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <span>SURAT PERINTAH KERJA (SPK) Nomor : {{ $main['kontrak']->no_spk }} Tanggal {{ date_indo($main['kontrak']->tgl_bahp) }}</span>
+                            <span>SURAT PERINTAH KERJA (SPK) Nomor : {{ $main['kontrak']->no_spk }} Tanggal {{ date_indo($main['kontrak']->tgl_spk) }}</span>
                         </td>
                     </tr>
                     <tr>
@@ -175,7 +175,7 @@
                     <tr>
                         <td colspan="7" class="text-center">
                             <span>
-                                NILAI PEKERJAAN : {{ rupiah($main['kontrak']->nilai_pekerjaan) }}
+                                NILAI PEKERJAAN : Rp. {{ rupiah($main['kontrak']->nilai_pekerjaan) }}
                             </span>
                         </td>
                     </tr>
