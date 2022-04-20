@@ -678,7 +678,13 @@ class KontrakController extends Controller
         $document = str_replace("[tgl_keputusan]", date_indo($datapokok->tgl_keputusan), $document);
         $document = str_replace("[hari_akhirkontrak]", hari_indo($tanggalakhirkontrak), $document);
         $document = str_replace("[tgl_akhirkontrak]", date_indo($tanggalakhirkontrak), $document);
-        $document = str_replace("[status_uangmuka]", "YA/TIDAK", $document);
+
+        if ($sumberdana->nama == 'BANPROV') {
+            $status_uangmuka = "{\strike YA}/TIDAK";
+        } else {
+            $status_uangmuka = "YA/{\strike TIDAK}";
+        }
+        $document = str_replace("[status_uangmuka]", $status_uangmuka, $document);
         
 
 
