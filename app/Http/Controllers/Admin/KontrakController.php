@@ -374,18 +374,21 @@ class KontrakController extends Controller
 
     public static function spkfisikedit($dokumenspk)
     {
-
         $result = [];
-        foreach ($dokumenspk as $key) {
-            $subtotal = round($key->kuantitas * $key->harga,2);
-            $data      = [
-                $key->uraian,
-                $key->kuantitas,
-                $key->satuan,
-                norupiah($key->harga),
-                norupiah($subtotal)
-            ];
-            $result[] = $data;
+        if (isset($dokumenspk[0]->kuantitas)) {
+            foreach ($dokumenspk as $key) {
+                $subtotal = round($key->kuantitas * $key->harga,2);
+                $data      = [
+                    $key->uraian,
+                    $key->kuantitas,
+                    $key->satuan,
+                    norupiah($key->harga),
+                    norupiah($subtotal)
+                ];
+                $result[] = $data;
+            }
+        } else {
+            return $dokumenspk;
         }
         return $result;
     }
