@@ -35,12 +35,12 @@
 <script>
     // [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, '=B1*C1' ],
     // [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '' ],
-    var data11 = @json($main['spkkonsultan'][0]);
-    var data12 = @json($main['spkkonsultan'][1]);
-    var data21 = @json($main['spkkonsultan'][2]);
-    var data22 = @json($main['spkkonsultan'][3]);
-    var data23 = @json($main['spkkonsultan'][4]);
-    var data24 = @json($main['spkkonsultan'][5]);
+    var data11 = @json($main['spk']['persiapan']);
+    var data12 = @json($main['spk']['pelaksanaan']);
+    var data21 = @json($main['spk']['pelaksanaan']);
+    var data22 = @json($main['spk']['pelaksanaan']);
+    var data23 = @json($main['spk']['pelaksanaan']);
+    var data24 = @json($main['spk']['pelaksanaan']);
 
     jspreadsheet(document.getElementById('tenagaahli'), {
         data:data11,

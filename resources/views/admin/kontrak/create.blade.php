@@ -138,7 +138,11 @@
                                                 
                                                 @break
                                             @default
-                                            @include('admin.kontrak.section.spkkonsultan')
+                                            {{-- @if ($main['collapse'] > 4) --}}
+                                                {{-- @include('admin.kontrak.section.spkkonsultanedit') --}}
+                                            {{-- @else --}}
+                                                @include('admin.kontrak.section.spkkonsultan')
+                                            {{-- @endif --}}
                                         @endswitch
                                     </div>
                                 </div>

@@ -314,6 +314,11 @@ class KontrakController extends Controller
             'pelaksanaan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pelaksanaan')->get(['uraian','satuan','kuantitas','harga']),
             'pembantu' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','pembantu')->get(['uraian','satuan','kuantitas','harga']),
             'tenagaahli' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','tenagaahli')->get(['uraian','satuan','kuantitas','harga','durasi']),
+            'tenagapendukung' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','tenagapendukung')->get(['uraian','satuan','kuantitas','harga','durasi']),
+            'biayasewa' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','biayasewa')->get(['uraian','satuan','kuantitas','harga','durasi']),
+            'biayarapat' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','biayarapat')->get(['uraian','satuan','kuantitas','harga','durasi']),
+            'biayakendaraan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','biayakendaraan')->get(['uraian','satuan','kuantitas','harga','durasi']),
+            'biayapelaporan' => Dokumenspk::where('kontrak_id',$kontrak->id)->where('label','biayapelaporan')->get(['uraian','satuan','kuantitas','harga','durasi']),
         ];
 
         if ($collapse == 4) {
@@ -348,7 +353,8 @@ class KontrakController extends Controller
                 'persiapan' => self::spkfisikedit($spkpersiapan),
                 'pelaksanaan' => self::spkfisikedit($spkpelaksanaan),
                 'pembantu' => self::spkfisikedit($spkpembantu),
-            ]
+            ],
+            'spkkonsultan' => self::spkkonsultanedit($dokumenspk)
         ];
 
         $kecamatan  = Kategori::where('label','kecamatan')->orderBy('nama','ASC')->get();
@@ -389,6 +395,44 @@ class KontrakController extends Controller
             }
         } else {
             return $dokumenspk;
+        }
+        return $result;
+    }
+    public static function spkkonsultanedit($dokumenspk)
+    {
+        $result     = [];
+        $kolomkosong    =  [['','','','','','','']];
+        $list   = ['tenagaahli','tenagapendukung','biayasewa','biayarapat','biayakendaraan','biayapelaporan'];
+        for ($i=0; $i < count($list); $i++) { 
+            if (count($dokumenspk[$list[$i]]) > 0) {
+                $adata  = [];
+                foreach ($dokumenspk[$list[$i]] as $key) {
+                    if ($key->uraian <> '') {
+                        if ($key->durasi <> '') {
+                            $mm         = $key->kuantitas * $key->durasi;
+                         } else {
+                             $mm         = $key->kuantitas;
+                        }
+                         $subtotal = round($mm * $key->harga,2);
+                         $data      = [
+                             $key->uraian,
+                             '',
+                             '',
+                             $key->kuantitas,
+                             $key->durasi,
+                             $mm,
+                             $key->satuan,
+                             norupiah($key->harga),
+                             norupiah($subtotal)
+                         ];
+                         $adata[] = $data;
+                    }
+                }
+                $adata = (count($adata) > 0) ? $adata : $kolomkosong ;
+                $result[] = $adata;
+            } else {
+                $result[] = $kolomkosong;
+            }
         }
         return $result;
     }

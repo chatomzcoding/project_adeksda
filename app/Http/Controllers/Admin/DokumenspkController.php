@@ -55,6 +55,11 @@ class DokumenspkController extends Controller
         }
         return $hasil;
     }
+    public static function kuantitas($bilangan)
+    {
+        $bilangan = str_replace(',','.',$bilangan);
+        return $bilangan;
+    }
     public function store(Request $request)
     {
         $cekdokumenspk  = Dokumenspk::where('kontrak_id',$request->kontrak_id)->first();
@@ -68,12 +73,12 @@ class DokumenspkController extends Controller
             foreach ($excel as $key => $value) {
                 $data = json_decode($value);
                 for ($i=0; $i < count($data); $i++) { 
-                    if ($data[$i] <> '') {
+                    if ($data[$i][0] <> '') {
                         Dokumenspk::create([
                             'kontrak_id' => $request->kontrak_id,
                             'label' => $key,
                              'uraian' => $data[$i][0],
-                            'kuantitas' => $data[$i][1],
+                            'kuantitas' => self::kuantitas($data[$i][1]),
                             'satuan' => $data[$i][2],
                             'harga' => self::setbilangan($data[$i][3]),
                         ]);
@@ -91,9 +96,9 @@ class DokumenspkController extends Controller
                             'kontrak_id' => $request->kontrak_id,
                             'label' => $key,
                             'uraian' => $data[$i][0],
+                            'kuantitas' => self::kuantitas($data[$i][3]),
+                            'durasi' => self::kuantitas($data[$i][4]),
                             'satuan' => $data[$i][6],
-                            'durasi' => $data[$i][4],
-                            'kuantitas' => $data[$i][3],
                             'harga' => self::setbilangan($data[$i][7]),
                         ]);
                     }
