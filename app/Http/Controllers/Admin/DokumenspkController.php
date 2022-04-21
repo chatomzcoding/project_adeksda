@@ -42,6 +42,7 @@ class DokumenspkController extends Controller
 
     public static function setbilangan($bilangan)
     {
+        $bilangan = str_replace('Rp .','',$bilangan);
         $bilangan = str_replace(',','',$bilangan);
         $bilangan = str_replace('.','',$bilangan);
         $bilangan   = str_split($bilangan);
