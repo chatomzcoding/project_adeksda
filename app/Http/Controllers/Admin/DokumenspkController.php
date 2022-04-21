@@ -79,8 +79,8 @@ class DokumenspkController extends Controller
                             'kontrak_id' => $request->kontrak_id,
                             'label' => $key,
                              'uraian' => $data[$i][0],
-                            'kuantitas' => self::kuantitas($data[$i][1]),
-                            'satuan' => $data[$i][2],
+                            'kuantitas' => self::kuantitas($data[$i][2]),
+                            'satuan' => $data[$i][1],
                             'harga' => self::setbilangan($data[$i][3]),
                         ]);
                     }
