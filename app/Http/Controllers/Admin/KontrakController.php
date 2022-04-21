@@ -386,8 +386,8 @@ class KontrakController extends Controller
                 $subtotal = round($key->kuantitas * $key->harga,2);
                 $data      = [
                     $key->uraian,
-                    $key->kuantitas,
                     $key->satuan,
+                    $key->kuantitas,
                     norupiah($key->harga),
                     norupiah($subtotal)
                 ];

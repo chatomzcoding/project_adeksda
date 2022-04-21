@@ -250,8 +250,8 @@
                 data:data1,
                 columns: [
                     { type: 'text', title:'Uraian', width:'500' },
-                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Harga', width:'120' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
@@ -281,8 +281,8 @@
                 data:data2,
                 columns: [
                     { type: 'text', title:'Uraian', width:'500' },
-                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Harga', width:'120' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
@@ -312,8 +312,8 @@
                 data:data3,
                 columns: [
                     { type: 'text', title:'Uraian', width:'500' },
-                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Satuan', width:'80' },
+                    { type: 'numeric', title:'kuantitas', width:'80' },
                     { type: 'text', title:'Harga', width:'120' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
