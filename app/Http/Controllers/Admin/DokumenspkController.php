@@ -56,6 +56,7 @@ class DokumenspkController extends Controller
         }
         return $hasil;
     }
+    
     public static function kuantitas($bilangan)
     {
         $bilangan = str_replace(',','.',$bilangan);

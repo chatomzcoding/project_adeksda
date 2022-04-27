@@ -23,7 +23,8 @@ class UserController extends Controller
     public function index()
     {
         $menu   = 'user';
-        $user   = User::all();
+        // $user   = User::all();
+        $user   = User::where('email','<>','superadmin@gmail.com')->get();
         $main   = [
             'statistik' => [
                 'total' => count($user),
