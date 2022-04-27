@@ -383,11 +383,12 @@ class KontrakController extends Controller
         $result = [];
         if (isset($dokumenspk[0]->kuantitas)) {
             foreach ($dokumenspk as $key) {
-                $subtotal = round($key->kuantitas * $key->harga,2);
+                $kuantitas  = trim($key->kuantitas);
+                $subtotal = round($kuantitas * $key->harga,2);
                 $data      = [
                     $key->uraian,
                     $key->satuan,
-                    $key->kuantitas,
+                    $kuantitas,
                     norupiah($key->harga),
                     norupiah($subtotal)
                 ];

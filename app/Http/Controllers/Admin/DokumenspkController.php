@@ -45,6 +45,7 @@ class DokumenspkController extends Controller
         $bilangan = str_replace('Rp. ','',$bilangan);
         $bilangan = str_replace(',','',$bilangan);
         $bilangan = str_replace('.','',$bilangan);
+        $bilangan = trim($bilangan);
         $bilangan   = str_split($bilangan);
         $hasil      = NULL;
         $batas      = count($bilangan) - 3;
@@ -54,13 +55,13 @@ class DokumenspkController extends Controller
                 $hasil .= '.';
             }
         }
-        return $hasil;
+        return trim($hasil);
     }
     
     public static function kuantitas($bilangan)
     {
         $bilangan = str_replace(',','.',$bilangan);
-        return $bilangan;
+        return trim($bilangan);
     }
     public function store(Request $request)
     {
