@@ -30,6 +30,11 @@ if (! function_exists('norupiah')) {
 if (! function_exists('terbilang')) {
     function terbilang($bilangan)
     {
+        // cek jika ada desimal
+        $cekbilangan    = explode('.',$bilangan);
+        if (count($cekbilangan) > 0) {
+            $bilangan = $cekbilangan[0];
+        }
         // echo $bilangan 	= strlen($bilangan);
         $angka 		= array('0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0');
         $kata 		= array('','satu','dua','tiga','empat','lima','enam','tujuh','delapan','sembilan');
