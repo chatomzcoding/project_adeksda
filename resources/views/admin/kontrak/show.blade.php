@@ -111,19 +111,19 @@
                                             </tr>
                                             <tr>
                                                 <th>Nilai Penawaran</th>
-                                                <td>Rp {{ rupiah($main['kontrak']->nilai_penawaran) }}</td>
+                                                <td>{{ rupiah($main['kontrak']->nilai_penawaran) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Nilai Terkoreksi</th>
-                                                <td>Rp {{ rupiah($main['kontrak']->nilai_terkoreksi) }}</td>
+                                                <td>{{ rupiah($main['kontrak']->nilai_terkoreksi) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Nilai Negosiasi</th>
-                                                <td>Rp {{ rupiah($main['kontrak']->nilai_negosiasi) }}</td>
+                                                <td>{{ rupiah($main['kontrak']->nilai_negosiasi) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Nilai Pekerjaan</th>
-                                                <td>Rp {{ rupiah($main['kontrak']->nilai_pekerjaan) }}</td>
+                                                <td>{{ rupiah($main['kontrak']->nilai_pekerjaan) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Nomor Pengadaan</th>
