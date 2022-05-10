@@ -417,8 +417,6 @@ class KontrakController extends Controller
                          $subtotal = round($mm * $key->harga,2);
                          $data      = [
                              $key->uraian,
-                             '',
-                             '',
                              $key->kuantitas,
                              $key->durasi,
                              $mm,

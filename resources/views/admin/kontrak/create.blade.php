@@ -363,8 +363,6 @@
         data:data11,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
@@ -381,8 +379,6 @@
         data:data12,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
@@ -399,8 +395,6 @@
         data:data21,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
@@ -417,8 +411,6 @@
         data:data22,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
@@ -436,8 +428,6 @@
         data:data23,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
@@ -454,8 +444,6 @@
         data:data24,
         columns: [
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
-            { type: 'text', title:'', width:'1' },
-            { type: 'text', title:'', width:'1' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'MM', width:'70' },
