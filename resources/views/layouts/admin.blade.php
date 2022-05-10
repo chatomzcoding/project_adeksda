@@ -262,10 +262,10 @@
 
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; <a href="#">Chatomz Company</a>.</strong>
+    <strong>Copyright {{ ambil_tahun() }} &copy; <a href="#">PUTR Kota Tasikmalaya</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Core Version</b> 2.1.18
+      <b>Version</b> 1.5.10
     </div>
   </footer>
 
