@@ -118,7 +118,7 @@ function get_client_browser() {
     return $browser;
 }
 
-function kompres($file,$temp)
+function kompres($file,$temp,$dw=600)
     {
         $name       = time().'_'.$file->getClientOriginalName();
         $ext        = $file->getClientOriginalExtension();
@@ -136,8 +136,8 @@ function kompres($file,$temp)
             $new_image = imagecreatefromjpeg($tmp_name);  
         }
         
-        $new_width=600;
-        $new_height = ($height/$width)*600;
+        $new_width = $dw;
+        $new_height = ($height/$width)*$dw;
         $tmp_image = imagecreatetruecolor($new_width, $new_height);
         imagecopyresampled($tmp_image, $new_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
         imagejpeg($tmp_image, $path, 100);

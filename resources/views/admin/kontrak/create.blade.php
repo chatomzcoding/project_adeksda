@@ -365,10 +365,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -381,10 +379,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -397,10 +393,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -413,10 +407,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -430,10 +422,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -446,10 +436,8 @@
             { type: 'text', title:'Uraian Pekerjaan', width:'300' },
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
-            { type: 'text', title:'MM', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
             { type: 'text', title:'Harga Satuan', width:'120' },
-            { type: 'text', title:'Jumlah Biaya', width:'200' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             

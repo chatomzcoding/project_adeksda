@@ -402,7 +402,7 @@ class KontrakController extends Controller
     public static function spkkonsultanedit($dokumenspk)
     {
         $result     = [];
-        $kolomkosong    =  [['','','','','','','']];
+        $kolomkosong    =  [['','','','','']];
         $list   = ['tenagaahli','tenagapendukung','biayasewa','biayarapat','biayakendaraan','biayapelaporan'];
         for ($i=0; $i < count($list); $i++) { 
             if (count($dokumenspk[$list[$i]]) > 0) {
@@ -419,10 +419,8 @@ class KontrakController extends Controller
                              $key->uraian,
                              $key->kuantitas,
                              $key->durasi,
-                             $mm,
                              $key->satuan,
                              norupiah($key->harga),
-                             norupiah($subtotal)
                          ];
                          $adata[] = $data;
                     }

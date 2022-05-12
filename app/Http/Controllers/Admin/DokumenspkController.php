@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dokumenspk;
 use App\Models\Kontrak;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class DokumenspkController extends Controller
 {
@@ -101,15 +102,20 @@ class DokumenspkController extends Controller
                             'uraian' => $data[$i][0],
                             'kuantitas' => self::kuantitas($data[$i][1]),
                             'durasi' => self::kuantitas($data[$i][2]),
-                            'satuan' => $data[$i][4],
-                            'harga' => self::setbilangan($data[$i][5]),
+                            'satuan' => $data[$i][3],
+                            'harga' => self::setbilangan($data[$i][4]),
                         ]);
                     }
                 }
             }
         }
-
-        return back()->with('successv2','Dokumen SPK sudah ditambahkan');
+        $kontrak    = Kontrak::find($request->kontrak_id);
+        if ($kontrak->status == 'selesai') {
+            return redirect('kontrak/'.Crypt::encryptString($request->kontrak_id).'?s=rincian')->with('successv2','Dokumen SPK sudah ditambahkan');
+        } else {
+            return back()->with('successv2','Dokumen SPK sudah ditambahkan');
+        }
+        
     }
 
     /**
