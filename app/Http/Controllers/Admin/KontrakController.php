@@ -386,7 +386,7 @@ class KontrakController extends Controller
                 $kuantitas  = trim($key->kuantitas);
                 $subtotal = 0;
                 if (!is_null($kuantitas) AND !is_null($key->harga)) {
-                    if (is_int($kuantitas) AND is_int($key->harga)) {
+                    if (is_int($kuantitas) AND is_float($key->harga)) {
                         $subtotal = round($kuantitas * $key->harga,2);
                     }
                 }
