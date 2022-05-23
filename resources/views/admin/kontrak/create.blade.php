@@ -240,8 +240,7 @@
     @section('script')
     @if ($main['kontrak'])
         <script>
-            // [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, '=B1*C1' ],
-            // [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '' ],
+           
             var data1 = @json($main['spkfisik']['persiapan']);
             var data2 = @json($main['spkfisik']['pelaksanaan']);
             var data3 = @json($main['spkfisik']['pembantu']);
@@ -252,7 +251,7 @@
                     { type: 'text', title:'Uraian', width:'500' },
                     { type: 'text', title:'Satuan', width:'80' },
                     { type: 'numeric', title:'kuantitas', width:'80' },
-                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Harga', width:'120', mask:'#.##,00', decimal:',' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
                 // updateTable:function(instance, cell, col, row, val, label, cellName) {
@@ -283,7 +282,7 @@
                     { type: 'text', title:'Uraian', width:'500' },
                     { type: 'text', title:'Satuan', width:'80' },
                     { type: 'numeric', title:'kuantitas', width:'80' },
-                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Harga', width:'120', mask:'#.##,00', decimal:',' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
                 // updateTable:function(instance, cell, col, row, val, label, cellName) {
@@ -314,7 +313,7 @@
                     { type: 'text', title:'Uraian', width:'500' },
                     { type: 'text', title:'Satuan', width:'80' },
                     { type: 'numeric', title:'kuantitas', width:'80' },
-                    { type: 'text', title:'Harga', width:'120' },
+                    { type: 'text', title:'Harga', width:'120', mask:'#.##,00', decimal:',' },
                     { type: 'text', title:'Sub Total', width:'200' },
                 ],
                 // updateTable:function(instance, cell, col, row, val, label, cellName) {
@@ -366,10 +365,17 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:','},
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
-            
+            // if (col == 4) {
+            //     nilaiharga = cell.innerText;
+            //     // nilaiharga = nilaiharga.replace(".00",'');
+            //     // nilaiharga = nilaiharga.replace("Rp",'');
+            //     // nilaiharga = nilaiharga.replace(/,/g,'');
+            //     cell.innerHTML = rupiahexcel(nilaiharga);
+            //     // cell.innerHTML = nilaiharga + ',00';
+            // }
         },
         columnSorting:false,
     });
@@ -380,7 +386,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -394,7 +400,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -408,10 +414,17 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
-            
+            // if (col == 4) {
+            //     nilaiharga = cell.innerText;
+            //     // nilaiharga = nilaiharga.replace(".00",'');
+            //     // nilaiharga = nilaiharga.replace("Rp",'');
+            //     // nilaiharga = nilaiharga.replace(/,/g,'');
+            //     cell.innerHTML = rupiahexcel(nilaiharga);
+            //     // cell.innerHTML = nilaiharga + ',00';
+            // }
         },
         columnSorting:false,
     });
@@ -423,7 +436,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -437,7 +450,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120' },
+            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
