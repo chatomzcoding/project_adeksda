@@ -40,6 +40,14 @@ if (! function_exists('nip')) {
         }
     }
 }
+// cek nilai angka
+if (! function_exists('cek_nilai')) {
+    function cek_nilai($angka)
+    {
+        $nilai  = str_replace(',','.',$angka);
+        return $nilai;
+    }
+}
 
 // fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
 if (! function_exists('datafilter')) {

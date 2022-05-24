@@ -384,6 +384,7 @@ class KontrakController extends Controller
         if (isset($dokumenspk[0]->kuantitas)) {
             foreach ($dokumenspk as $key) {
                 $kuantitas  = trim($key->kuantitas);
+                $kuantitas  = cek_nilai($kuantitas);
                 $subtotal   = 0;
                 $harga      = 0;
                 if ($kuantitas <> "" AND $key->harga <> "") {

@@ -50,6 +50,9 @@ class Listspk extends Component
                 } else {
                     $kuantitas = $dkuantitas;
                 }
+
+                $kuantitas  = cek_nilai($kuantitas);
+                $harga      = cek_nilai($harga);
                 
                 $subtotal = $harga * $kuantitas;
                 $data[] = [
