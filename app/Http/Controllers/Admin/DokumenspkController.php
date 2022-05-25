@@ -44,13 +44,12 @@ class DokumenspkController extends Controller
     public static function setbilangan($bilangan)
     {
         $bilangan   = str_replace('Rp. ','',$bilangan);
-        $bilangan = str_replace(',00','',$bilangan);
         $bilangan   = str_replace(',','',$bilangan);
         $bilangan   = str_replace('.','',$bilangan);
         $bilangan   = trim($bilangan);
         $bilangan   = str_split($bilangan);
         $hasil      = NULL;
-        $batas      = count($bilangan) - 1;
+        $batas      = count($bilangan) - 3;
         for ($i=0; $i < count($bilangan); $i++) { 
             $hasil .= $bilangan[$i];
             if ($i == $batas) {
