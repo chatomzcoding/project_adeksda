@@ -95,7 +95,7 @@ class DokumenspkController extends Controller
             foreach ($excel as $key => $value) {
                 $data = json_decode($value);
                 for ($i=0; $i < count($data); $i++) { 
-                    if ($data[0] <> '') {
+                    if ($data[$i][0] <> '' AND $data[$i][1] <> '' AND $data[$i][2] <> '' AND $data[$i][3] <> '' AND $data[$i][4] <> '') {
                         Dokumenspk::create([
                             'kontrak_id' => $request->kontrak_id,
                             'label' => $key,

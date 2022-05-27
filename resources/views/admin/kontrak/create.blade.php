@@ -386,7 +386,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -400,7 +400,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -414,7 +414,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             // if (col == 4) {
@@ -436,7 +436,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
@@ -450,7 +450,7 @@
             { type: 'text', title:'Personil', width:'70' },
             { type: 'text', title:'Durasi', width:'70' },
             { type: 'text', title:'Satuan', width:'80' },
-            { type: 'text', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
+            { type: 'numeric', title:'Harga Satuan', width:'120', mask:'#.##,00', decimal:',' },
         ],
         updateTable:function(instance, cell, col, row, val, label, cellName) {
             
