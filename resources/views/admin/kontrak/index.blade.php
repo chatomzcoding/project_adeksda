@@ -165,7 +165,7 @@
                                     <td>{{ $item->no_spk }}</td>                                        
                                     <td>{{ $item->perusahaan->nama_perusahaan }}</td>                                        
                                     <td>{{ date_indo($item->tgl_spk) }}</td>                                        
-                                    <td>{{ tgl_akhir_kontrak($item->perusahaan->tgl_spk,$item->masa_kontrak) }}</td>      
+                                    <td>{{ date_indo(tgl_akhir_kontrak($item->perusahaan->tgl_spk,$item->masa_kontrak)) }}</td>      
                                     <td>
                                         @isset($item->progressterakhir)
                                            {{ keuanganprogress($item->nilai_pekerjaan,$item->progressterakhir->nilai) }}
