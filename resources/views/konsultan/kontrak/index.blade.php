@@ -150,7 +150,7 @@
                               <tr>
                                       <td class="text-center">{{ $loop->iteration}}</td>
                                       <td class="text-center">
-                                          <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                          <form id="data-{{ $item->id }}" action="{{url('kontrakakses/'.$item->id)}}" method="post">
                                               @csrf
                                               @method('delete')
                                               </form>

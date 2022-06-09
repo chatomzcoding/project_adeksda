@@ -41,13 +41,13 @@ class KontrakController extends Controller
         switch ($sesi) {
             case 'admin':
                 $filter         = ['tahun_anggaran','sumber_dana','jenis_pekerjaan','kecamatan'];
-                // $kontrak    = Kontrak::where('kontrak.status','selesai')->orderByDesc('id')->get();
-                $kontrak = DB::table('kontrak')
-                            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                            ->where('kontrak.status','selesai')
-                            ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
-                            ->get();
-                $data          = datafilter($kontrak,$filter);
+                $kontrak    = Kontrak::where('kontrak.status','selesai')->orderByDesc('id')->get();
+                // $kontrak = DB::table('kontrak')
+                //             ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                //             ->where('kontrak.status','selesai')
+                //             ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
+                //             ->get();
+                $data          = datafilterbaru($kontrak,$filter);
                 $kontrak    = $data['list'];
                 $main   = [
                     'link' => 'kontrak',

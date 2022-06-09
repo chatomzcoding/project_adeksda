@@ -111,15 +111,28 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
-                                <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
-                                <th>Kode Kegitan</th>
-                                <th>Sub Kegiatan</th>
-                                <th>Nama Paket</th>
-                                <th>Jenis Pekerjaan</th>
-                                <th>Alamat</th>
-                                <th>Sumber Dana</th>
-                                <th>Tahun Anggaran</th>
+                                <th rowspan="2" width="5%" style="vertical-align: middle">No</th>
+                                <th rowspan="2"  width="10%" style="vertical-align: middle">Aksi</th>
+                                <th rowspan="2"  style="vertical-align: middle">Kode Rekening</th>
+                                <th rowspan="2"  style="vertical-align: middle">Nama Kegiatan</th>
+                                <th rowspan="2"  style="vertical-align: middle">Jenis Pekerjaan</th>
+                                <th rowspan="2"  style="vertical-align: middle">Kecamatan</th>
+                                <th rowspan="2"  style="vertical-align: middle">Sumber Dana</th>
+                                <th rowspan="2"  style="vertical-align: middle">Nilai Kontrak</th>
+                                <th rowspan="2"  style="vertical-align: middle">Nomor Kontrak</th>
+                                <th rowspan="2"  style="vertical-align: middle">Nama Rekanan/Pelaksana</th>
+                                <th rowspan="2"  style="vertical-align: middle">Tanggal Kontrak</th>
+                                <th rowspan="2"  style="vertical-align: middle">Akhir Kontrak</th>
+                                <th colspan="3">Realisasi Progress</th>
+                                <th rowspan="2"  style="vertical-align: middle">Sisa Anggaran</th>
+                                <th rowspan="2"  style="vertical-align: middle">Nomor BAST</th>
+                                <th rowspan="2"  style="vertical-align: middle">Tanggal BAST</th>
+                                <th rowspan="2"  style="vertical-align: middle">Keterangan</th>
+                            </tr>
+                            <tr>
+                                <th style="vertical-align: middle">Keuangan</th>
+                                <th style="vertical-align: middle">%</th>
+                                <th style="vertical-align: middle">Fisik (%)</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
@@ -127,7 +140,7 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                      <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->idkontrak)}}" method="post">
+                                      <form id="data-{{ $item->id }}" action="{{url('kontrak/'.$item->id)}}" method="post">
                                           @csrf
                                           @method('delete')
                                           </form>
@@ -143,13 +156,46 @@
                                               </div>
                                           </div>
                                     </td>
-                                    <td>{{ $item->kode_kegiatan }}</td>                                        
-                                    <td>{{ $item->sub_kegiatan }}</td>                                        
-                                    <td>{{ $item->nama_paket }}</td>                                        
-                                    <td>{{ $item->jenis_pekerjaan }}</td>                                        
-                                    <td>Kec. {{ $item->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
-                                    <td>{{ $item->sumber_dana }}</td>                                        
-                                    <td class="text-center">{{ $item->tahun_anggaran }}</td>                                        
+                                    <td>{{ $item->pekerjaan->kode_kegiatan.' '.$item->pekerjaan->kode_belanja }}</td>                                        
+                                    <td>{{ $item->pekerjaan->nama_kegiatan }}</td>                                        
+                                    <td>{{ $item->pekerjaan->jenis_pekerjaan }}</td>                                        
+                                    <td>Kec. {{ $item->pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
+                                    <td>{{ $item->pekerjaan->sumber_dana }}</td>                                        
+                                    <td>{{ rupiah($item->nilai_pekerjaan) }}</td>                                        
+                                    <td>{{ $item->no_spk }}</td>                                        
+                                    <td>{{ $item->perusahaan->nama_perusahaan }}</td>                                        
+                                    <td>{{ date_indo($item->tgl_spk) }}</td>                                        
+                                    <td>{{ tgl_akhir_kontrak($item->perusahaan->tgl_spk,$item->masa_kontrak) }}</td>      
+                                    <td>
+                                        @isset($item->progressterakhir)
+                                           {{ keuanganprogress($item->nilai_pekerjaan,$item->progressterakhir->nilai) }}
+                                        @endisset    
+                                    </td>
+                                    <td>
+                                        @isset($item->progressterakhir)
+                                        {{$item->progressterakhir->nilai.'%' }}
+                                        @endisset    
+                                    </td>
+                                    <td>
+                                        @isset($item->progressterakhir)
+                                            {{$item->progressterakhir->nilai.'%' }}
+                                            @endisset    
+                                        </td>
+                                    <td>
+                                        @isset($item->progressterakhir)
+                                            {{ sisaanggaran($item->nilai_pekerjaan,$item->progressterakhir->nilai) }}
+                                        @endisset    
+                                    </td>
+                                    <td>
+                                        @isset($item->bast)
+                                            {{ $item->bast->no_bast }}</td>                                  
+                                        @endisset
+                                    <td>
+                                        @isset($item->bast)
+                                            {{ date_indo($item->bast->tgl_bast) }}</td>                                  
+                                        @endisset
+                                    </td>           
+                                    <td></td>                       
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -191,7 +237,7 @@
         <script>
             $(function () {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "responsive": false, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy","excel"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
@@ -200,7 +246,7 @@
                 "searching": false,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
             });
             });

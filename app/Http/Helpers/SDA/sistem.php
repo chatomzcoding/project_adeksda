@@ -1,4 +1,21 @@
 <?php
+// keuangan progress
+if (! function_exists('keuanganprogress')) {
+    function keuanganprogress($kontrak,$progress)
+    {
+        $nilai = $kontrak * $progress/100;
+        return norupiah($nilai);
+    }
+}
+// sisa anggaran
+if (! function_exists('sisaanggaran')) {
+    function sisaanggaran($kontrak,$progress)
+    {
+        $nilai = $kontrak * $progress/100;
+        $nilai = $kontrak - $nilai;
+        return norupiah($nilai);
+    }
+}
 // fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
 if (! function_exists('cekvalue')) {
     function cekvalue($data,$field)
@@ -66,6 +83,63 @@ if (! function_exists('datafilter')) {
                 foreach ($list as $item) {
                     if ($item->$f == $dfilter) {
                         $listbaru[] = $item;
+                    }
+                }
+                $list   = $listbaru;
+            }
+        }
+
+        $result     = [
+            'list' => $list,
+            'filter' => $filter,
+        ];
+        return $result;
+    }
+}
+// fungsi untuk menampilkan notifikasi bahwa input wajib di isi 
+if (! function_exists('datafilterbaru')) {
+    function datafilterbaru($datalist,$datafilter)
+    {
+        $filter     = [];        
+        $list       = $datalist;
+        for ($i=0; $i < count($datafilter); $i++) { 
+            // filter
+            $f  = $datafilter[$i];
+            $dfilter    = (isset($_GET[$f])) ? $_GET[$f] : 'semua' ;
+            $filter[$f] = $dfilter;
+            
+            if ($dfilter <> 'semua') {
+                $listbaru   = [];
+                foreach ($list as $item) {
+                    // if ($item->$f == $dfilter) {
+                    //     $listbaru[] = $item;
+                    // }
+                    // sumber dana
+                    switch ($f) {
+                        case 'tahun_anggaran':
+                            if ($item->pekerjaan->tahun_anggaran == $dfilter) {
+                                $listbaru[] = $item;
+                            }
+                            break;
+                        case 'sumber_dana':
+                            if ($item->pekerjaan->sumber_dana == $dfilter) {
+                                $listbaru[] = $item;
+                            }
+                            break;
+                        case 'jenis_pekerjaan':
+                            if ($item->pekerjaan->jenis_pekerjaan == $dfilter) {
+                                $listbaru[] = $item;
+                            }
+                            break;
+                        case 'kecamatan':
+                            if ($item->pekerjaan->kecamatan == $dfilter) {
+                                $listbaru[] = $item;
+                            }
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
                     }
                 }
                 $list   = $listbaru;

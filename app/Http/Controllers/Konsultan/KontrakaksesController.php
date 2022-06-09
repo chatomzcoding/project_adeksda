@@ -102,8 +102,10 @@ class KontrakaksesController extends Controller
      * @param  \App\Models\Kontrakakses  $kontrakakses
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kontrakakses $kontrakakses)
+    public function destroy($kontrakakses)
     {
-        //
+        Kontrakakses::find($kontrakakses)->delete();
+
+        return back()->with('dd','Kontrak');
     }
 }

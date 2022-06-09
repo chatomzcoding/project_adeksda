@@ -31,29 +31,9 @@
                 <a href="{{ url('kontrak?sesi=konsultan') }}" class="btn btn-outline-secondary btn-sm pop-info" title="kembali"><i class="fas fa-angle-double-left"></i> Kembali</a>
                 <a href="#" class="btn btn-outline-primary btn-sm pop-info" title="Tambah Data" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Progress</a>
 
-                    {{-- <div class="float-right">
-                        <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
-                        <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
-                    </div> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="mb-3">
-                      <form action="{{ url($main['link']) }}" method="get">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <select name="kontrak" id="" class="form-control select2bs4"  style="width: 100%;" onchange="this.form.submit();">
-                                    <option value="semua" selected="selected">-- Pilih Kontrak --</option>
-                                    @foreach ($kontrak as $item)
-                                        <option value="{{ $item->idkontrak }}" @if ($id == $item->idkontrak)
-                                            selected
-                                        @endif>{{ strtoupper($item->kode_kegiatan.' | '.$item->nama_kegiatan) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -71,7 +51,7 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url('progress/'.$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
