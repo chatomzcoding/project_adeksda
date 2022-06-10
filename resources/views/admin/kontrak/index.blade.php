@@ -115,6 +115,8 @@
                                 <th  width="10%" style="vertical-align: middle">Aksi</th>
                                 <th  style="vertical-align: middle">Kode Rekening</th>
                                 <th  style="vertical-align: middle">Nama Kegiatan</th>
+                                <th  style="vertical-align: middle">Sub Kegiatan</th>
+                                <th  style="vertical-align: middle">Nama Pekerjaan</th>
                                 <th  style="vertical-align: middle">Jenis Pekerjaan</th>
                                 <th  style="vertical-align: middle">Kecamatan</th>
                                 <th  style="vertical-align: middle">Sumber Dana</th>
@@ -123,7 +125,7 @@
                                 <th  style="vertical-align: middle">Nama Rekanan/Pelaksana</th>
                                 <th  style="vertical-align: middle">Tanggal Kontrak</th>
                                 <th  style="vertical-align: middle">Akhir Kontrak</th>
-                                {{-- <th colspan="3">Realisasi Progress</th> --}}
+                                <th  style="vertical-align: middle">Fisik (%)</th>
                                 <th  style="vertical-align: middle">Sisa Anggaran</th>
                                 <th  style="vertical-align: middle">Nomor BAST</th>
                                 <th  style="vertical-align: middle">Tanggal BAST</th>
@@ -158,6 +160,8 @@
                                     </td>
                                     <td>{{ $item->pekerjaan->kode_kegiatan.' '.$item->pekerjaan->kode_belanja }}</td>                                        
                                     <td>{{ $item->pekerjaan->nama_kegiatan }}</td>                                        
+                                    <td>{{ $item->pekerjaan->sub_kegiatan }}</td>                                        
+                                    <td>{{ $item->pekerjaan->nama_paket }}</td>                                        
                                     <td>{{ $item->pekerjaan->jenis_pekerjaan }}</td>                                        
                                     <td>Kec. {{ $item->pekerjaan->kecamatan }}, Kab/Kota Tasikmalaya</td>                                        
                                     <td>{{ $item->pekerjaan->sumber_dana }}</td>                                        
@@ -171,16 +175,16 @@
                                            {{ keuanganprogress($item->nilai_pekerjaan,$item->progressterakhir->nilai) }}
                                         @endisset    
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         @isset($item->progressterakhir)
                                         {{$item->progressterakhir->nilai.'%' }}
                                         @endisset    
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         @isset($item->progressterakhir)
                                             {{$item->progressterakhir->nilai.'%' }}
                                             @endisset    
-                                        </td> --}}
+                                        </td>
                                     <td>
                                         @isset($item->progressterakhir)
                                             {{ sisaanggaran($item->nilai_pekerjaan,$item->progressterakhir->nilai) }}
