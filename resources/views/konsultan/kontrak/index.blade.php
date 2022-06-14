@@ -101,13 +101,13 @@
                   <section class="mb-3 p-3">
                     <form action="{{ url('kontrakakses') }}" method="post">
                       @csrf
-                      <input type="hidden" name="id" value="{{ $dkontrak->idkontrak }}">
+                      <input type="hidden" name="id" value="{{ $dkontrak->id }}">
                       <div class="row">
                         <div class="col-md-12">
                           <label for="" class="small">Nama Paket</label>
-                          <input type="text" id="nama_paket" class="form-control" value="{{ $dkontrak->nama_paket }}" disabled>
+                          <input type="text" id="nama_paket" class="form-control" value="{{ $dkontrak->pekerjaan->nama_paket }}" disabled>
                           <label for="" class="small">Sub Kegiatan</label>
-                          <input type="text" id="sub_kegiatan" class="form-control" value="{{ $dkontrak->sub_kegiatan }}" disabled>
+                          <input type="text" id="sub_kegiatan" class="form-control" value="{{ $dkontrak->pekerjaan->sub_kegiatan }}" disabled>
                         </div>
                         <div class="col-md-6">
                           <label for="" class="small">No SPK</label>
@@ -120,7 +120,7 @@
                         <div class="col-md-12 mt-2">
                           <div class="form-group">
                             <label for="">Nama Perusahaan {!! ireq() !!}</label>
-                            <input type="text" name="nama_perusahaan" class="form-control" required>
+                            <input type="text" name="nama_perusahaan" class="form-control" value="{{ $dkontrak->perusahaan->nama_perusahaan }}" required>
                           </div>
                           <div class="form-group text-right">
                             <button type="submit" class="btn btn-outline-primary">PILIH KONTRAK</button>

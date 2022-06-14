@@ -113,29 +113,24 @@
                             <tr>
                                 <th width="5%" style="vertical-align: middle">No</th>
                                 <th  width="10%" style="vertical-align: middle">Aksi</th>
-                                <th  style="vertical-align: middle">Kode Rekening</th>
-                                <th  style="vertical-align: middle">Nama Kegiatan</th>
-                                <th  style="vertical-align: middle">Sub Kegiatan</th>
-                                <th  style="vertical-align: middle">Nama Pekerjaan</th>
-                                <th  style="vertical-align: middle">Jenis Pekerjaan</th>
-                                <th  style="vertical-align: middle">Kecamatan</th>
-                                <th  style="vertical-align: middle">Sumber Dana</th>
-                                <th  style="vertical-align: middle">Nilai Kontrak</th>
-                                <th  style="vertical-align: middle">Nomor Kontrak</th>
-                                <th  style="vertical-align: middle">Nama Rekanan/Pelaksana</th>
-                                <th  style="vertical-align: middle">Tanggal Kontrak</th>
-                                <th  style="vertical-align: middle">Akhir Kontrak</th>
-                                <th  style="vertical-align: middle">Fisik (%)</th>
-                                <th  style="vertical-align: middle">Sisa Anggaran</th>
-                                <th  style="vertical-align: middle">Nomor BAST</th>
-                                <th  style="vertical-align: middle">Tanggal BAST</th>
-                                <th  style="vertical-align: middle">Keterangan</th>
+                                <th>Kode Rekening</th>
+                                <th width="40%">Nama Kegiatan</th>
+                                <th>Sub Kegiatan</th>
+                                <th>Nama Pekerjaan</th>
+                                <th>Jenis Pekerjaan</th>
+                                <th>Kecamatan</th>
+                                <th>Sumber Dana</th>
+                                <th>Nilai Kontrak</th>
+                                <th>Nomor Kontrak</th>
+                                <th>Nama Rekanan/Pelaksana</th>
+                                <th>Tanggal Kontrak</th>
+                                <th>Akhir Kontrak</th>
+                                <th>Fisik (%)</th>
+                                <th>Sisa Anggaran</th>
+                                <th>Nomor BAST</th>
+                                <th>Tanggal BAST</th>
+                                <th>Keterangan</th>
                             </tr>
-                            {{-- <tr>
-                                <th style="vertical-align: middle">Keuangan</th>
-                                <th style="vertical-align: middle">%</th>
-                                <th style="vertical-align: middle">Fisik (%)</th>
-                            </tr> --}}
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($kontrak as $item)
@@ -158,7 +153,7 @@
                                               </div>
                                           </div>
                                     </td>
-                                    <td>{{ $item->pekerjaan->kode_kegiatan.' '.$item->pekerjaan->kode_belanja }}</td>                                        
+                                    <td>{{ $item->pekerjaan->kode_belanja }}</td>                                        
                                     <td>{{ $item->pekerjaan->nama_kegiatan }}</td>                                        
                                     <td>{{ $item->pekerjaan->sub_kegiatan }}</td>                                        
                                     <td>{{ $item->pekerjaan->nama_paket }}</td>                                        

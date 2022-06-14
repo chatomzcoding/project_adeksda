@@ -72,11 +72,12 @@ class KontrakController extends Controller
                 break;
             case 'konsultan':
                 $id = (isset($_GET['kontrak'])) ? $_GET['kontrak'] : NULL ;
-                $dkontrak       = DB::table('kontrak')
-                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                    ->where('kontrak.id',$id)
-                                    ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
-                                    ->first();
+                $dkontrak       = Kontrak::find($id);
+                // $dkontrak       = DB::table('kontrak')
+                //                     ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                //                     ->where('kontrak.id',$id)
+                //                     ->select('pekerjaan.*','kontrak.*','kontrak.id as idkontrak')
+                //                     ->first();
                 $kontrak        = DB::table('kontrak')
                                     ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
                                     ->select('pekerjaan.nama_paket','kontrak.id')
