@@ -101,20 +101,17 @@ class KontrakController extends Controller
                 $user       = User::where('level','konsultan')->get();
                 $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : 'semua' ;
                 if ($user_id == 'semua') {
-                    $kontrak    = DB::table('kontrak_akses')
-                                    ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
-                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                    ->join('users','kontrak_akses.user_id','=','users.id')
-                                    ->get();
+                    $kontrak    = Kontrakakses::all();
                 } else {
-                    $kontrak    = DB::table('kontrak_akses')
-                                    ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
-                                    ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-                                    ->join('users','kontrak_akses.user_id','=','users.id')
-                                    ->where('users.id',$user_id)
-                                    ->get();
+                    $kontrak    = User::find($user_id)->kontrakakses;
+                    // $kontrak    = DB::table('kontrak_akses')
+                    //                 ->join('kontrak','kontrak_akses.kontrak_id','=','kontrak.id')
+                    //                 ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+                    //                 ->join('users','kontrak_akses.user_id','=','users.id')
+                    //                 ->where('users.id',$user_id)
+                    //                 ->get();
                 }
-                
+
                 $main   = [
                     'link' => 'kontrak',
                     'statistik' => [

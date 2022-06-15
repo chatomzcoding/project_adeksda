@@ -69,11 +69,11 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                    <div class="float-right">
+                <h3 class="card-title">Daftar Kontrak</h3>
+                    {{-- <div class="float-right">
                         <a href="{{ url('cetakdata?s=satuanbarang') }}" target="_blank" class="btn btn-outline-info btn-sm  pop-info" title="Cetak Data Satuan Barang"><i class="fas fa-print"></i> CETAK</a>
                         <a href="#" data-toggle="modal" data-target="#info" class="btn btn-outline-info btn-sm  pop-info" title="Informasi"><i class="fas fa-info"></i> INFO</a>
-                    </div>
+                    </div> --}}
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -120,7 +120,7 @@
                         <div class="col-md-12 mt-2">
                           <div class="form-group">
                             <label for="">Nama Perusahaan {!! ireq() !!}</label>
-                            <input type="text" name="nama_perusahaan" class="form-control" value="{{ $dkontrak->perusahaan->nama_perusahaan }}" required>
+                            <input type="text" name="nama_perusahaan" class="form-control" required>
                           </div>
                           <div class="form-group text-right">
                             <button type="submit" class="btn btn-outline-primary">PILIH KONTRAK</button>
@@ -170,7 +170,7 @@
                                         <td>{{ $item->sub_kegiatan }}</td>                                        
                                         <td>{{ $item->no_spk }}</td>                                        
                                         <td>{{ $item->tgl_spk }}</td>                                        
-                                        <td>{{ $item->nilai_pekerjaan }}</td>                                        
+                                        <td>{{ norupiah($item->nilai_pekerjaan) }}</td>                                        
                                         <td>{{ $item->nama_perusahaan }}</td>                                        
                                         <td class="text-center">
                                           @php

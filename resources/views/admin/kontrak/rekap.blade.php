@@ -100,7 +100,7 @@
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url($main['link'].'/'.$item->kontrak->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
@@ -110,20 +110,20 @@
                                                   <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak_id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
-                                                  <a href="{{ url('kontrak?sesi=progress&kontrak_id='.$item->kontrak_id) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> Progress Fisik</a>
+                                                  <a href="{{ url('kontrak/'.Crypt::encryptString($item->kontrak->id).'?s=rincian') }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> DETAIL</a>
+                                                  <a href="{{ url('kontrak?sesi=progress&kontrak_id='.$item->kontrak->id) }}" class="dropdown-item"><i class="fas fa-file text-primary" style="width: 25px"></i> Progress Fisik</a>
                                                 </div>
                                             </div>
                                     </td>
-                                    <td>{{ $item->nama_paket }}</td>                                        
-                                    <td>{{ rupiah($item->nilai_pekerjaan) }}</td>                                        
-                                    <td>{{ $item->no_spk }}</td>                                        
-                                    <td>{{ $item->nama_perusahaan }}</td>          
-                                    <td>{{ date_indo($item->tgl_spk) }}</td>
-                                    <td>{{ $item->masa_kontrak }} HK</td>
-                                    <td> {{ date_indo(tgl_akhir_kontrak($item->tgl_spk,$item->masa_kontrak)) }} </td>                                        
+                                    <td>{{ $item->kontrak->pekerjaan->nama_paket }}</td>                                        
+                                    <td>{{ rupiah($item->kontrak->nilai_pekerjaan) }}</td>                                        
+                                    <td>{{ $item->kontrak->no_spk }}</td>                                        
+                                    <td>{{ $item->kontrak->perusahaan->nama_perusahaan }}</td>          
+                                    <td>{{ date_indo($item->kontrak->tgl_spk) }}</td>
+                                    <td>{{ $item->kontrak->masa_kontrak }} HK</td>
+                                    <td> {{ date_indo(tgl_akhir_kontrak($item->kontrak->tgl_spk,$item->kontrak->masa_kontrak)) }} </td>                                        
                                     @php
-                                            $progress = App\Models\Progress::where('kontrak_id',$item->kontrak_id)->orderBy('id','DESC')->first()
+                                            $progress = App\Models\Progress::where('kontrak_id',$item->kontrak->id)->orderBy('id','DESC')->first()
                                             @endphp  
                                       <td class="text-center">
                                         @if ($progress)
@@ -135,7 +135,7 @@
                                         {{ $progress->nilai_panjang }} m
                                         @endif
                                       </td>                                 
-                                      <td>{{ $item->name }}</td>                                        
+                                      <td>{{ $item->nama_perusahaan }}</td>                                        
                                     </tr>
                             @empty
                                 <tr class="text-center">

@@ -12,4 +12,9 @@ class Kontrakakses extends Model
     protected $table = 'kontrak_akses';
 
     protected $guarded = [];
+
+    public function kontrak()
+    {
+        return $this->belongsTo(Kontrak::class);
+    }
 }
