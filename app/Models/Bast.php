@@ -12,4 +12,9 @@ class Bast extends Model
     protected $table = 'bast';
 
     protected $guarded = [];
+
+    public function kontrak()
+    {
+        return $this->belongsTo(Kontrak::class);
+    }
 }

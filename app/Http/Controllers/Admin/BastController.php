@@ -119,14 +119,15 @@ class BastController extends Controller
         $main   = [
             'link' => 'bast'
         ];
-        $bast   = DB::table('bast')
-            ->join('kontrak','bast.kontrak_id','=','kontrak.id')
-            ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
-            ->join('perusahaan','kontrak.perusahaan_id','=','perusahaan.id')
-            ->select('bast.*','pekerjaan.*','perusahaan.*')
-            ->where('bast.id',$bast->id)
-            ->orderBy('bast.id','DESC')
-            ->first();
+        // $bast   = DB::table('bast')
+        //     ->join('kontrak','bast.kontrak_id','=','kontrak.id')
+        //     ->join('pekerjaan','kontrak.pekerjaan_id','=','pekerjaan.id')
+        //     ->join('perusahaan','kontrak.perusahaan_id','=','perusahaan.id')
+        //     ->select('bast.*','pekerjaan.*','perusahaan.*')
+        //     ->where('bast.id',$bast->id)
+        //     ->orderBy('bast.id','DESC')
+        //     ->first();
+        $bast   = Bast::find($bast->id);
         return view('admin.bast.show', compact('menu','main','bast'));
     }
 
@@ -148,9 +149,25 @@ class BastController extends Controller
      * @param  \App\Models\Bast  $bast
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bast $bast)
+    public function update(Request $request)
     {
-        //
+        $bast   = Bast::find($request->id);
+        Bast::where('id',$bast->id)->update([
+            "tgl_selesai_pekerjaan" => $request->tgl_selesai_pekerjaan,
+            "progress_pekerjaan" => $request->progress_pekerjaan,
+            "tgl_permohonan_ceklis" => $request->tgl_permohonan_ceklis,
+            "no_permohonan_ceklis" => $request->no_permohonan_ceklis,
+            "tgl_surat_ppk" => $request->tgl_surat_ppk,
+            "tgl_surat_tim" => $request->tgl_surat_tim,
+            "tgl_bast" => $request->tgl_bast,
+            "konsultan_pengawas" => $request->konsultan_pengawas,
+            "direktur" => $request->direktur,
+            "no_dpa" => $request->no_dpa,
+            "tgl_dpa" => $request->tgl_dpa,
+            "tgl_ringkasan_kontrak" => $request->tgl_ringkasan_kontrak,
+        ]);
+
+        return back()->with('du','BAST');
     }
 
     /**
