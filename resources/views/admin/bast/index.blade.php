@@ -67,7 +67,7 @@
                       <form action="{{ url($main['link']) }}" method="get">
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <select name="kontrak_id" id="" class="form-control" onchange="this.form.submit();">
+                                <select name="kontrak_id" id="" class="form-control select2bs4" onchange="this.form.submit();">
                                     <option value="semua">-- Nama Paket --</option>
                                     @foreach ($kontrak as $item)
                                         @if (!DbSistem::showtablefirst('bast',['kontrak_id',$item->id]))
