@@ -644,6 +644,8 @@ class KontrakController extends Controller
                 $document = str_replace("[terbilang_tglbast]", terbilangtanggal($bast->tgl_bast), $document);
                 $document = str_replace("[hari_tglbast]", hari_indo($bast->tgl_bast), $document);
                 $document = str_replace("[no_bast]", $bast->no_bast, $document);
+                $document = str_replace("[no_php]", $bast->no_php, $document);
+                $document = str_replace("[no_lhpp]", $bast->no_lhpp, $document);
                 $document = str_replace("[no_dpa]", $bast->no_dpa, $document);
                 $document = str_replace("[konsultan_pengawas]", $bast->konsultan_pengawas, $document);
                 $document = str_replace("[direktur_pengawas]", $bast->direktur, $document);

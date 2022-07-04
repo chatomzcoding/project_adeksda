@@ -56,6 +56,14 @@
                                             <td>{{ $bast->progress_pekerjaan }}</td>
                                         </tr>
                                         <tr>
+                                            <th>No PHP</th>
+                                            <td>{{ $bast->no_php }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>No LHPP</th>
+                                            <td>{{ $bast->no_lhpp }}</td>
+                                        </tr>
+                                        <tr>
                                             <th>No BAST</th>
                                             <td>{{ $bast->no_bast }}</td>
                                         </tr>

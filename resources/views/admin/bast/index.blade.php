@@ -119,12 +119,20 @@
                             <input type="number" name="progress_pekerjaan" class="form-control" required>
                           </div>
                           <div class="form-group">
+                            <label for="">Nomor PHP {!! ireq() !!}</label>
+                            <input type="text" name="no_php" value="{{ $nomor['php'] }}" class="form-control" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="">Nomor LHPP {!! ireq() !!}</label>
+                            <input type="text" name="no_lhpp" value="{{ $nomor['lhpp'] }}" class="form-control" required>
+                          </div>
+                          <div class="form-group">
                             <label for="">Tanggal BAST {!! ireq() !!}</label>
                             <input type="date" name="tgl_bast" class="form-control" required>
                           </div>
                           <div class="form-group">
                             <label for="">Nomor BAST {!! ireq() !!}</label>
-                            <input type="text" name="no_bast" value="{{ $nomorbast }}" class="form-control" required>
+                            <input type="text" name="no_bast" value="{{ $nomor['bast'] }}" class="form-control" required>
                           </div>
                         </div>
                         <div class="col-md-4 mt-2">

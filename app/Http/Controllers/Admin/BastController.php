@@ -44,8 +44,8 @@ class BastController extends Controller
                 'kontrak' => count($kontrak)
             ]
         ];
-        $nomorbast  = self::nobast();
-        return view('admin.bast.index', compact('menu','main','bast','kontrak','dkontrak','id','nomorbast'));
+        $nomor  = self::nobast();
+        return view('admin.bast.index', compact('menu','main','bast','kontrak','dkontrak','id','nomor'));
     }
 
     public static function nobast()
@@ -69,8 +69,24 @@ class BastController extends Controller
             $no_urut = $no_kontrak;
         }
 
-        $no_urut = $no_urut + 1;
+        $nophp  = self::urutan($no_urut);
+        $nolhpp = self::urutan($nophp);
+        $nobast = self::urutan($nolhpp);
 
+        $php = "610/".$nophp."/PHP/SDA/".$kontrak->pekerjaan->tahun_anggaran;
+        $lhpp = "610/".$nolhpp."/LHPP/SDA/".$kontrak->pekerjaan->tahun_anggaran;
+        $bast = "610/".$nobast."/BAST/SDA/".$kontrak->pekerjaan->tahun_anggaran;
+        $result = [
+            'php' => $php,
+            'lhpp' => $lhpp,
+            'bast' => $bast,
+        ];
+        return $result;
+    }
+
+    public static function urutan($no_urut)
+    {
+        $no_urut = $no_urut + 1;
         if ($no_urut > 0 AND $no_urut < 10) {
             $urutan = '000'.$no_urut;
         }elseif ($no_urut > 9 AND $no_urut < 100) {
@@ -80,8 +96,7 @@ class BastController extends Controller
         } else {
             $urutan = $no_urut;
         }
-        $nomor = "610/".$urutan."/BAST/SDA/".$kontrak->pekerjaan->tahun_anggaran;
-        return $nomor;
+        return $urutan;
     }
 
     /**
