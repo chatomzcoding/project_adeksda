@@ -103,7 +103,7 @@
                                             <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak->id).'?s=cetak&file=lpp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
-                                            <th>Lampiran Hasil Pemeriksaan Pekerjaan</th>
+                                            <th>Laporan Hasil Pemeriksaan Pekerjaan</th>
                                             <td><a href="{{ url('kontrak/'.Crypt::encryptString($bast->kontrak->id).'?s=cetak&file=lhpp&sesi=bast') }}" class="btn btn-outline-info btn-sm"><i class="fas fa-print"></i> CETAK</a></td>
                                         </tr>
                                         <tr>
